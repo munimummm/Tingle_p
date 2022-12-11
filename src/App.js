@@ -5,6 +5,7 @@ import Chart from "./pages/chart";
 import Recommend from "./pages/recommend";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+
 function App() {
   const PageContainer = styled.div`
     padding-left: 250px;

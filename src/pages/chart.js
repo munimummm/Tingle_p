@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Table from "react-bootstrap/Table";
+import { DataGrid } from "@mui/x-data-grid";
+import { MoreVert, PlayArrow } from "@mui/icons-material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Checkbox,
+} from "@mui/material";
 
 let H1 = styled.h1`
   margin-top: 38px;
@@ -28,6 +39,7 @@ let ChartButton = styled.button`
 
 function Chart() {
   // const navigate = useNavigate();
+
   return (
     <div>
       <div>
@@ -41,39 +53,63 @@ function Chart() {
         <ChartButton>클래식</ChartButton>
         <ChartButton>팝</ChartButton>
       </div>
-      <Table striped className="chartTable table table-hover">
-        <thead className="table-dark">
-          <tr>
-            <th scope="col" width="5%">
-              <input type="checkbox" />
-            </th>
-            <th scope="col" width="5%">
-              순위
-            </th>
-            <th scope="col" width="5%">
-              곡/앨범
-            </th>
-            <th scope="col" width="20%"></th>
-            <th scope="col" width="15%">
-              아티스트
-            </th>
-            <th scope="col" width="5%">
-              듣기
-            </th>
-            <th scope="col" width="5%">
-              재생목록
-            </th>
-            <th scope="col" width="5%">
-              내 리스트
-            </th>
-            <th scope="col" width="5%">
-              더보기
-            </th>
-          </tr>
-        </thead>
-        <tbody className="chartTbody"></tbody>
-      </Table>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell padding="checkbox">
+                <Checkbox
+                  color="primary"
+                  inputProps={{
+                    "aria-label": "select all ",
+                  }}
+                />
+              </TableCell>
+              <TableCell>순위</TableCell>
+              <TableCell>곡/앨범</TableCell>
+              <TableCell align="right">아티스트</TableCell>
+              <TableCell align="right">듣기</TableCell>
+              <TableCell align="right">더보기</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell padding="checkbox">
+                  <Checkbox color="primary" />
+                </TableCell>
+                <TableCell>{row.num}</TableCell>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.artist}</TableCell>
+                <TableCell align="right">
+                  <PlayArrow />
+                </TableCell>
+                <TableCell align="right">
+                  <MoreVert />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
 export default Chart;
+
+function createData(num, name, artist) {
+  return { num, name, artist };
+}
+
+const rows = [
+  createData(1, "Frozen yoghurt", "하"),
+  createData(2, "Ice cream sandwich", "후"),
+  createData(3, "Eclair", "히"),
+  createData(4, "Cupcake", "헤"),
+  createData(5, "Gingerbread", "로"),
+];

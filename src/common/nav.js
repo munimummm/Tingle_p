@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { Search, Recommend, BarChart, Storage } from "@mui/icons-material";
 
 let SidebarWrapper = styled.div`
   position: fixed;
@@ -68,7 +69,7 @@ function Nav() {
         <MenuAll>
           <NavLink>
             <fieldset className="find_fieldset">
-              <i className="fa-solid fa-magnifying-glass "></i>
+              <Search></Search>
               <input
                 spellcheck="false"
                 className="findEnter find-input iptxt"
@@ -83,7 +84,7 @@ function Nav() {
               to="/recommend"
               style={({ isActive }) => (isActive ? clickStyle : undefined)}
             >
-              <span className="material-symbols-outlined">recommend</span>추천
+              <Recommend></Recommend>추천
             </NavLink>
           </li>
           <li className="btncolor">
@@ -92,12 +93,13 @@ function Nav() {
               to="/chart"
               style={({ isActive }) => (isActive ? clickStyle : undefined)}
             >
-              <span className="material-symbols-outlined">leaderboard</span>차트
+              <BarChart></BarChart>차트
             </NavLink>
           </li>
           <li className="btncolor">
             <NavLink className="library">
-              <span className="material-symbols-outlined">storage</span>보관함
+              <Storage />
+              보관함
             </NavLink>
           </li>
           <li className="btncolor">
