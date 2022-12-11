@@ -12,7 +12,7 @@ let SidebarWrapper = styled.div`
   overflow-y: auto;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 300;
-  z-index: 1231;
+  z-index: 1;
 `;
 let SidebarNav = styled.ul`
   width: 250px;
@@ -97,20 +97,30 @@ function Nav() {
             </NavLink>
           </li>
           <li className="btncolor">
-            <NavLink className="library">
+            <NavLink
+              className="library"
+              to="/storage"
+              style={({ isActive }) => (isActive ? clickStyle : undefined)}
+            >
               <Storage />
               보관함
             </NavLink>
           </li>
           <li className="btncolor">
-            <NavLink className="board">
-              <span className="material-symbols-outlined">help_center</span>
+            <NavLink
+              className="board"
+              to="/helpCenter"
+              style={({ isActive }) => (isActive ? clickStyle : undefined)}
+            >
               고객센터
             </NavLink>
           </li>
           <li className="btncolor">
-            <NavLink className="myPage">
-              <span className="material-symbols-outlined">how_to_reg</span>
+            <NavLink
+              className="myPage"
+              to="/myPage"
+              style={({ isActive }) => (isActive ? clickStyle : undefined)}
+            >
               마이페이지
             </NavLink>
           </li>
