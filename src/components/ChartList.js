@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function ChartList({ genre }) {
-  let navigate = useNavigate();
-  const [lists, setLists] = useState([]);
+  const navigate = useNavigate();
+  const [chartLists, setChartLists] = useState([]);
   console.log("클릭" + genre);
 
   useEffect(() => {
     axios
-      .get("http://localhost:1216/charList", {
+      .get("http://localhost:1216/chartList", {
         params: {
           genre: genre,
         },
@@ -19,7 +19,7 @@ function ChartList({ genre }) {
 
       .then((result) => {
         console.log(result.data);
-        setLists(result.data);
+        setChartLists(result.data);
       })
       .catch(() => {
         console.log("실패함");
@@ -28,7 +28,7 @@ function ChartList({ genre }) {
 
   return (
     <TableBody>
-      {lists.map((list, i) => (
+      {chartLists.map((list, i) => (
         <TableRow
           key={list.title}
           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -45,7 +45,14 @@ function ChartList({ genre }) {
             scope="row"
             sx={{ whiteSpace: "preLine" }}
             onClick={() => {
-              navigate("/detail/title");
+              navigate("/detail/title", {
+                state: {
+                  title: list.title,
+                  album: list.album,
+                  artist: list.artist,
+                  lyrics: list.lyrics,
+                },
+              });
             }}
           >
             {list.title}\n{list.album}
@@ -53,7 +60,14 @@ function ChartList({ genre }) {
           <TableCell
             align="right"
             onClick={() => {
-              navigate("/detail/artist");
+              navigate("/detail/artist", {
+                state: {
+                  title: list.title,
+                  album: list.album,
+                  artist: list.artist,
+                  lyrics: list.lyrics,
+                },
+              });
             }}
           >
             {list.artist}

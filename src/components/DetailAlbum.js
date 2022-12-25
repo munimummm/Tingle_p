@@ -1,35 +1,37 @@
 import { MoreVert, PlayArrow } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function DetailAlbum() {
+  const location = useLocation();
+
   return (
     <div className="detail">
-      {/* <img>이미지</img> */}
-      avv
+      <img src={process.env.PUBLIC_URL + "/img/Adele.jpg"} />
+      ㅌㅌㅌ
       <div className="detailInfo">
         <div>
           <NavLink href="#" className="detail_title">
-            타이틀
+            {location.state.title}
           </NavLink>
         </div>
         <div>
           <NavLink href="#" className="detail_album">
-            앨범
+            {location.state.album}
           </NavLink>
         </div>
 
         <div>
           <NavLink href="#" className="detail_artist">
-            아티스트
+            {location.state.artist}
           </NavLink>
         </div>
         <div className="select_icon">
           <i className="selectPlay fa-solid fa-play"></i>
           <i className="selectList fa-solid fa-list"></i>
-          <i className="selectAdd fa-solid fa-folder-plus"></i>' + '
+          <i className="selectAdd fa-solid fa-folder-plus"></i>
         </div>
       </div>
-      <div class="lyricsD">가사</div>
+      <div class="lyricsD"> {location.state.lyrics}</div>
       <div className="sug_lylics"></div>
     </div>
   );
