@@ -4,6 +4,18 @@ import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { QueueMusic } from "@mui/icons-material";
 
+function Player() {
+  return (
+    <PlayerContainer>
+      <img alt="" />
+      <div className="player-title"></div>
+      <AudioPlayer src="https://hanzluo.s3-us-west-1.amazonaws.com/music/wuyuwuqing.mp3"></AudioPlayer>
+      <QueueMusic style={{ fontSize: "30px", margin: "20px" }}></QueueMusic>
+    </PlayerContainer>
+  );
+}
+export default Player;
+
 const PlayerContainer = styled.div`
   width: 100%;
   height: 100px;
@@ -26,15 +38,3 @@ const PlayerContainer = styled.div`
     line-height: 50px;
   }
 `;
-
-function Player() {
-  return (
-    <PlayerContainer>
-      <img alt="" />
-      <div className="player-title"></div>
-      <AudioPlayer></AudioPlayer>
-      <QueueMusic style={{ fontSize: "30px", margin: "20px" }}></QueueMusic>
-    </PlayerContainer>
-  );
-}
-export default Player;

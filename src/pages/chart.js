@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
-import { MoreVert, PlayArrow } from "@mui/icons-material";
+
 import {
   Table,
   TableBody,
@@ -12,6 +13,8 @@ import {
   Paper,
   Checkbox,
 } from "@mui/material";
+
+import GenreClick from "components/GenreClick";
 
 let H1 = styled.h1`
   margin-top: 38px;
@@ -40,18 +43,37 @@ let ChartButton = styled.button`
 function Chart() {
   // const navigate = useNavigate();
 
+  const [genre, setGenre] = useState("");
+  const buttonChange = (e) => {
+    console.log(e.target.value);
+    setGenre(e.target.value);
+  };
   return (
     <div>
       <div>
         <H1>TOP100</H1>
-        <ChartButton>TOP100</ChartButton>
-        <ChartButton>발라드</ChartButton>
-        <ChartButton>락</ChartButton>
-        <ChartButton>힙합</ChartButton>
-        <ChartButton>댄스</ChartButton>
-        <ChartButton>재즈</ChartButton>
-        <ChartButton>클래식</ChartButton>
-        <ChartButton>팝</ChartButton>
+        <ChartButton onClick={() => {}}>TOP100</ChartButton>
+        <ChartButton value={"발라드"} onClick={buttonChange}>
+          발라드
+        </ChartButton>
+        <ChartButton value={"락"} onClick={buttonChange}>
+          락
+        </ChartButton>
+        <ChartButton value={"힙합"} onClick={buttonChange}>
+          힙합
+        </ChartButton>
+        <ChartButton value={"댄스"} onClick={buttonChange}>
+          댄스
+        </ChartButton>
+        <ChartButton value={"재즈"} onClick={buttonChange}>
+          재즈
+        </ChartButton>
+        <ChartButton value={"클래식"} onClick={buttonChange}>
+          클래식
+        </ChartButton>
+        <ChartButton value={"팝"} onClick={buttonChange}>
+          팝
+        </ChartButton>
       </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -67,49 +89,16 @@ function Chart() {
               </TableCell>
               <TableCell>순위</TableCell>
               <TableCell>곡/앨범</TableCell>
+              <TableCell></TableCell>
               <TableCell align="right">아티스트</TableCell>
               <TableCell align="right">듣기</TableCell>
               <TableCell align="right">더보기</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell padding="checkbox">
-                  <Checkbox color="primary" />
-                </TableCell>
-                <TableCell>{row.num}</TableCell>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.artist}</TableCell>
-                <TableCell align="right">
-                  <PlayArrow />
-                </TableCell>
-                <TableCell align="right">
-                  <MoreVert />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <GenreClick genre={genre}></GenreClick>
         </Table>
       </TableContainer>
     </div>
   );
 }
 export default Chart;
-
-function createData(num, name, artist) {
-  return { num, name, artist };
-}
-
-const rows = [
-  createData(1, "Frozen yoghurt", "하"),
-  createData(2, "Ice cream sandwich", "후"),
-  createData(3, "Eclair", "히"),
-  createData(4, "Cupcake", "헤"),
-  createData(5, "Gingerbread", "로"),
-];
