@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { DataGrid } from "@mui/x-data-grid";
 
 import {
@@ -14,7 +14,7 @@ import {
   Checkbox,
 } from "@mui/material";
 
-import GenreClick from "components/GenreClick";
+import ChartList from "components/ChartList";
 
 let H1 = styled.h1`
   margin-top: 38px;
@@ -95,7 +95,7 @@ function Chart() {
               <TableCell align="right">더보기</TableCell>
             </TableRow>
           </TableHead>
-          <GenreClick genre={genre}></GenreClick>
+          <ChartList genre={genre}></ChartList>
         </Table>
       </TableContainer>
     </div>

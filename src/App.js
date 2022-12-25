@@ -6,6 +6,11 @@ import Storage from "./pages/Storage";
 import MyPage from "./pages/MyPage";
 import HelpCenter from "./pages/HelpCenter";
 import Recommend from "./pages/Recommend";
+import Detail from "./pages/Detail";
+import DetailTitle from "components/DetailTitle";
+import DetailAlbum from "components/DetailAlbum";
+import DetailArtist from "components/DetailArtist";
+
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
@@ -29,6 +34,11 @@ function App() {
             <Route path="/storage" element={<Storage />} />
             <Route path="/helpCenter" element={<HelpCenter />} />
             <Route path="/myPage" element={<MyPage />} />
+            <Route path="/detail" element={<Detail />}>
+              <Route path="title" element={<DetailTitle />} />
+              <Route path="album" element={<DetailAlbum />} />
+              <Route path="artist" element={<DetailArtist />} />
+            </Route>
           </Routes>
         </PageWrapper>
       </PageContainer>

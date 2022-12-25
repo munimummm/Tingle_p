@@ -1,18 +1,11 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Checkbox,
-} from "@mui/material";
+import { TableBody, TableCell, TableRow, Paper, Checkbox } from "@mui/material";
 import { MoreVert, PlayArrow } from "@mui/icons-material";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function GenreClick({ genre }) {
+function ChartList({ genre }) {
+  let navigate = useNavigate();
   const [lists, setLists] = useState([]);
   console.log("클릭" + genre);
 
@@ -47,10 +40,24 @@ function GenreClick({ genre }) {
           <TableCell>
             <img src={"img/" + list.cover_img + ""}></img>
           </TableCell>
-          <TableCell component="th" scope="row" sx={{ whiteSpace: "preLine" }}>
+          <TableCell
+            component="th"
+            scope="row"
+            sx={{ whiteSpace: "preLine" }}
+            onClick={() => {
+              navigate("/detail/title");
+            }}
+          >
             {list.title}\n{list.album}
           </TableCell>
-          <TableCell align="right">{list.artist}</TableCell>
+          <TableCell
+            align="right"
+            onClick={() => {
+              navigate("/detail/artist");
+            }}
+          >
+            {list.artist}
+          </TableCell>
           <TableCell align="right">
             <PlayArrow />
           </TableCell>
@@ -62,4 +69,4 @@ function GenreClick({ genre }) {
     </TableBody>
   );
 }
-export default GenreClick;
+export default ChartList;
