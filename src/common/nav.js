@@ -32,6 +32,9 @@ let Logo = styled.a`
 `;
 let MenuAll = styled.div`
   font-size: 1.2rem;
+  input {
+    color: white;
+  }
 
   li {
     margin: 5px;

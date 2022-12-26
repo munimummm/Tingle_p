@@ -1,11 +1,12 @@
-import "./App.css";
+// import "./App.css";
 import Nav from "./common/nav";
 import Player from "./common/player";
+import Search from "./pages/Search";
+import Recommend from "./pages/Recommend";
 import Chart from "./pages/Chart";
 import Storage from "./pages/Storage";
 import MyPage from "./pages/MyPage";
 import HelpCenter from "./pages/HelpCenter";
-import Recommend from "./pages/Recommend";
 import Detail from "./pages/Detail";
 import DetailTitle from "components/DetailTitle";
 import DetailAlbum from "components/DetailAlbum";
@@ -29,6 +30,7 @@ function App() {
         <PageWrapper>
           <Routes>
             <Route path="*" element={<div>없는페이지요</div>} />
+            <Route path="/search" element={<Search />} />
             <Route path="/recommend" element={<Recommend />} />
             <Route path="/chart" element={<Chart />} />
             <Route path="/storage" element={<Storage />} />

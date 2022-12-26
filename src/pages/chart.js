@@ -16,34 +16,11 @@ import {
 
 import ChartList from "components/ChartList";
 
-let H1 = styled.h1`
-  margin-top: 38px;
-  margin-bottom: 30px;
-  font-weight: 500;
-`;
-let ChartButton = styled.button`
-  height: 32px;
-  padding: 0 15px;
-  font-size: 16px;
-  line-height: 32px;
-  text-align: center;
-  border-radius: 16px;
-  border: 0;
-  vertical-align: top;
-  display: inline-block;
-  background: #fff;
-  margin-bottom: 30px;
-
-  &:active {
-    background: #9147ff;
-    color: white;
-  }
-`;
-
 function Chart() {
   // const navigate = useNavigate();
 
   const [genre, setGenre] = useState("");
+
   const buttonChange = (e) => {
     console.log(e.target.value);
     setGenre(e.target.value);
@@ -102,3 +79,26 @@ function Chart() {
   );
 }
 export default Chart;
+let H1 = styled.h1`
+  margin-top: 38px;
+  margin-bottom: 30px;
+  font-weight: 500;
+`;
+let ChartButton = styled.button`
+  height: 32px;
+  padding: 0 15px;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 16px;
+  border: 0;
+  vertical-align: top;
+  display: inline-block;
+  background: #fff;
+  margin-bottom: 30px;
+
+  &:focus {
+    background: #9147ff;
+    color: white;
+  }
+`;
