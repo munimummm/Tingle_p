@@ -78,7 +78,11 @@ function Nav() {
   return (
     <SidebarContainer>
       <SidebarNav>
-        <SidebarBrand>
+        <SidebarBrand
+          onClick={() => {
+            navigate("/recommend");
+          }}
+        >
           <Logo>Tingle</Logo>
         </SidebarBrand>
         <Button
