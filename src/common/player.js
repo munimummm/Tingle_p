@@ -2,14 +2,23 @@ import styled from "styled-components";
 import React from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import { QueueMusic } from "@mui/icons-material";
+import { QueueMusic, PlayArrow } from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
 
 function Player() {
+  let url = useSelector((state) => state.audio.src);
+  let albumImg = useSelector((state) => state.audio.albumImage);
+  let title = useSelector((state) => state.audio.title);
+  let artist = useSelector((state) => state.audio.artist);
+  // let chartLists = useSelector((state) => state.list.list);
   return (
     <PlayerContainer>
-      <img alt="" />
-      <div className="player-title"></div>
-      <AudioPlayer src="https://hanzluo.s3-us-west-1.amazonaws.com/music/wuyuwuqing.mp3"></AudioPlayer>
+      <img src={albumImg} alt="albumImg" />
+      <div className="player-title">
+        {title} <br />
+        {artist}
+      </div>
+      <AudioPlayer layout="horizontal-reverse" src={url}></AudioPlayer>
       <QueueMusic style={{ fontSize: "30px", margin: "20px" }}></QueueMusic>
     </PlayerContainer>
   );
@@ -19,7 +28,7 @@ export default Player;
 const PlayerContainer = styled.div`
   width: 100%;
   height: 100px;
-  background: orange;
+  background: #131313;
   z-index: 2;
   position: fixed;
   left: 0;
