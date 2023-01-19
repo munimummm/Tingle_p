@@ -1,4 +1,7 @@
+import { useSelector, useDispatch } from "react-redux";
+import { searchDataChange } from "store/SearchSlice";
+
 function MyPage() {
-  return <div>마이페이지</div>;
+  return <div></div>;
 }
 export default MyPage;

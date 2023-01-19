@@ -1,5 +1,5 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-let search = createSlice({
+import { createSlice } from "@reduxjs/toolkit";
+let searchSlice = createSlice({
   name: "search",
   initialState: { name: "" },
   reducers: {
@@ -9,5 +9,5 @@ let search = createSlice({
   },
 });
 
-export let { searchDataChange } = search.actions;
-export default search;
+export let { searchDataChange } = searchSlice.actions;
+export default searchSlice;
