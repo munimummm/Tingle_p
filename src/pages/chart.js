@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
-
-import { DataGrid } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
 
 import {
   Table,
@@ -15,21 +13,38 @@ import {
 } from "@mui/material";
 
 import ChartList from "components/ChartList";
-
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setChartLists } from "store/ListSlice";
 function Chart() {
   // const navigate = useNavigate();
+  let chartLists = useSelector((state) => state.list.list);
+  let dispatch = useDispatch();
+  useEffect(() => {
+    axios
+      .get(`http://localhost:1216/chartList100`)
+      .then((result) => {
+        console.log(result.data);
+        dispatch(setChartLists(result.data));
 
+        // setChartLists(result.data);
+      })
+      .catch(() => {
+        console.log("실패함");
+      });
+  }, []);
   const [genre, setGenre] = useState("");
 
   const buttonChange = (e) => {
     console.log(e.target.value);
     setGenre(e.target.value);
   };
+
   return (
     <div>
       <div>
         <H1>TOP100</H1>
-        <ChartButton onClick={() => {}}>TOP100</ChartButton>
+        <ChartButton value={"Top100"}>TOP100</ChartButton>
         <ChartButton value={"발라드"} onClick={buttonChange}>
           발라드
         </ChartButton>
@@ -53,7 +68,7 @@ function Chart() {
         </ChartButton>
       </div>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="chart table">
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
@@ -64,8 +79,8 @@ function Chart() {
                   }}
                 />
               </TableCell>
-              <TableCell>순위</TableCell>
-              <TableCell>곡/앨범</TableCell>
+              <TableCell align="center">순위</TableCell>
+              <TableCell align="left">곡/앨범</TableCell>
               <TableCell></TableCell>
               <TableCell align="right">아티스트</TableCell>
               <TableCell align="right">듣기</TableCell>
