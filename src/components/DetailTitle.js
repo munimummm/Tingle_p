@@ -1,7 +1,9 @@
 import { MoreVert, PlayArrow } from "@mui/icons-material";
 import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
-
+import PlayButton from "./PlayButton";
+import { useDispatch, useSelector } from "react-redux";
+import { setUrl } from "store/AudioSlice";
 const TitleContainer = styled.div`
   max-width: 1600px;
   min-width: 800px;
@@ -69,12 +71,13 @@ const TitleContainer = styled.div`
 
 function DetailTitle() {
   const location = useLocation();
-
+  let dispatch = useDispatch();
+  console.log(location.state.albumImage);
   return (
     <TitleContainer className="detailTitle">
       <div className="detailInfo">
         <div className="imgWrap">
-          <img src={process.env.PUBLIC_URL + "/img/Adele.jpg"} />
+          <img src={location.state.albumImage} />
         </div>
         <div className="trackInfo">
           <div>
@@ -88,7 +91,18 @@ function DetailTitle() {
           </div>
 
           <div className="select_icon">
-            <PlayArrow></PlayArrow>
+            <PlayButton
+              onPlay={() => {
+                dispatch(
+                  setUrl({
+                    src: location.state.src,
+                    albumImage: location.state.albumImage,
+                    title: location.state.title,
+                    artist: location.state.artist,
+                  })
+                );
+              }}
+            />
             <i className="selectList fa-solid fa-list"></i>
             <i className="selectAdd fa-solid fa-folder-plus"></i>
           </div>
