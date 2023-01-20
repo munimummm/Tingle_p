@@ -10,7 +10,8 @@ function Player() {
   let albumImg = useSelector((state) => state.audio.albumImage);
   let title = useSelector((state) => state.audio.title);
   let artist = useSelector((state) => state.audio.artist);
-  // let chartLists = useSelector((state) => state.list.list);
+  // let chartLists = useSelector((state) => state.list.list)
+  console.log("앨범" + albumImg);
   return (
     <PlayerContainer>
       <img src={albumImg} alt="albumImg" />

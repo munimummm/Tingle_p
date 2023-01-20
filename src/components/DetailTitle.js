@@ -1,5 +1,5 @@
 import { MoreVert, PlayArrow } from "@mui/icons-material";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PlayButton from "./PlayButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,23 +71,23 @@ const TitleContainer = styled.div`
 
 function DetailTitle() {
   const location = useLocation();
+  const list = location.state.list;
   let dispatch = useDispatch();
-  console.log(location.state.albumImage);
   return (
     <TitleContainer className="detailTitle">
       <div className="detailInfo">
         <div className="imgWrap">
-          <img src={location.state.albumImage} />
+          <img src={process.env.PUBLIC_URL + `/img/${list.cover_img}`} />
         </div>
         <div className="trackInfo">
           <div>
-            <NavLink className="detail_title">{location.state.title}</NavLink>
+            <NavLink className="detail_title">{list.title}</NavLink>
           </div>
           <div>
-            <NavLink className="detail_album">{location.state.album}</NavLink>
+            <NavLink className="detail_album">{list.album}</NavLink>
           </div>
           <div>
-            <NavLink className="detail_artist">{location.state.artist}</NavLink>
+            <NavLink className="detail_artist">{list.artist}</NavLink>
           </div>
 
           <div className="select_icon">
@@ -95,10 +95,11 @@ function DetailTitle() {
               onPlay={() => {
                 dispatch(
                   setUrl({
-                    src: location.state.src,
-                    albumImage: location.state.albumImage,
-                    title: location.state.title,
-                    artist: location.state.artist,
+                    src: process.env.PUBLIC_URL + `/mp3/${list.file_path}`,
+                    albumImage:
+                      process.env.PUBLIC_URL + `/img/${list.cover_img}`,
+                    title: list.title,
+                    artist: list.artist,
                   })
                 );
               }}

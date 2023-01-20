@@ -39,9 +39,9 @@ function App() {
             <Route path="/helpCenter" element={<HelpCenter />} />
             <Route path="/myPage" element={<MyPage />} />
             <Route path="/detail" element={<Detail />}>
-              <Route path="title" element={<DetailTitle />} />
-              <Route path="album" element={<DetailAlbum />} />
-              <Route path="artist" element={<DetailArtist />} />
+              <Route path="title/:detailId" element={<DetailTitle />} />
+              <Route path="album/:detailId" element={<DetailAlbum />} />
+              <Route path="artist/:detailId" element={<DetailArtist />} />
             </Route>
           </Routes>
         </PageWrapper>

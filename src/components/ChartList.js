@@ -50,21 +50,16 @@ function ChartList({ genre }) {
           <TableCell align="left">
             <img
               style={{ width: "50px", height: "50px" }}
-              src={"img/" + list.cover_img + ""}
+              src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
             ></img>
           </TableCell>
           <TableCell
             component="th"
             scope="row"
             onClick={() => {
-              navigate("/detail/title", {
+              navigate(`/detail/title/${list._id}`, {
                 state: {
-                  title: list.title,
-                  album: list.album,
-                  artist: list.artist,
-                  lyrics: list.lyrics,
-                  src: `mp3/${list.file_path}`,
-                  albumImage: `img/${list.cover_img}`,
+                  list: list,
                 },
               });
             }}
@@ -77,12 +72,9 @@ function ChartList({ genre }) {
           <TableCell
             align="right"
             onClick={() => {
-              navigate("/detail/artist", {
+              navigate(`/detail/artist/${list._id}`, {
                 state: {
-                  title: list.title,
-                  album: list.album,
-                  artist: list.artist,
-                  lyrics: list.lyrics,
+                  list: list,
                 },
               });
             }}
@@ -95,8 +87,9 @@ function ChartList({ genre }) {
               onPlay={() => {
                 dispatch(
                   setUrl({
-                    src: `mp3/${list.file_path}`,
-                    albumImage: `img/${list.cover_img}`,
+                    src: process.env.PUBLIC_URL + `/mp3/${list.file_path}`,
+                    albumImage:
+                      process.env.PUBLIC_URL + `/img/${list.cover_img}`,
                     title: list.title,
                     artist: list.artist,
                   })

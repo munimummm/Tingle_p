@@ -38,7 +38,7 @@ function Recommend() {
   const [recommendList, setRecommendList] = useState([]);
   // useEffect(() => {
   //   axios
-  //     .get("http://localhost:1216/recommendList", )
+  //     .get("http://localhost:1216/recommendList")
   //     .then((result) => {
   //       console.log(result.status);
   //       setRecommendList(result.data);
@@ -61,7 +61,18 @@ function Recommend() {
               <div className="suggestion_title"></div>
               <div className="suggestion_artist"></div>
               <div className="select_icon">
-                <PlayArrow></PlayArrow>
+                {/* <PlayButton
+              onPlay={() => {
+                dispatch(
+                  setUrl({
+                    src: `mp3/${list.file_path}`,
+                    albumImage: `img/${list.cover_img}`,
+                    title: list.title,
+                    artist: list.artist,
+                  })
+                );
+              }}
+            /> */}
               </div>
             </td>
           </tr>
