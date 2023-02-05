@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 let searchSlice = createSlice({
   name: "search",
-  initialState: { name: "" },
+  initialState: { type: null },
   reducers: {
     searchDataChange(state, action) {
-      state.name = action.payload;
+      state.type = action.payload;
     },
   },
 });
