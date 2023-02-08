@@ -1,0 +1,130 @@
+diff --git a/node_modules/react-h5-audio-player/es/index.js b/node_modules/react-h5-audio-player/es/index.js
+index 6a766fc..8c0836d 100644
+--- a/node_modules/react-h5-audio-player/es/index.js
++++ b/node_modules/react-h5-audio-player/es/index.js
+@@ -12,8 +12,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
+ 
+ import React, { Component, cloneElement, isValidElement, createRef } from 'react';
+ import { Icon } from '@iconify/react';
+-import playCircle from '@iconify/icons-mdi/play-circle';
+-import pauseCircle from '@iconify/icons-mdi/pause-circle';
++import playCircle from '@iconify/icons-mdi/play';
++import pauseCircle from '@iconify/icons-mdi/pause';
+ import skipPrevious from '@iconify/icons-mdi/skip-previous';
+ import skipNext from '@iconify/icons-mdi/skip-next';
+ import fastForward from '@iconify/icons-mdi/fast-forward';
+diff --git a/node_modules/react-h5-audio-player/lib/index.js b/node_modules/react-h5-audio-player/lib/index.js
+index 141e460..c7e42fa 100644
+--- a/node_modules/react-h5-audio-player/lib/index.js
++++ b/node_modules/react-h5-audio-player/lib/index.js
+@@ -33,9 +33,9 @@ var _react = _interopRequireWildcard(require("react"));
+ 
+ var _react2 = require("@iconify/react");
+ 
+-var _playCircle = _interopRequireDefault(require("@iconify/icons-mdi/play-circle"));
++var _playCircle = _interopRequireDefault(require("@iconify/icons-mdi/play"));
+ 
+-var _pauseCircle = _interopRequireDefault(require("@iconify/icons-mdi/pause-circle"));
++var _pauseCircle = _interopRequireDefault(require("@iconify/icons-mdi/pause"));
+ 
+ var _skipPrevious = _interopRequireDefault(require("@iconify/icons-mdi/skip-previous"));
+ 
+diff --git a/node_modules/react-h5-audio-player/lib/styles.css b/node_modules/react-h5-audio-player/lib/styles.css
+index 21a7bef..9c1e42f 100644
+--- a/node_modules/react-h5-audio-player/lib/styles.css
++++ b/node_modules/react-h5-audio-player/lib/styles.css
+@@ -6,8 +6,8 @@
+   font-family: inherit;
+   width: 100%;
+   padding: 10px 15px;
+-  background-color: #fff;
+-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
++  /* background-color: #fff;
++  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2); */
+ }
+ .rhap_container:focus:not(:focus-visible) {
+   outline: 0;
+@@ -77,7 +77,7 @@
+ }
+ 
+ .rhap_time {
+-  color: #333;
++  /* color: #fff; */
+   font-size: 16px;
+   user-select: none;
+   -webkit-user-select: none;
+@@ -97,7 +97,7 @@
+   height: 100%;
+   position: absolute;
+   z-index: 2;
+-  background-color: #868686;
++  background-color: #9147ff;
+   border-radius: 2px;
+ }
+ 
+@@ -117,8 +117,8 @@
+   box-sizing: border-box;
+   position: absolute;
+   z-index: 3;
+-  width: 20px;
+-  height: 20px;
++  /* width: 20px;
++  height: 20px; */
+   margin-left: -10px;
+   top: -8px;
+   background: #868686;
+@@ -163,9 +163,10 @@
+ }
+ 
+ .rhap_play-pause-button {
+-  font-size: 40px;
+-  width: 40px;
+-  height: 40px;
++  font-size: 50px;
++  width: 50px;
++  height: 50px;
++  color: #9147ff;
+ }
+ 
+ .rhap_volume-controls {
+diff --git a/node_modules/react-h5-audio-player/lib/styles.less b/node_modules/react-h5-audio-player/lib/styles.less
+index f5115d5..a5ff658 100644
+--- a/node_modules/react-h5-audio-player/lib/styles.less
++++ b/node_modules/react-h5-audio-player/lib/styles.less
+@@ -1,7 +1,7 @@
+ @rhap_theme-color: #868686;
+ @rhap_background-color: #fff;
+ @rhap_bar-color: #dddddd;
+-@rhap_time-color: #333;
++@rhap_time-color: #fff;
+ @rhap_font-family: inherit;
+ 
+ .rhap_container {
+diff --git a/node_modules/react-h5-audio-player/src/index.tsx b/node_modules/react-h5-audio-player/src/index.tsx
+index 00d8afa..7a8fc87 100644
+--- a/node_modules/react-h5-audio-player/src/index.tsx
++++ b/node_modules/react-h5-audio-player/src/index.tsx
+@@ -9,8 +9,8 @@ import React, {
+   Key,
+ } from 'react'
+ import { Icon } from '@iconify/react'
+-import playCircle from '@iconify/icons-mdi/play-circle'
+-import pauseCircle from '@iconify/icons-mdi/pause-circle'
++import playCircle from '@iconify/icons-mdi/play'
++import pauseCircle from '@iconify/icons-mdi/pause'
+ import skipPrevious from '@iconify/icons-mdi/skip-previous'
+ import skipNext from '@iconify/icons-mdi/skip-next'
+ import fastForward from '@iconify/icons-mdi/fast-forward'
+diff --git a/node_modules/react-h5-audio-player/src/styles.scss b/node_modules/react-h5-audio-player/src/styles.scss
+index b3abd90..18e33aa 100644
+--- a/node_modules/react-h5-audio-player/src/styles.scss
++++ b/node_modules/react-h5-audio-player/src/styles.scss
+@@ -1,7 +1,7 @@
+ $rhap_theme-color: #868686 !default;
+ $rhap_background-color: #fff !default;
+ $rhap_bar-color: #dddddd !default;
+-$rhap_time-color: #333 !default;
++$rhap_time-color: #fff !default;
+ $rhap_font-family: inherit !default;
+ 
+ .rhap_container {

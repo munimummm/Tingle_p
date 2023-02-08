@@ -1,6 +1,6 @@
 // import "./App.css";
 import Nav from "./common/nav";
-import Player from "./common/player";
+import Player from "./common/Player";
 import Search from "./pages/Search";
 import Recommend from "./pages/Recommend";
 import Chart from "./pages/Chart";
