@@ -15,57 +15,65 @@ import {
 import ChartList from "components/ChartList";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setChartLists } from "store/ListSlice";
+import { setChartLists, setGenre } from "store/ListSlice";
+
 function Chart() {
-  // const navigate = useNavigate();
-  let chartLists = useSelector((state) => state.list.list);
   let dispatch = useDispatch();
+  let genre = useSelector((state) => state.list.genre);
+
+  const [currentTab, setcurrentTab] = useState(0);
+  const buttonList = [
+    "TOP100",
+    "발라드",
+    "락",
+    "힙합",
+    "댄스",
+    "재즈",
+    "클래식",
+    "팝",
+  ];
+  console.log(genre);
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:1216/chartList100`)
-      .then((result) => {
-        console.log(result.data);
+    if (genre === "TOP100") {
+      const getTop100 = async () => {
+        const result = await axios.get(`http://localhost:1216/chartList100`);
         dispatch(setChartLists(result.data));
+        console.log(result.data);
+      };
+      getTop100();
+    } else {
+      const getGenreList = async () => {
+        const result = await axios.get(`http://localhost:1216/chartList`, {
+          params: {
+            genre: genre,
+          },
+        });
+        dispatch(setChartLists(result.data));
+      };
 
-        // setChartLists(result.data);
-      })
-      .catch(() => {
-        console.log("실패함");
-      });
-  }, []);
-  const [genre, setGenre] = useState("");
+      getGenreList();
+    }
+  }, [genre]);
 
-  const buttonChange = (e) => {
-    console.log(e.target.value);
-    setGenre(e.target.value);
+  const buttonChange = (list, i) => {
+    dispatch(setGenre(list));
+    setcurrentTab(i);
   };
 
   return (
     <div>
       <div>
-        <H1>TOP100</H1>
-        <ChartButton value={"Top100"}>TOP100</ChartButton>
-        <ChartButton value={"발라드"} onClick={buttonChange}>
-          발라드
-        </ChartButton>
-        <ChartButton value={"락"} onClick={buttonChange}>
-          락
-        </ChartButton>
-        <ChartButton value={"힙합"} onClick={buttonChange}>
-          힙합
-        </ChartButton>
-        <ChartButton value={"댄스"} onClick={buttonChange}>
-          댄스
-        </ChartButton>
-        <ChartButton value={"재즈"} onClick={buttonChange}>
-          재즈
-        </ChartButton>
-        <ChartButton value={"클래식"} onClick={buttonChange}>
-          클래식
-        </ChartButton>
-        <ChartButton value={"팝"} onClick={buttonChange}>
-          팝
-        </ChartButton>
+        <H1>{buttonList[currentTab]}</H1>
+        {buttonList.map((list, i) => (
+          <ChartButton
+            key={i}
+            onClick={() => buttonChange(list, i)}
+            className={i === currentTab ? "focused" : ""}
+          >
+            {list}
+          </ChartButton>
+        ))}
       </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="chart table">
@@ -87,7 +95,7 @@ function Chart() {
               <TableCell align="right">더보기</TableCell>
             </TableRow>
           </TableHead>
-          <ChartList genre={genre}></ChartList>
+          <ChartList></ChartList>
         </Table>
       </TableContainer>
     </div>
@@ -95,10 +103,10 @@ function Chart() {
 }
 export default Chart;
 let H1 = styled.h1`
-  margin-top: 38px;
-  margin-bottom: 30px;
   font-weight: 500;
+  margin-top: 10px;
 `;
+
 let ChartButton = styled.button`
   height: 32px;
   padding: 0 15px;
@@ -106,13 +114,14 @@ let ChartButton = styled.button`
   line-height: 32px;
   text-align: center;
   border-radius: 16px;
-  border: 0;
+  border: 1px solid #9147ff;
   vertical-align: top;
   display: inline-block;
-  background: #fff;
-  margin-bottom: 30px;
+  margin: 38px 10px 30px 0px;
 
-  &:focus {
+  background: #fff;
+  cursor: pointer;
+  &.focused {
     background: #9147ff;
     color: white;
   }

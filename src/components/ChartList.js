@@ -4,38 +4,19 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setChartLists } from "store/ListSlice";
 import PlayButton from "./PlayButton";
 
-import { setUrl } from "store/AudioSlice";
-function ChartList({ genre }) {
+import { setPlayerPlaying, setSong } from "store/AudioSlice";
+import { setPlayLists } from "store/PlayListSlice";
+import { setChartLists } from "store/ListSlice";
+function ChartList() {
   const navigate = useNavigate();
-  // const [chartLists, setChartLists] = useState([]);
   let chartLists = useSelector((state) => state.list.list);
   let dispatch = useDispatch();
 
-  console.log("클릭" + genre);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:1216/chartList`, {
-        params: {
-          genre: genre,
-        },
-      })
-
-      .then((result) => {
-        console.log(result.data);
-        dispatch(setChartLists(result.data));
-
-        // setChartLists(result.data);
-      })
-      .catch(() => {
-        console.log("실패함");
-      });
-  }, [genre]);
   // "<c:url value="/mp3/"/>" + s_LibraryData[i].file_path)
   // <img src={process.env.PUBLIC_URL + "/img/Adele.jpg"} />
+
   return (
     <TableBody>
       {chartLists.map((list, i) => (
@@ -65,7 +46,6 @@ function ChartList({ genre }) {
             }}
           >
             <strong> {list.title}</strong>
-
             <br />
             {list.album}
           </TableCell>
@@ -84,12 +64,12 @@ function ChartList({ genre }) {
           <TableCell align="right">
             {" "}
             <PlayButton
+              list={list}
               onPlay={() => {
                 dispatch(
-                  setUrl({
-                    src: process.env.PUBLIC_URL + `/mp3/${list.file_path}`,
-                    albumImage:
-                      process.env.PUBLIC_URL + `/img/${list.cover_img}`,
+                  setSong({
+                    src: process.env.PUBLIC_URL + list.file_path,
+                    albumImage: process.env.PUBLIC_URL + list.cover_img,
                     title: list.title,
                     artist: list.artist,
                   })

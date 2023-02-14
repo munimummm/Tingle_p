@@ -10,6 +10,8 @@ import {
   AccountCircle,
 } from "@mui/icons-material";
 import { Button, ButtonGroup, TextField, InputAdornment } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setGenre } from "store/ListSlice";
 
 let SidebarContainer = styled.div`
   position: fixed;
@@ -60,8 +62,10 @@ let SearchTextField = styled(TextField)`
     color: ${(props) => props.theme.subColor};
   }
 `;
+
 function Nav() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const searchOnkeyPress = (e) => {
     if (e.key === "Enter") {
       if (e.target.value !== null) {
@@ -127,6 +131,7 @@ function Nav() {
             <Button
               startIcon={<BarChart />}
               onClick={() => {
+                dispatch(setGenre("TOP100"));
                 navigate("/chart");
               }}
             >
