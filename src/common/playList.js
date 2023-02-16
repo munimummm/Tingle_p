@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { QueueMusic } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+
 const PlayListContainer = styled.div`
   width: 400px;
   background: #262626;
@@ -12,35 +13,68 @@ const PlayListContainer = styled.div`
   top: 0;
   bottom: 100px;
   overflow: hidden;
-  padding: 20px;
   text-align: left;
+
   .playListHeader {
-    height: 50px;
-    padding: 0 10px;
-    border-bottom: 1px solid #131313;
-  }
-  .playListItem {
     display: flex;
+    align-items: center;
+    height: 75px;
+    padding: 0 20px;
+    /* border-bottom: 3px solid #989898; */
+  }
+  .playListContent {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+  }
+  .playListText {
+    display: inline-block;
+    line-height: 25px;
+    font-size: 14px;
+    vertical-align: top;
+    margin-top: 18px;
+    &.focused {
+      color: ${(props) => props.theme.mainColor};
+    }
+    .artistText {
+      font-size: 12px;
+      color: #989898;
+    }
   }
 `;
+const PlayListItem = styled.div`
+  &.focused {
+    background: #393939;
+  }
+`;
+
 function PlayList() {
-  let songs = useSelector((state) => state.audio.songs);
-  console.log(songs);
+  let listSongs = useSelector((state) => state.audio.listSongs);
+  console.log(listSongs);
+  let currentIndex = useSelector((state) => state.audio.currentIndex);
+
   return (
     <PlayListContainer>
       <div className="playListHeader">
         <h4>재생목록</h4>
       </div>
       <div className="playListContent">
-        {songs.map((list, i) => (
-          <div key={i} className="playListItem">
+        {listSongs.map((list, i) => (
+          <PlayListItem key={i} className={i === currentIndex ? "focused" : ""}>
             <img
               style={{ width: "50px", height: "50px" }}
               src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
             ></img>
-            <div>{list.title}</div>
-            <div>{list.artist}</div>
-          </div>
+            <div
+              className={
+                i === currentIndex ? "focused playListText" : "playListText"
+              }
+            >
+              <strong> {list.title}</strong>
+              <br />
+              <span className="artistText">{list.artist}</span>
+            </div>
+          </PlayListItem>
         ))}
       </div>
     </PlayListContainer>

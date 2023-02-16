@@ -6,14 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import PlayButton from "./PlayButton";
 import { AudioActions } from "store/AudioSlice";
-import { setAddPlayList, setPlayerPlaying, setSong } from "store/AudioSlice";
+
 import { setPlayLists } from "store/PlayListSlice";
 import { setChartLists } from "store/ListSlice";
 function ChartList() {
   const navigate = useNavigate();
   let chartLists = useSelector((state) => state.list.list);
   let dispatch = useDispatch();
-  let listSongs = useSelector((state) => state.audio.listSongs);
 
   // "<c:url value="/mp3/"/>" + s_LibraryData[i].file_path)
   // <img src={process.env.PUBLIC_URL + "/img/Adele.jpg"} />
@@ -68,11 +67,12 @@ function ChartList() {
               list={list}
               onPlay={() => {
                 dispatch(
-                  AudioActions.setSongs({
-                    title: list.title,
-                    artist: list.artist,
-                    cover_img: list.cover_img,
-                    file_path: list.file_path,
+                  AudioActions.setSong({
+                    songs: list,
+                    // title: list.title,
+                    // artist: list.artist,
+                    // cover_img: list.cover_img,
+                    // file_path: list.file_path,
                   })
                   //  ({
                   //   title: list.title,

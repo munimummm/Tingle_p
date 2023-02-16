@@ -24,6 +24,10 @@ function App() {
     width: 100%;
     padding: 20px;
     overflow-y: auto;
+    .noPageImg {
+      width: 256px;
+      height: 256px;
+    }
   `;
   return (
     <div className="App">
@@ -31,7 +35,7 @@ function App() {
       <PageContainer>
         <PageWrapper>
           <Routes>
-            <Route path="*" element={<div>없는페이지요</div>} />
+            <Route path="*" element={<div>준비중입니다.</div>} />
             <Route path="/search" element={<Search />} />
             <Route path="/recommend" element={<Recommend />} />
             <Route path="/chart" element={<Chart />} />

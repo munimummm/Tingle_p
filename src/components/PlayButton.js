@@ -7,7 +7,7 @@ function PlayButton({ onPlay, list }) {
   const dispatch = useDispatch();
   let listSongs = useSelector((state) => state.audio.listSongs);
   // console.log(list);
-  console.log(listSongs);
+  console.log("랭스" + listSongs.length);
   const addSong = () => {
     if (!listSongs.includes(list)) {
       dispatch(AudioActions.setAddPlayList(list));
