@@ -20,12 +20,12 @@ const PlayListContainer = styled.div`
     align-items: center;
     height: 75px;
     padding: 0 20px;
-    /* border-bottom: 3px solid #989898; */
+    color: ${(props) => props.theme.mainColor};
+    border-bottom: 2px solid rgba(240, 240, 240, 0.2);
   }
   .playListContent {
     display: flex;
     flex-direction: column;
-    padding: 10px 0px;
   }
   .playListText {
     display: inline-block;
@@ -72,7 +72,7 @@ function PlayList() {
             >
               <strong> {list.title}</strong>
               <br />
-              <span className="artistText">{list.artist}</span>
+              <p className="artistText">{list.artist}</p>
             </div>
           </PlayListItem>
         ))}

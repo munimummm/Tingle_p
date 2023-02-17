@@ -72,13 +72,5 @@ const AudioSlice = createSlice({
   },
 });
 
-// export const { setSong, setPlayerPlaying, setAddPlayList } = AudioSlice.actions;
 export const AudioActions = AudioSlice.actions;
 export default AudioSlice;
-
-// export const audioSelectors = {
-//   defaultTitle: (state) => state.audio.title,
-//   defaultUrl: (state) => state.audio.src,
-//   defaultAlbumImg: (state) => state.audio.src,
-//   defaultArtist: (state) => state.audio.artist,
-// };

@@ -6,75 +6,54 @@ import { FormatListBulleted, Info, PlayArrow } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 import { useState } from "react";
-import {
-  handleClickNext,
-  handleClickPrevious,
-  setPlayerPlaying,
-  setSong,
-} from "store/AudioSlice";
-import { fontSize } from "@mui/system";
+
 import { AudioActions } from "store/AudioSlice";
 import { useRef } from "react";
+import { useEffect } from "react";
 
 function Player() {
   const playerRef = useRef();
-  let src = useSelector((state) => state.audio.src);
-  let albumImg = useSelector((state) => state.audio.albumImage);
+  const dispatch = useDispatch();
+  let file_path = useSelector((state) => state.audio.file_path);
+  let cover_img = useSelector((state) => state.audio.cover_img);
   let title = useSelector((state) => state.audio.title);
   let artist = useSelector((state) => state.audio.artist);
   let currentIndex = useSelector((state) => state.audio.currentIndex);
-  const [playListOpen, setPlayListOpen] = useState(false);
   let listSongs = useSelector((state) => state.audio.listSongs);
-  // const [currentIndex, setCurrentIndex] = useState(0);
+  const isPlaying = useSelector((state) => state.audio.isPlaying);
+  const [playListOpen, setPlayListOpen] = useState(false);
 
-  const dispatch = useDispatch();
-
+  // if (!file_path) {
+  //   return null;
+  // }
   console.log(listSongs.length);
   console.log("currentIndex" + currentIndex);
-  // let setSongs = () => {
-  //   dispatch(
-  //     setSong({
-  //       title: listSongs[currentIndex].title,
-  //       artist: listSongs[currentIndex].artist,
-  //       albumImage: listSongs[currentIndex].cover_img,
-  //       src: listSongs[currentIndex].file_path,
-  //     })
-  //   );
-  // };
 
   const handleClickPrevious = () => {
-    dispatch(AudioActions.setCurrentIndexm());
-    // setCurrentIndex((currentTrack) =>
-    //   currentTrack === 0 ? listSongs.length - 1 : currentTrack - 1
-    // );
-    // setSongs();
-    // console.log("click previos");
+    dispatch(AudioActions.setCurrentIndexPrevious());
+    dispatch(
+      AudioActions.setSong({
+        songs: listSongs,
+      })
+    );
   };
   const handleClickNext = () => {
-    dispatch(AudioActions.setCurrentIndexp());
-    // setCurrentIndex((currentIndex) =>
-    //   currentIndex === listSongs.length - 1 ? 0 : currentIndex + 1
-    // );
-
-    // setSongs();
-    // console.log("click next");
+    dispatch(AudioActions.setCurrentIndexNext());
+    dispatch(
+      AudioActions.setSong({
+        songs: listSongs,
+      })
+    );
   };
 
   return (
     <>
       <PlayerContainer>
-        <img
-          src={
-            process.env.PUBLIC_URL + `/img/${listSongs[currentIndex].cover_img}`
-          }
-          alt="albumImg"
-        />
+        <img src={cover_img} alt="albumImg" />
         <div className="player-text">
-          <strong> {listSongs[currentIndex].title}</strong>
+          <strong> {title}</strong>
           <br />
-          <span style={{ fontSize: "12px", color: "#989898" }}>
-            {listSongs[currentIndex].artist}
-          </span>
+          <span style={{ fontSize: "12px", color: "#989898" }}>{artist}</span>
         </div>
 
         <AudioPlayer
@@ -82,13 +61,13 @@ function Player() {
           autoPlayAfterSrcChange={true}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
-          src={
-            process.env.PUBLIC_URL + `/mp3/${listSongs[currentIndex].file_path}`
-          }
+          src={file_path}
           showSkipControls={true}
           showJumpControls={false}
-          onEnded={() => dispatch(AudioActions.clickNext())}
+          onEnded={handleClickNext}
           volume={0.5}
+          onPlay={() => dispatch(AudioActions.setIsPlaying(true))}
+          onPause={() => dispatch(AudioActions.setIsPlaying(false))}
         ></AudioPlayer>
         <FormatListBulleted
           style={{
