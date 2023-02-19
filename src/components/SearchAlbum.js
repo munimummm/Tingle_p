@@ -1,13 +1,14 @@
 import { TableBody, TableCell, TableRow, Paper, Checkbox } from "@mui/material";
 import { useState, useEffect } from "react";
 import { ArrowForwardIos, MoreVert, PlayArrow } from "@mui/icons-material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   searchTypeChange,
-  setArtistOpen,
-  setArtistSearchList,
+  setAlbumOpen,
+  setALbumSearchList,
   setLimit,
+  setSearchList,
 } from "store/SearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -21,7 +22,7 @@ const FindList = styled.li`
     width: 240px;
     height: 240px;
     overflow: hidden;
-    border-radius: 50%;
+    border-radius: 4%;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
   .itemImg {
@@ -39,40 +40,38 @@ const FindListContainer = styled.ul`
   padding-inline-start: 40px;
 `;
 
-function SearchArtist({ searchValue }) {
+function SearchAlbum({ searchValue }) {
   const navigate = useNavigate();
-  // let searchArtistList = useSelector((state) => state.search.searchArtistList);
+  let searchAlbumList = useSelector((state) => state.search.searchAlbumList);
   let dispatch = useDispatch();
+  const location = useLocation();
+
   let type = useSelector((state) => state.search.type);
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
-    const getSeachResult = async () => {
-      const result = await axios.get(
-        `http://localhost:1216/searchList/artist`,
-        {
-          params: {
-            value: searchValue,
-          },
-        }
-      );
+    const getSearchResult = async () => {
+      const result = await axios.get(`http://localhost:1216/searchList/album`, {
+        params: {
+          value: searchValue,
+        },
+      });
       // dispatch(setSearchList(result.data));
-      console.log(result.data);
       setSearchList(result.data);
     };
-    getSeachResult();
+    getSearchResult();
   }, [searchValue]);
 
   console.log(searchList);
   console.log(searchValue);
 
   return (
-    <div id="findArtist_Container">
+    <div className="findAlbum_Container">
       <h2 className="findResult_h1">
-        가수
+        앨범
         <ArrowForwardIos
           onClick={() => {
             dispatch(setLimit(10));
-            dispatch(setArtistOpen(true));
+            dispatch(setAlbumOpen(true));
           }}
         />
       </h2>
@@ -85,13 +84,13 @@ function SearchArtist({ searchValue }) {
                 <div className="imgBox">
                   <img
                     className="itemImg"
-                    src={"img/" + list.artist_img + ""}
+                    src={"img/" + list.cover_img + ""}
                   ></img>
                 </div>
               </NavLink>
 
               <NavLink className="aa detail_ar" href="#">
-                {list.artist}
+                {list.album}
               </NavLink>
             </div>
           </FindList>
@@ -100,4 +99,4 @@ function SearchArtist({ searchValue }) {
     </div>
   );
 }
-export default SearchArtist;
+export default SearchAlbum;

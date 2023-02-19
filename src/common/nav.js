@@ -70,7 +70,7 @@ function Nav() {
     if (e.key === "Enter") {
       if (e.target.value !== null) {
         console.log(e.target.value);
-        navigate("/search", {
+        navigate(`/search?value=${e.target.value}`, {
           state: {
             value: e.target.value,
           },
