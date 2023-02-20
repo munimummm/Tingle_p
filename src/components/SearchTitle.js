@@ -30,6 +30,10 @@ const TitleContainer = styled.div`
     &:hover {
       color: ${(props) => props.theme.mainColor};
     }
+    .arrowIcon {
+      font-size: 1.2rem;
+      margin-left: 4px;
+    }
   }
 `;
 function SearchTitle({ searchValue }) {
@@ -61,12 +65,12 @@ function SearchTitle({ searchValue }) {
       <h2
         className="findResult_h1"
         onClick={() => {
-          dispatch(setLimit(10));
+          dispatch(setLimit(searchList.length));
           dispatch(setTitleOpen(true));
         }}
       >
         곡
-        <ArrowForwardIos />
+        <ArrowForwardIos className="arrowIcon" />
       </h2>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="chart table">
@@ -144,9 +148,7 @@ function SearchTitle({ searchValue }) {
                     <MoreVert />
                   </TableCell>
                 </TableRow>
-              ) : (
-                ""
-              )
+              ) : null
             )}
           </TableBody>
         </Table>

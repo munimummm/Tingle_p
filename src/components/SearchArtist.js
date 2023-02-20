@@ -29,6 +29,20 @@ const FindList = styled.li`
     height: 100%;
   }
 `;
+const AContainer = styled.div`
+  .findResult_h1 {
+    cursor: pointer;
+    margin-top: 70px;
+    margin-bottom: 28px;
+    &:hover {
+      color: ${(props) => props.theme.mainColor};
+    }
+    .arrowIcon {
+      font-size: 1.2rem;
+      margin-left: 4px;
+    }
+  }
+`;
 const FindListContainer = styled.ul`
   list-style: none;
   display: block;
@@ -44,6 +58,7 @@ function SearchArtist({ searchValue }) {
   // let searchArtistList = useSelector((state) => state.search.searchArtistList);
   let dispatch = useDispatch();
   let type = useSelector((state) => state.search.type);
+  let limit = useSelector((state) => state.search.limit);
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getSeachResult = async () => {
@@ -66,38 +81,41 @@ function SearchArtist({ searchValue }) {
   console.log(searchValue);
 
   return (
-    <div id="findArtist_Container">
-      <h2 className="findResult_h1">
+    <AContainer>
+      <h2
+        className="findResult_h1"
+        onClick={() => {
+          dispatch(setLimit(searchList.length));
+          dispatch(setArtistOpen(true));
+        }}
+      >
         가수
-        <ArrowForwardIos
-          onClick={() => {
-            dispatch(setLimit(10));
-            dispatch(setArtistOpen(true));
-          }}
-        />
+        <ArrowForwardIos className="arrowIcon" />
       </h2>
 
       <FindListContainer>
-        {searchList.map((list, i) => (
-          <FindList key={i}>
-            <div>
-              <NavLink>
-                <div className="imgBox">
-                  <img
-                    className="itemImg"
-                    src={"img/" + list.artist_img + ""}
-                  ></img>
-                </div>
-              </NavLink>
+        {searchList.map((list, i) =>
+          i < limit ? (
+            <FindList key={i}>
+              <div>
+                <NavLink>
+                  <div className="imgBox">
+                    <img
+                      className="itemImg"
+                      src={"img/" + list.artist_img + ""}
+                    ></img>
+                  </div>
+                </NavLink>
 
-              <NavLink className="aa detail_ar" href="#">
-                {list.artist}
-              </NavLink>
-            </div>
-          </FindList>
-        ))}
+                <NavLink className="aa detail_ar" href="#">
+                  {list.artist}
+                </NavLink>
+              </div>
+            </FindList>
+          ) : null
+        )}
       </FindListContainer>
-    </div>
+    </AContainer>
   );
 }
 export default SearchArtist;
