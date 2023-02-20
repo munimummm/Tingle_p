@@ -15,11 +15,13 @@ import {
 import ChartList from "components/ChartList";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setChartLists, setGenre } from "store/ListSlice";
+import { setChartLists, setGenre, setLoading } from "store/ListSlice";
+import Loading from "./Loading";
 
 function Chart() {
   let dispatch = useDispatch();
   let genre = useSelector((state) => state.list.genre);
+  let loading = useSelector((state) => state.list.loading);
 
   const [currentTab, setcurrentTab] = useState(0);
   const buttonList = [
@@ -37,8 +39,10 @@ function Chart() {
   useEffect(() => {
     if (genre === "TOP100") {
       const getTop100 = async () => {
+        dispatch(setLoading(true));
         const result = await axios.get(`http://localhost:1216/chartList100`);
         dispatch(setChartLists(result.data));
+        dispatch(setLoading(false));
         console.log(result.data);
       };
       getTop100();
@@ -63,41 +67,47 @@ function Chart() {
 
   return (
     <div>
-      <div>
-        <H1>{buttonList[currentTab]}</H1>
-        {buttonList.map((list, i) => (
-          <ChartButton
-            key={i}
-            onClick={() => buttonChange(list, i)}
-            className={i === currentTab ? "focused" : ""}
-          >
-            {list}
-          </ChartButton>
-        ))}
-      </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="chart table">
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  inputProps={{
-                    "aria-label": "select all ",
-                  }}
-                />
-              </TableCell>
-              <TableCell align="center">순위</TableCell>
-              <TableCell align="left">곡/앨범</TableCell>
-              <TableCell></TableCell>
-              <TableCell align="right">아티스트</TableCell>
-              <TableCell align="right">듣기</TableCell>
-              <TableCell align="right">더보기</TableCell>
-            </TableRow>
-          </TableHead>
-          <ChartList></ChartList>
-        </Table>
-      </TableContainer>
+      {loading ? (
+        <Loading></Loading>
+      ) : (
+        <>
+          <div>
+            <H1>{buttonList[currentTab]}</H1>
+            {buttonList.map((list, i) => (
+              <ChartButton
+                key={i}
+                onClick={() => buttonChange(list, i)}
+                className={i === currentTab ? "focused" : ""}
+              >
+                {list}
+              </ChartButton>
+            ))}
+          </div>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="chart table">
+              <TableHead>
+                <TableRow>
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      color="primary"
+                      inputProps={{
+                        "aria-label": "select all ",
+                      }}
+                    />
+                  </TableCell>
+                  <TableCell align="center">순위</TableCell>
+                  <TableCell align="left">곡/앨범</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell align="right">아티스트</TableCell>
+                  <TableCell align="right">듣기</TableCell>
+                  <TableCell align="right">더보기</TableCell>
+                </TableRow>
+              </TableHead>
+              <ChartList></ChartList>
+            </Table>
+          </TableContainer>
+        </>
+      )}
     </div>
   );
 }

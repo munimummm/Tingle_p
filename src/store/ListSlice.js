@@ -4,6 +4,7 @@ let listSlice = createSlice({
   initialState: {
     genre: "",
     list: [],
+    loading: false,
   },
   reducers: {
     setChartLists(state, action) {
@@ -12,8 +13,12 @@ let listSlice = createSlice({
     setGenre(state, action) {
       state.genre = action.payload;
     },
+    setLoading(state, action) {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { setChartLists, setGenre, setfocusTop100 } = listSlice.actions;
+export const { setChartLists, setGenre, setfocusTop100, setLoading } =
+  listSlice.actions;
 export default listSlice;
