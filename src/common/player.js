@@ -111,5 +111,8 @@ const PlayerContainer = styled.div`
     font-size: 14px;
     vertical-align: top;
     margin-top: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;

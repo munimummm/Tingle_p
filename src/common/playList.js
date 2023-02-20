@@ -33,6 +33,10 @@ const PlayListContainer = styled.div`
     font-size: 14px;
     vertical-align: top;
     margin-top: 18px;
+    width: 280px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     &.focused {
       color: ${(props) => props.theme.mainColor};
     }
@@ -70,7 +74,7 @@ function PlayList() {
                 i === currentIndex ? "focused playListText" : "playListText"
               }
             >
-              <strong> {list.title}</strong>
+              <strong className="titleText"> {list.title}</strong>
               <br />
               <p className="artistText">{list.artist}</p>
             </div>

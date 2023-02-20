@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { setRecommendList } from "store/RecommendSlice";
 import { useState } from "react";
+import PlayButton from "./PlayButton";
+import { NavLink } from "react-router-dom";
 const RecommendWrap = styled.div`
   .suggestion_table {
     width: 100%;
@@ -20,14 +22,22 @@ const RecommendWrap = styled.div`
     margin: 0px;
     padding: 0px;
   }
-  .viewDetail {
-    width: 20%;
-    height: 240px;
-    border: none;
-  }
-  img {
+  .imgBox {
     width: 240px;
     height: 240px;
+    overflow: hidden;
+    border-radius: 4%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .imgItem {
+    width: 100%;
+    height: 100%;
+  }
+  .textBox {
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .select_icon {
     margin-left: 0px;
@@ -59,28 +69,37 @@ function RecommendList({ genreList }) {
       <table className="suggestion_table">
         <tr>
           {recommendList.map((list, i) => (
-            <td className="suggestion_box">
-              <button type="button" className="viewDetail">
-                <img
-                  src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
-                ></img>
-              </button>
-              <div className="suggestion_title">{list.title}</div>
-              <div className="suggestion_artist">{list.artist}</div>
-              {list.genre}
+            <td key={i} className="suggestion_box">
+              <NavLink>
+                <div className="imgBox">
+                  <img
+                    className="imgItem"
+                    src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+                  ></img>
+                </div>
+                <div className="textBox">
+                  <strong> {list.title}</strong>
+                  <br />
+                  <span style={{ fontSize: "12px", color: "#989898" }}>
+                    {list.artist}
+                  </span>
+                </div>
+                {list.genre}
+              </NavLink>
               <div className="select_icon">
-                {/* <PlayButton
-              onPlay={() => {
-                dispatch(
-                  setUrl({
-                    src: `mp3/${list.file_path}`,
-                    albumImage: `img/${list.cover_img}`,
-                    title: list.title,
-                    artist: list.artist,
-                  })
-                );
-              }}
-            /> */}
+                <PlayButton
+                  list={list}
+                  // onPlay={() => {
+                  //   dispatch(
+                  //     setUrl({
+                  //       src: `mp3/${list.file_path}`,
+                  //       albumImage: `img/${list.cover_img}`,
+                  //       title: list.title,
+                  //       artist: list.artist,
+                  //     })
+                  //   );
+                  // }}
+                />
               </div>
             </td>
           ))}
