@@ -48,12 +48,14 @@ function Chart() {
       getTop100();
     } else {
       const getGenreList = async () => {
+        dispatch(setLoading(true));
         const result = await axios.get(`http://localhost:1216/chartList`, {
           params: {
             genre: genre,
           },
         });
         dispatch(setChartLists(result.data));
+        dispatch(setLoading(false));
       };
 
       getGenreList();
