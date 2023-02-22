@@ -3,7 +3,7 @@ import { NavLink, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PlayButton from "./PlayButton";
 import { useDispatch, useSelector } from "react-redux";
-import { setUrl } from "store/AudioSlice";
+import { AudioActions } from "store/AudioSlice";
 const TitleContainer = styled.div`
   max-width: 1600px;
   min-width: 800px;
@@ -20,97 +20,129 @@ const TitleContainer = styled.div`
       display: table-cell;
       width: 240px;
       height: 240px;
-      margin-right: 50px;
-      margin-left: 35px;
-      border-radius: 6px;
-      overflow: hidden;
+
       img {
-        width: 125%;
-        height: 125%;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
+        border-radius: 4%;
       }
     }
 
     .trackInfo {
-      vertical-align: top;
+      vertical-align: middle;
       display: table-cell;
       position: relative;
-      padding-top: 10px;
-      padding-left: 20px;
-      text-align: start;
+      padding-left: 40px;
       cursor: pointer;
-    }
-    .trackInfo > div:first-child {
-      color: #000;
       padding-top: 24px;
+    }
+    .trackText {
+      display: flex;
+      align-items: center;
+    }
+    .firstText {
       font-size: 2em;
+    }
+
+    .dd {
+      margin-top: 7px;
+      margin-bottom: 14px;
       text-decoration: none;
     }
-    .trackInfo > div {
-      margin-top: 14px;
-      margin-bottom: 14px;
+    .dt {
+      float: left;
+      font-size: 1em;
+      margin-right: 20px;
+      vertical-align: middle;
+    }
+    .select_icon {
+      font-size: 15px;
+      width: 100px;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      border-radius: 4%;
+      line-height: 40px;
     }
   }
-  .lyricsInfo {
+  .tabText {
     width: 70px;
     height: 30px;
     padding: 8px;
     line-height: 15px;
-    margin-left: 30px;
-    color: white;
+    margin-top: 35px;
+    margin-left: 50px;
+    color: #fff;
     background: #9147ff;
     text-align: center;
     border-radius: 20px;
   }
-  .detail_lyrics {
+  .tabItem {
     white-space: pre-wrap;
     width: 40%;
     padding: 35px;
+    margin-left: 20px;
   }
 `;
 
 function DetailTitle() {
-  const location = useLocation();
-  const list = location.state.list;
+  // const location = useLocation();
+  // const list = location.state.list;
+  let detailList = useSelector((state) => state.detail.list);
   let dispatch = useDispatch();
+  console.log(detailList);
   return (
-    <TitleContainer className="detailTitle">
+    <TitleContainer>
       <div className="detailInfo">
         <div className="imgWrap">
-          <img src={process.env.PUBLIC_URL + `/img/${list.cover_img}`} />
+          <img src={process.env.PUBLIC_URL + `/img/${detailList.cover_img}`} />
         </div>
         <div className="trackInfo">
-          <div>
-            <NavLink className="detail_title">{list.title}</NavLink>
+          <div className="trackText">
+            <div className="dt">곡명 </div>
+            <NavLink
+              to={`/detail/title/${detailList._id}`}
+              className="detail_title"
+            >
+              <div className="dd firstText">{detailList.title}</div>
+            </NavLink>
           </div>
           <div>
-            <NavLink className="detail_album">{list.album}</NavLink>
+            <div className="dt">앨범 </div>
+            <NavLink
+              to={`/detail/album/${detailList._id}`}
+              className="detail_album"
+            >
+              <div className="dd"> {detailList.album}</div>
+            </NavLink>
           </div>
           <div>
-            <NavLink className="detail_artist">{list.artist}</NavLink>
+            <div className="dt">가수 </div>
+            <NavLink
+              to={`/detail/artist/${detailList._id}`}
+              className="detail_artist"
+            >
+              <div className="dd"> {detailList.artist}</div>
+            </NavLink>
           </div>
-
           <div className="select_icon">
             <PlayButton
+              list={detailList}
               onPlay={() => {
                 dispatch(
-                  setUrl({
-                    src: process.env.PUBLIC_URL + `/mp3/${list.file_path}`,
-                    albumImage:
-                      process.env.PUBLIC_URL + `/img/${list.cover_img}`,
-                    title: list.title,
-                    artist: list.artist,
+                  AudioActions.setSong({
+                    songs: detailList,
                   })
                 );
               }}
             />
-            <i className="selectList fa-solid fa-list"></i>
-            <i className="selectAdd fa-solid fa-folder-plus"></i>
+            재생
           </div>
         </div>
       </div>
-      <div class="lyricsInfo">가사</div>
-      <div className="detail_lyrics">{location.state.lyrics}</div>
+      <div className="tabText">가사</div>
+      <div className="tabItem">{detailList.lyrics}</div>
     </TitleContainer>
   );
 }
