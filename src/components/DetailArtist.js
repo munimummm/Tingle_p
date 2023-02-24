@@ -60,14 +60,13 @@ const ArtistContainer = styled.div`
     padding: 8px;
     line-height: 15px;
     margin-top: 35px;
-    margin-left: 50px;
+
     color: #fff;
     background: #9147ff;
     text-align: center;
     border-radius: 20px;
   }
   .tabItem {
-    margin-left: 55px;
     margin-top: 35px;
   }
 `;

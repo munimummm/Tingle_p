@@ -72,7 +72,7 @@ const TitleContainer = styled.div`
     padding: 8px;
     line-height: 15px;
     margin-top: 35px;
-    margin-left: 50px;
+    margin-left: 30px;
     color: #fff;
     background: #9147ff;
     text-align: center;
@@ -81,8 +81,9 @@ const TitleContainer = styled.div`
   .tabItem {
     white-space: pre-wrap;
     width: 40%;
-    padding: 35px;
-    margin-left: 20px;
+    /* padding: 35px; */
+    padding-top: 35px;
+    margin-left: 35px;
   }
 `;
 
