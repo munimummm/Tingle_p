@@ -6,21 +6,25 @@ import { setRecommendList } from "store/RecommendSlice";
 import { useState } from "react";
 import PlayButton from "./PlayButton";
 import { NavLink } from "react-router-dom";
-const RecommendWrap = styled.div`
-  .suggestion_table {
+import { setLoading } from "store/ListSlice";
+import Loading from "pages/Loading";
+import { setDetailList } from "store/DetailSlice";
+import { AudioActions } from "store/AudioSlice";
+const RecommendBox = styled.div`
+  .recommend_table {
     width: 100%;
-    height: 20vh;
-    padding-left: 10px;
-    border-collapse: separate;
-    border-spacing: 10px;
-    margin-bottom: 50px;
+    /* margin-bottom: 30px; */
+    /* display: block; */
   }
-  .suggestion_box {
+  .recommend_box {
+    position: relative;
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 30px;
+    word-break: break-all;
+    vertical-align: top;
     background: #ffffff;
-    width: 240px;
-    height: 240px;
-    margin: 0px;
-    padding: 0px;
+    padding: 0 25px 40px 0;
   }
   .imgBox {
     width: 240px;
@@ -38,74 +42,84 @@ const RecommendWrap = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 16px;
   }
   .select_icon {
-    margin-left: 0px;
-    margin-top: 32px;
+    margin-top: 24px;
   }
 `;
 function RecommendList({ genreList }) {
   const [recommendList, setRecommendList] = useState([]);
-  let recommend = useSelector((state) => state.recommend.list);
+  // let recommend = useSelector((state) => state.recommend.list);
   let dispatch = useDispatch();
-  console.log("받은장르" + genreList);
+  let loading = useSelector((state) => state.list.loading);
+  console.log("누른아이디" + genreList);
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:1216/recommendList`, {
+    const getRecommendList = async () => {
+      dispatch(setLoading(true));
+      const result = await axios.get(`http://localhost:1216/recommendList`, {
         params: {
           genre: genreList,
         },
-      })
-      .then((result) => {
-        console.log(result.data);
-        setRecommendList(result.data);
-      })
-      .catch(() => {
-        console.log("실패함");
       });
+      setRecommendList(result.data);
+      dispatch(setLoading(false));
+      console.log(result.data);
+    };
+    getRecommendList();
   }, [genreList]);
+
   return (
-    <RecommendWrap>
-      <table className="suggestion_table">
-        <tr>
-          {recommendList.map((list, i) => (
-            <td key={i} className="suggestion_box">
-              <NavLink>
-                <div className="imgBox">
-                  <img
-                    className="imgItem"
-                    src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
-                  ></img>
-                </div>
-                <div className="textBox">
-                  <strong> {list.title}</strong>
-                  <br />
-                  <span style={{ fontSize: "12px", color: "#989898" }}>
-                    {list.artist}
-                  </span>
-                </div>
-                {list.genre}
-              </NavLink>
-              <div className="select_icon">
-                <PlayButton
-                  list={list}
-                  // onPlay={() => {
-                  //   dispatch(
-                  //     setUrl({
-                  //       src: `mp3/${list.file_path}`,
-                  //       albumImage: `img/${list.cover_img}`,
-                  //       title: list.title,
-                  //       artist: list.artist,
-                  //     })
-                  //   );
-                  // }}
-                />
+    <RecommendBox>
+      <ul className="recommend_table">
+        {recommendList.map((list, i) => (
+          <li key={i} className="recommend_box">
+            <NavLink
+              to={`/detail/title/${list._id}`}
+              onClick={() => {
+                dispatch(setDetailList(list));
+              }}
+            >
+              <div className="imgBox">
+                <img
+                  className="imgItem"
+                  src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+                ></img>
               </div>
-            </td>
-          ))}
-        </tr>
-      </table>
-    </RecommendWrap>
+              <div className="textBox">
+                <strong> {list.title}</strong>
+                <br />
+              </div>
+            </NavLink>
+            <NavLink
+              to={`/detail/artist/${list._id}`}
+              onClick={() => {
+                dispatch(setDetailList(list));
+              }}
+            >
+              <span style={{ fontSize: "14px", color: "#989898" }}>
+                {list.artist}
+              </span>
+            </NavLink>
+            {/* {list.genre} */}
+
+            <div className="select_icon">
+              <PlayButton
+                list={list}
+                onPlay={() => {
+                  dispatch(
+                    AudioActions.setSong({
+                      songs: list,
+                    })
+                  );
+                }}
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </RecommendBox>
   );
 }
 export default RecommendList;
