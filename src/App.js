@@ -1,7 +1,7 @@
 // import "./App.css";
 import Nav from "./common/nav";
 import Player from "./common/Player";
-import Search from "./pages/Search";
+import SearchResult from "./pages/SearchResult";
 import Recommend from "./pages/Recommend";
 import Chart from "./pages/Chart";
 import Storage from "./pages/Storage";
@@ -14,29 +14,37 @@ import DetailArtist from "components/DetailArtist";
 
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+import SearchTitle from "components/SearchTitle";
+import SearchAlbum from "components/SearchAlbum";
+import SearchArtist from "components/SearchArtist";
 
 function App() {
-  const PageContainer = styled.div`
-    padding-left: 250px;
+  const ContainerWrap = styled.div`
     margin-bottom: 100px;
+    max-width: 1800px;
   `;
-  const PageWrapper = styled.div`
+  const PageContainer = styled.div`
     width: 100%;
-    padding: 20px;
+    padding: 55px 20px 20px 290px;
     overflow-y: auto;
     .noPageImg {
       width: 256px;
       height: 256px;
     }
   `;
+
   return (
     <div className="App">
-      <Nav></Nav>
-      <PageContainer>
-        <PageWrapper>
+      <ContainerWrap>
+        <Nav></Nav>
+        <PageContainer>
           <Routes>
             <Route path="*" element={<div>준비중입니다.</div>} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search" element={<SearchResult />}>
+              <Route path="title" element={<SearchTitle />} />
+              <Route path="album" element={<SearchAlbum />} />
+              <Route path="artist" element={<SearchArtist />} />
+            </Route>
             <Route path="/recommend" element={<Recommend />} />
             <Route path="/chart" element={<Chart />} />
             <Route path="/storage" element={<Storage />} />
@@ -48,8 +56,8 @@ function App() {
               <Route path="artist/:detailId" element={<DetailArtist />} />
             </Route>
           </Routes>
-        </PageWrapper>
-      </PageContainer>
+        </PageContainer>
+      </ContainerWrap>
       <Player></Player>
     </div>
   );
