@@ -9,14 +9,11 @@ import { AudioActions } from "store/AudioSlice";
 
 import { setPlayLists } from "store/PlayListSlice";
 import { setChartLists } from "store/ListSlice";
+import { setDetailList } from "store/DetailSlice";
 function ChartList() {
   const navigate = useNavigate();
   let chartLists = useSelector((state) => state.list.list);
   let dispatch = useDispatch();
-
-  // "<c:url value="/mp3/"/>" + s_LibraryData[i].file_path)
-  // <img src={process.env.PUBLIC_URL + "/img/Adele.jpg"} />
-
   return (
     <TableBody>
       {chartLists.map((list, i) => (
@@ -38,6 +35,7 @@ function ChartList() {
             component="th"
             scope="row"
             onClick={() => {
+              dispatch(setDetailList(list));
               navigate(`/detail/title/${list._id}`, {
                 state: {
                   list: list,
@@ -47,11 +45,14 @@ function ChartList() {
           >
             <strong> {list.title}</strong>
             <br />
-            {list.album}
+            <span style={{ fontSize: "12px", color: "#989898" }}>
+              {list.album}
+            </span>
           </TableCell>
           <TableCell
             align="right"
             onClick={() => {
+              dispatch(setDetailList(list));
               navigate(`/detail/artist/${list._id}`, {
                 state: {
                   list: list,
@@ -69,18 +70,7 @@ function ChartList() {
                 dispatch(
                   AudioActions.setSong({
                     songs: list,
-                    // title: list.title,
-                    // artist: list.artist,
-                    // cover_img: list.cover_img,
-                    // file_path: list.file_path,
                   })
-                  //  ({
-                  //   title: list.title,
-                  //   artist: list.artist,
-                  //   file_path: list.file_path,
-                  //   cover_img: list.cover_img,
-                  //   songs: list,
-                  // })
                 );
               }}
             />
