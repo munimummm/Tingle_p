@@ -116,7 +116,6 @@ function Chart() {
 export default Chart;
 let H1 = styled.h1`
   font-weight: 500;
-  margin-top: 10px;
 `;
 
 let ChartButton = styled.button`

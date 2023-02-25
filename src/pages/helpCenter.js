@@ -13,7 +13,7 @@ import {
   ButtonGroup,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import NoticeModal from "components/NoticeModal";
+
 import boardData from "api/boardData";
 const HelpContainer = styled.div`
   width: 100%;
