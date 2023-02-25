@@ -116,6 +116,7 @@ function Search() {
   // console.log(searchValue);
   // console.log(type);
   console.log(titleOpen);
+
   return (
     <FindContainer>
       <h1 className="find_h1">'{searchValue}' 검색결과</h1>

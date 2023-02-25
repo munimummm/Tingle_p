@@ -21,6 +21,8 @@ import {
 } from "store/SearchSlice";
 import axios from "axios";
 import styled from "styled-components";
+import TableHeader from "./TableHeader";
+import TableItems from "./TableItems";
 
 const TitleContainer = styled.div`
   .findResult_h1 {
@@ -46,16 +48,21 @@ function SearchTitle({ searchValue }) {
   const [searchList, setSearchList] = useState([]);
   let titleOpen = useSelector((state) => state.search.type);
   useEffect(() => {
-    const getSearchResult = async () => {
-      const result = await axios.get(`http://localhost:1216/searchList/title`, {
-        params: {
-          value: searchValue,
-        },
-      });
-      // dispatch(setSearchList(result.data));
-      setSearchList(result.data);
-    };
-    getSearchResult();
+    if (searchValue.length > 0) {
+      const getSearchResult = async () => {
+        const result = await axios.get(
+          `http://localhost:1216/searchList/title`,
+          {
+            params: {
+              value: searchValue,
+            },
+          }
+        );
+        // dispatch(setSearchList(result.data));
+        setSearchList(result.data);
+      };
+      getSearchResult();
+    }
   }, [searchValue]);
 
   console.log(searchList);
@@ -72,83 +79,12 @@ function SearchTitle({ searchValue }) {
         곡
         <ArrowForwardIos className="arrowIcon" />
       </h2>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} className="tabItem">
         <Table sx={{ minWidth: 650 }} aria-label="chart table">
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  inputProps={{
-                    "aria-label": "select all ",
-                  }}
-                />
-              </TableCell>
-              <TableCell>순위</TableCell>
-              <TableCell>곡/앨범</TableCell>
-              <TableCell></TableCell>
-              <TableCell align="right">아티스트</TableCell>
-              <TableCell align="right">듣기</TableCell>
-              <TableCell align="right">더보기</TableCell>
-            </TableRow>
-          </TableHead>
+          <TableHeader></TableHeader>
           <TableBody>
             {searchList.map((list, i) =>
-              i < limit ? (
-                <TableRow
-                  key={i}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox color="primary" />
-                  </TableCell>
-                  <TableCell>{i + 1}</TableCell>
-                  <TableCell>
-                    <img
-                      style={{ width: "50px", height: "50px" }}
-                      src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
-                    ></img>
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    sx={{ whiteSpace: "preLine" }}
-                    onClick={() => {
-                      navigate("/detail/title", {
-                        state: {
-                          title: list.title,
-                          album: list.album,
-                          artist: list.artist,
-                          lyrics: list.lyrics,
-                        },
-                      });
-                    }}
-                  >
-                    {list.title}\n{list.album}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    onClick={() => {
-                      navigate("/detail/artist", {
-                        state: {
-                          title: list.title,
-                          album: list.album,
-                          artist: list.artist,
-                          lyrics: list.lyrics,
-                        },
-                      });
-                    }}
-                  >
-                    {list.artist}
-                  </TableCell>
-                  <TableCell align="right">
-                    <PlayArrow />
-                  </TableCell>
-                  <TableCell align="right">
-                    <MoreVert />
-                  </TableCell>
-                </TableRow>
-              ) : null
+              i < limit ? <TableItems key={i} list={list} /> : null
             )}
           </TableBody>
         </Table>

@@ -11,6 +11,7 @@ import {
 } from "store/SearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { setDetailList } from "store/DetailSlice";
 
 const FindList = styled.li`
   display: inline-block;
@@ -98,11 +99,16 @@ function SearchArtist({ searchValue }) {
           i < limit ? (
             <FindList key={i}>
               <div>
-                <NavLink>
+                <NavLink
+                  to={`/detail/artist/${list._id}`}
+                  onClick={() => {
+                    dispatch(setDetailList(list));
+                  }}
+                >
                   <div className="imgBox">
                     <img
                       className="itemImg"
-                      src={"img/" + list.artist_img + ""}
+                      src={process.env.PUBLIC_URL + `/img/${list.artist_img}`}
                     ></img>
                   </div>
                 </NavLink>

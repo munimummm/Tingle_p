@@ -12,6 +12,7 @@ import {
 } from "store/SearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { setDetailList } from "store/DetailSlice";
 const AContainer = styled.div`
   .findResult_h1 {
     cursor: pointer;
@@ -104,7 +105,12 @@ function SearchAlbum({ searchValue }) {
           i < limit ? (
             <FindList key={i}>
               <div>
-                <NavLink>
+                <NavLink
+                  to={`/detail/album/${list._id}`}
+                  onClick={() => {
+                    dispatch(setDetailList(list));
+                  }}
+                >
                   <div className="imgBox">
                     <img
                       className="imgItem"
