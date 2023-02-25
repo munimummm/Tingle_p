@@ -1,0 +1,68 @@
+diff --git a/node_modules/react-h5-audio-player/lib/styles.css b/node_modules/react-h5-audio-player/lib/styles.css
+index 21a7bef..bc995bf 100644
+--- a/node_modules/react-h5-audio-player/lib/styles.css
++++ b/node_modules/react-h5-audio-player/lib/styles.css
+@@ -5,8 +5,8 @@
+   line-height: 1;
+   font-family: inherit;
+   width: 100%;
+-  padding: 10px 15px;
+-  background-color: #fff;
++  padding: 8px 4px 0px 4px;
++  /* background-color: #fff; */
+   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+ }
+ .rhap_container:focus:not(:focus-visible) {
+@@ -77,7 +77,7 @@
+ }
+ 
+ .rhap_time {
+-  color: #333;
++  color: #fff;
+   font-size: 16px;
+   user-select: none;
+   -webkit-user-select: none;
+@@ -97,7 +97,7 @@
+   height: 100%;
+   position: absolute;
+   z-index: 2;
+-  background-color: #868686;
++  background-color: #9147ff;
+   border-radius: 2px;
+ }
+ 
+@@ -121,7 +121,7 @@
+   height: 20px;
+   margin-left: -10px;
+   top: -8px;
+-  background: #868686;
++  /* background: #868686; */
+   border-radius: 50px;
+   box-shadow: rgba(134, 134, 134, 0.5) 0 0 5px;
+ }
+@@ -155,17 +155,19 @@
+ }
+ 
+ .rhap_main-controls-button {
+-  margin: 0 3px;
+-  color: #868686;
++  margin: 0px 8px 10px 8px
++;
++  color: #fff;
+   font-size: 35px;
+   width: 35px;
+   height: 35px;
+ }
+ 
+ .rhap_play-pause-button {
+-  font-size: 40px;
+-  width: 40px;
+-  height: 40px;
++  font-size: 60px;
++  width: 60px;
++  height: 60px;
++  color: #9147ff;
+ }
+ 
+ .rhap_volume-controls {
+ }

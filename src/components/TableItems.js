@@ -31,14 +31,7 @@ function TableItems({ list }) {
         ></img>
       </TableCell>
       <TableCell component="th" scope="row" sx={{ whiteSpace: "preLine" }}>
-        <strong
-          onClick={() => {
-            navigate(`/detail/title/${list._id}`);
-            dispatch(setDetailList(list));
-          }}
-        >
-          {list.title}
-        </strong>
+        <strong>{list.title}</strong>
         <br />
         <span
           style={{ fontSize: "12px", color: "#989898" }}
