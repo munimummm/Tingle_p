@@ -59,11 +59,11 @@ const TitleContainer = styled.div`
     .select_icon {
       font-size: 15px;
       width: 100px;
-      background: #000;
+      background: #9147ff;
       color: #fff;
       text-align: center;
-      border-radius: 4%;
-      line-height: 40px;
+      border-radius: 6px;
+      line-height: 45px;
     }
   }
   .tabText {
