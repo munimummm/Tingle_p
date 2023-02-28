@@ -8,13 +8,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Button,
   ButtonGroup,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import boardData from "api/boardData";
+import AlertDialog from "components/AlertDialog";
 const HelpContainer = styled.div`
   width: 100%;
   margin-bottom: 10px;
@@ -36,6 +36,16 @@ function HelpCenter() {
   const [modal, setModal] = useState(false);
   const [board] = useState(boardData);
   const [index, setIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <HelpContainer>
       <div className="helpHeader">
@@ -43,7 +53,7 @@ function HelpCenter() {
         <ButtonGroup variant="contained" color="success">
           <Button>공지사항</Button>
           <Button>FAQ</Button>
-          <Button>1:1문의</Button>
+          <Button onClick={handleClickOpen}>1:1문의</Button>
         </ButtonGroup>
         <h2>공지사항</h2>
       </div>
@@ -62,6 +72,7 @@ function HelpCenter() {
             {board.map((list, i) => (
               <>
                 <TableRow
+                  key={i}
                   onClick={() => {
                     setIndex(i);
                     setModal(!modal);
@@ -70,7 +81,13 @@ function HelpCenter() {
                   {" "}
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>{list.type}</TableCell>
-                  <TableCell>{list.title}</TableCell>
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    sx={{ whiteSpace: "preLine" }}
+                  >
+                    {list.title}
+                  </TableCell>
                   <TableCell align="center">{list.date}</TableCell>
                   <TableCell>
                     {modal === true ? (
@@ -95,6 +112,13 @@ function HelpCenter() {
             ))}
           </TableBody>
         </Table>
+        {open === true ? (
+          <AlertDialog
+            open={open}
+            text={"로그인 후 이용할 수 있습니다."}
+            handleClose={handleClose}
+          />
+        ) : null}
       </TableContainer>
     </HelpContainer>
   );

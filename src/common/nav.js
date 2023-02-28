@@ -6,12 +6,13 @@ import {
   BarChart,
   Storage,
   SupportAgent,
-  ManageAccounts,
   AccountCircle,
 } from "@mui/icons-material";
 import { Button, ButtonGroup, TextField, InputAdornment } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setGenre } from "store/ListSlice";
+import AlertDialog from "components/AlertDialog";
+import { useState } from "react";
 
 let SidebarContainer = styled.div`
   position: fixed;
@@ -78,7 +79,13 @@ function Nav() {
       }
     }
   };
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+  console.log(Button.innerText);
   return (
     <SidebarContainer>
       <SidebarNav>
@@ -92,7 +99,8 @@ function Nav() {
         <Button
           startIcon={<AccountCircle />}
           onClick={() => {
-            navigate("/");
+            setOpen(true);
+            setText("서비스 준비중입니다.");
           }}
         >
           로그인
@@ -138,14 +146,6 @@ function Nav() {
               차트
             </Button>
             <Button
-              startIcon={<Storage />}
-              onClick={() => {
-                navigate("/storage");
-              }}
-            >
-              보관함
-            </Button>
-            <Button
               startIcon={<SupportAgent />}
               onClick={() => {
                 navigate("/helpCenter");
@@ -154,15 +154,28 @@ function Nav() {
               고객센터
             </Button>
             <Button
+              startIcon={<Storage />}
+              onClick={() => {
+                setOpen(true);
+                setText("로그인 후 이용할 수 있습니다.");
+              }}
+            >
+              보관함
+            </Button>
+
+            {/* <Button
               startIcon={<ManageAccounts />}
               onClick={() => {
                 navigate("/myPage");
               }}
             >
               마이페이지
-            </Button>
+            </Button> */}
           </ButtonGroup>
         </MenuAll>
+        {open === true ? (
+          <AlertDialog open={open} text={text} handleClose={handleClose} />
+        ) : null}
       </SidebarNav>
     </SidebarContainer>
   );
