@@ -58,29 +58,26 @@ function Player() {
   let artist = useSelector((state) => state.audio.artist);
   let currentIndex = useSelector((state) => state.audio.currentIndex);
   let listSongs = useSelector((state) => state.audio.listSongs);
-  let playerPlaying = useSelector((state) => state.audio.playerPlaying);
-
-  // if (!file_path) {
-  //   return null;
-  // }
+  useEffect(() => {
+    if (isPlaying) {
+      playerRef.current?.audio.current.play();
+    } else {
+      playerRef.current?.audio.current.pause();
+    }
+  }, [isPlaying]);
+  if (!file_path) {
+    return null;
+  }
 
   const handleClickPrevious = () => {
     dispatch(AudioActions.setCurrentIndexPrevious());
-    dispatch(
-      AudioActions.setSong({
-        songs: listSongs,
-      })
-    );
+    dispatch(AudioActions.setSong(listSongs[currentIndex]));
   };
   const handleClickNext = () => {
     dispatch(AudioActions.setCurrentIndexNext());
-    dispatch(
-      AudioActions.setSong({
-        songs: listSongs,
-      })
-    );
+    dispatch(AudioActions.setSong(listSongs[currentIndex]));
   };
-
+  // console.log(listSongs);
   return (
     <>
       <PlayerContainer>
@@ -109,6 +106,9 @@ function Player() {
           }}
         ></AudioPlayer>
         <FormatListBulleted
+          className={
+            playListOpen === true ? "playListIcon onPlayList" : "playListIcon"
+          }
           style={{
             width: "36px",
             height: "36px",

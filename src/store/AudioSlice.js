@@ -8,22 +8,18 @@ const INITIAL_STATE = {
   isPlaying: false,
   listSongs: [
     // {
-    //   _id: 22,
-    //   artist: "Adele",
-    //   title: "Hello",
-    //   file_path: "Adele-Hello.mp3",
-    //   cover_img: "25.jpeg",
+    //   file_path: null,
+    //   cover_img: `img/default_image.png`,
+    //   title: null,
+    //   artist: null,
     // },
   ],
   currentIndex: 0,
-  playerPlaying: {
-    songs: [],
-  },
 };
 
 const play = (state) => {
-  if (state.playerPlaying.songs.length > 0) {
-    const song = state.playerPlaying.songs[state.currentIndex];
+  if (state.listSongs.length > 0) {
+    const song = state.listSongs[state.currentIndex];
     state.title = song.title;
     state.file_path = process.env.PUBLIC_URL + `/mp3/${song.file_path}`;
     state.cover_img = process.env.PUBLIC_URL + `/img/${song.cover_img}`;
@@ -42,6 +38,7 @@ const AudioSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setAddPlayList(state, action) {
+      state.currentIndex = 0;
       state.listSongs.unshift(action.payload);
     },
     setCurrentIndexPrevious(state) {
@@ -60,9 +57,7 @@ const AudioSlice = createSlice({
     },
     setSong(state, action) {
       const { songs } = action.payload;
-      state.playerPlaying = {
-        songs: [].concat(songs),
-      };
+      state.listSongs.concat(songs);
       play(state);
       console.log(state.currentIndex);
     },
