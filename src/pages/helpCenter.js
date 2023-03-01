@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
-import boardData from "api/boardData";
 import AlertDialog from "components/AlertDialog";
 const HelpContainer = styled.div`
   width: 100%;
@@ -34,9 +33,26 @@ const HelpContainer = styled.div`
 `;
 function HelpCenter() {
   const [modal, setModal] = useState(false);
-  const [board] = useState(boardData);
+  // const [board] = useState(boardData);
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const [helpList, setHelpList] = useState([]);
+  const [type, setType] = useState("공지사항");
+  useEffect(() => {
+    const typeClick = async () => {
+      try {
+        const result = await axios.get(`http://localhost:1216/helpCenter`, {
+          params: {
+            type: type,
+          },
+        });
+        setHelpList(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    typeClick();
+  }, [type]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,11 +67,23 @@ function HelpCenter() {
       <div className="helpHeader">
         <h1>고객센터</h1>
         <ButtonGroup variant="contained" color="success">
-          <Button>공지사항</Button>
-          <Button>FAQ</Button>
+          <Button
+            onClick={() => {
+              setType("공지사항");
+            }}
+          >
+            공지사항
+          </Button>
+          <Button
+            onClick={() => {
+              setType("FAQ");
+            }}
+          >
+            FAQ
+          </Button>
           <Button onClick={handleClickOpen}>1:1문의</Button>
         </ButtonGroup>
-        <h2>공지사항</h2>
+        <h2>{type}</h2>
       </div>
       <TableContainer>
         <Table sx={{ minWidth: 650 }}>
@@ -69,10 +97,9 @@ function HelpCenter() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {board.map((list, i) => (
+            {helpList.map((list, i) => (
               <>
                 <TableRow
-                  key={i}
                   onClick={() => {
                     setIndex(i);
                     setModal(!modal);
