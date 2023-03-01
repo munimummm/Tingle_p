@@ -6,7 +6,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Noto Sans KR', sans-serif;
-
 }
 ol,
 ul,
@@ -15,7 +14,15 @@ li {
 }
 a {
   text-decoration: none;
+  color:#000
+
 }
+a:hover{
+    color:#9147ff;
+  }
+span:hover{
+    text-decoration: underline;
+  }
 
 *{
   margin: 0;
