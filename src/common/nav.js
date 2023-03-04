@@ -85,7 +85,7 @@ function Nav() {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(Button.innerText);
+
   return (
     <SidebarContainer>
       <SidebarNav>
@@ -140,7 +140,7 @@ function Nav() {
               startIcon={<BarChart />}
               onClick={() => {
                 dispatch(setGenre("TOP100"));
-                navigate("/chart");
+                navigate("/chart/0");
               }}
             >
               차트
@@ -148,7 +148,7 @@ function Nav() {
             <Button
               startIcon={<SupportAgent />}
               onClick={() => {
-                navigate("/helpCenter");
+                navigate("/helpCenter/notice");
               }}
             >
               고객센터

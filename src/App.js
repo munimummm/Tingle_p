@@ -11,7 +11,7 @@ import Detail from "./pages/Detail";
 import DetailTitle from "components/DetailTitle";
 import DetailAlbum from "components/DetailAlbum";
 import DetailArtist from "components/DetailArtist";
-
+import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import SearchTitle from "components/SearchTitle";
@@ -35,30 +35,32 @@ function App() {
 
   return (
     <div className="App">
-      <ContainerWrap>
-        <Nav></Nav>
-        <PageContainer>
-          <Routes>
-            <Route path="*" element={<div>준비중입니다.</div>} />
-            <Route path="/search" element={<SearchResult />}>
-              <Route path="title" element={<SearchTitle />} />
-              <Route path="album" element={<SearchAlbum />} />
-              <Route path="artist" element={<SearchArtist />} />
-            </Route>
-            <Route path="/recommend" element={<Recommend />} />
-            <Route path="/chart" element={<Chart />} />
-            <Route path="/storage" element={<Storage />} />
-            <Route path="/helpCenter" element={<HelpCenter />} />
-            <Route path="/myPage" element={<MyPage />} />
-            <Route path="/detail" element={<Detail />}>
-              <Route path="title/:detailId" element={<DetailTitle />} />
-              <Route path="album/:detailId" element={<DetailAlbum />} />
-              <Route path="artist/:detailId" element={<DetailArtist />} />
-            </Route>
-          </Routes>
-        </PageContainer>
-      </ContainerWrap>
-      <Player></Player>
+      <BrowserRouter>
+        <ContainerWrap>
+          <Nav></Nav>
+          <PageContainer>
+            <Routes>
+              <Route path="*" element={<div>준비중입니다.</div>} />
+              <Route path="/search" element={<SearchResult />}>
+                <Route path="title" element={<SearchTitle />} />
+                <Route path="album" element={<SearchAlbum />} />
+                <Route path="artist" element={<SearchArtist />} />
+              </Route>
+              <Route path="/recommend" element={<Recommend />} />
+              <Route path="/chart/:id" element={<Chart />} />
+              <Route path="/storage" element={<Storage />} />
+              <Route path="/helpCenter/:id" element={<HelpCenter />} />
+              <Route path="/myPage" element={<MyPage />} />
+              <Route path="/detail" element={<Detail />}>
+                <Route path="title/:detailId" element={<DetailTitle />} />
+                <Route path="album/:detailId" element={<DetailAlbum />} />
+                <Route path="artist/:detailId" element={<DetailArtist />} />
+              </Route>
+            </Routes>
+          </PageContainer>
+        </ContainerWrap>
+        <Player></Player>
+      </BrowserRouter>
     </div>
   );
 }

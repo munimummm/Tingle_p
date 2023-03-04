@@ -14,6 +14,7 @@ import {
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import AlertDialog from "components/AlertDialog";
+import { useNavigate } from "react-router-dom";
 const HelpContainer = styled.div`
   width: 100%;
   margin-bottom: 10px;
@@ -32,6 +33,7 @@ const HelpContainer = styled.div`
   }
 `;
 function HelpCenter() {
+  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   // const [board] = useState(boardData);
   const [index, setIndex] = useState(0);
@@ -70,6 +72,7 @@ function HelpCenter() {
           <Button
             onClick={() => {
               setType("공지사항");
+              navigate(`/helpCenter/notice`);
             }}
           >
             공지사항
@@ -77,6 +80,7 @@ function HelpCenter() {
           <Button
             onClick={() => {
               setType("FAQ");
+              navigate(`/helpCenter/faq`);
             }}
           >
             FAQ
