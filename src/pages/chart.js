@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 
 import {
   Table,
-  TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Paper,
-  Checkbox,
 } from "@mui/material";
 
 import ChartList from "components/ChartList";
@@ -17,13 +15,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setChartLists, setGenre, setLoading } from "store/ListSlice";
 import Loading from "./Loading";
+import { Link, useNavigate } from "react-router-dom";
 
 function Chart() {
   let dispatch = useDispatch();
   let genre = useSelector((state) => state.list.genre);
   let loading = useSelector((state) => state.list.loading);
-
-  const [currentTab, setcurrentTab] = useState(0);
+  // const [genre, setGenre] = useState("TOP100");
+  const navigate = useNavigate();
   const buttonList = [
     "TOP100",
     "발라드",
@@ -39,33 +38,36 @@ function Chart() {
   useEffect(() => {
     if (genre === "TOP100") {
       const getTop100 = async () => {
-        dispatch(setLoading(true));
-        const result = await axios.get(`http://localhost:1216/chartList100`);
-        dispatch(setChartLists(result.data));
-        dispatch(setLoading(false));
-        console.log(result.data);
+        try {
+          dispatch(setLoading(true));
+          const result = await axios.get(`http://localhost:1216/chartList100`);
+          dispatch(setChartLists(result.data));
+          dispatch(setLoading(false));
+          console.log(result.data);
+        } catch (error) {
+          console.log(error);
+        }
       };
       getTop100();
     } else {
       const getGenreList = async () => {
-        dispatch(setLoading(true));
-        const result = await axios.get(`http://localhost:1216/chartList`, {
-          params: {
-            genre: genre,
-          },
-        });
-        dispatch(setChartLists(result.data));
-        dispatch(setLoading(false));
+        try {
+          dispatch(setLoading(true));
+          const result = await axios.get(`http://localhost:1216/chartList`, {
+            params: {
+              genre: genre,
+            },
+          });
+          dispatch(setChartLists(result.data));
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+        }
       };
 
       getGenreList();
     }
   }, [genre]);
-
-  const buttonChange = (list, i) => {
-    dispatch(setGenre(list));
-    setcurrentTab(i);
-  };
 
   return (
     <div>
@@ -74,12 +76,15 @@ function Chart() {
       ) : (
         <>
           <div>
-            <H1>{buttonList[currentTab]}</H1>
+            <H1>{genre}</H1>
             {buttonList.map((list, i) => (
               <ChartButton
                 key={i}
-                onClick={() => buttonChange(list, i)}
-                className={i === currentTab ? "focused" : ""}
+                onClick={() => {
+                  dispatch(setGenre(list));
+                  navigate(`/chart/${i}`);
+                }}
+                className={list === genre ? "focused" : ""}
               >
                 {list}
               </ChartButton>
@@ -89,14 +94,6 @@ function Chart() {
             <Table sx={{ minWidth: 650 }} aria-label="chart table">
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      inputProps={{
-                        "aria-label": "select all ",
-                      }}
-                    />
-                  </TableCell>
                   <TableCell align="center">순위</TableCell>
                   <TableCell align="left">곡/앨범</TableCell>
                   <TableCell></TableCell>
