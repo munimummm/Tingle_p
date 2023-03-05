@@ -1,5 +1,5 @@
 import { MoreVert, PlayArrow } from "@mui/icons-material";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PlayButton from "./PlayButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -102,30 +102,27 @@ function DetailTitle() {
         <div className="trackInfo">
           <div className="trackText">
             <div className="dt">곡명 </div>
-            <NavLink
-              to={`/detail/title/${detailList._id}`}
-              className="detail_title"
-            >
+            <Link to="#" className="detail_title">
               <div className="dd firstText">{detailList.title}</div>
-            </NavLink>
+            </Link>
           </div>
           <div>
             <div className="dt">앨범 </div>
-            <NavLink
-              to={`/detail/album/${detailList._id}`}
+            <Link
+              to={`/detail/album/${detailList.album}`}
               className="detail_album"
             >
               <div className="dd"> {detailList.album}</div>
-            </NavLink>
+            </Link>
           </div>
           <div>
             <div className="dt">가수 </div>
-            <NavLink
-              to={`/detail/artist/${detailList._id}`}
+            <Link
+              to={`/detail/artist/${detailList.artist_no}`}
               className="detail_artist"
             >
               <div className="dd"> {detailList.artist}</div>
-            </NavLink>
+            </Link>
           </div>
           <div className="select_icon">
             <PlayButton

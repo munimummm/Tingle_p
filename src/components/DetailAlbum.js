@@ -1,10 +1,9 @@
-import { MoreVert, PlayArrow } from "@mui/icons-material";
 import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import TableHeader from "./TableHeader";
 import TableItems from "./TableItems";
@@ -96,13 +95,20 @@ function DetailAlbum() {
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getDetailResult = async () => {
-      const result = await axios.get(`http://localhost:1216/detailList/album`, {
-        params: {
-          value: detailList.album,
-        },
-      });
-      console.log(result.data);
-      setSearchList(result.data);
+      try {
+        const result = await axios.get(
+          `http://localhost:1216/detailList/album`,
+          {
+            params: {
+              value: detailList.album,
+            },
+          }
+        );
+        console.log(result.data);
+        setSearchList(result.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getDetailResult();
   }, []);
@@ -116,21 +122,18 @@ function DetailAlbum() {
         <div className="trackInfo">
           <div className="trackText">
             <div className="dt">앨범 </div>
-            <NavLink
-              to={`/detail/album/${detailList._id}`}
-              className="detail_title"
-            >
+            <Link to="#" className="detail_title">
               <div className="dd firstText">{detailList.album}</div>
-            </NavLink>
+            </Link>
           </div>
           <div>
             <div className="dt">가수 </div>
-            <NavLink
-              to={`/detail/artist/${detailList._id}`}
+            <Link
+              to={`/detail/artist/${detailList.artist}`}
               className="detail_album"
             >
               <div className="dd"> {detailList.artist}</div>
-            </NavLink>
+            </Link>
           </div>
         </div>
       </div>

@@ -21,9 +21,6 @@ function ChartList() {
           key={i}
           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
-          <TableCell padding="checkbox">
-            <Checkbox color="primary" />
-          </TableCell>
           <TableCell align="center">{i + 1}</TableCell>
           <TableCell align="left">
             <img
@@ -31,47 +28,54 @@ function ChartList() {
               src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
             ></img>
           </TableCell>
-          <TableCell
-            component="th"
-            scope="row"
-            onClick={() => {
-              dispatch(setDetailList(list));
-              navigate(`/detail/title/${list._id}`, {
-                state: {
-                  list: list,
-                },
-              });
-            }}
-          >
-            <strong> {list.title}</strong>
+          <TableCell component="th" scope="row">
+            <strong
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                dispatch(setDetailList(list));
+                navigate(`/detail/title/${list.title}`, {
+                  state: {
+                    list: list,
+                  },
+                });
+              }}
+            >
+              {" "}
+              {list.title}
+            </strong>
             <br />
-            <span style={{ fontSize: "12px", color: "#989898" }}>
+            <span
+              style={{ cursor: "pointer", fontSize: "12px", color: "#989898" }}
+              onClick={() => {
+                dispatch(setDetailList(list));
+                navigate(`/detail/album/${list.album}`, {
+                  state: {
+                    list: list,
+                  },
+                });
+              }}
+            >
               {list.album}
             </span>
           </TableCell>
-          <TableCell
-            align="right"
-            onClick={() => {
-              dispatch(setDetailList(list));
-              navigate(`/detail/artist/${list._id}`, {
-                state: {
-                  list: list,
-                },
-              });
-            }}
-          >
-            {list.artist}
+          <TableCell align="right">
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate(`/detail/artist/${list.artist_no}`);
+                dispatch(setDetailList(list));
+              }}
+            >
+              {" "}
+              {list.artist}
+            </span>
           </TableCell>
           <TableCell align="right">
             {" "}
             <PlayButton
               list={list}
               onPlay={() => {
-                dispatch(
-                  AudioActions.setSong({
-                    songs: list,
-                  })
-                );
+                dispatch(AudioActions.setSong(list));
               }}
             />
           </TableCell>

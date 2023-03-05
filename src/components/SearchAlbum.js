@@ -73,13 +73,20 @@ function SearchAlbum({ searchValue }) {
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getSearchResult = async () => {
-      const result = await axios.get(`http://localhost:1216/searchList/album`, {
-        params: {
-          value: searchValue,
-        },
-      });
-      // dispatch(setSearchList(result.data));
-      setSearchList(result.data);
+      try {
+        const result = await axios.get(
+          `http://localhost:1216/searchList/album`,
+          {
+            params: {
+              value: searchValue,
+            },
+          }
+        );
+        // dispatch(setSearchList(result.data));
+        setSearchList(result.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getSearchResult();
   }, [searchValue]);
@@ -106,7 +113,7 @@ function SearchAlbum({ searchValue }) {
             <FindList key={i}>
               <div>
                 <NavLink
-                  to={`/detail/album/${list._id}`}
+                  to={`/detail/album/${list.album}`}
                   onClick={() => {
                     dispatch(setDetailList(list));
                   }}

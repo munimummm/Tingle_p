@@ -63,17 +63,21 @@ function SearchArtist({ searchValue }) {
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getSeachResult = async () => {
-      const result = await axios.get(
-        `http://localhost:1216/searchList/artist`,
-        {
-          params: {
-            value: searchValue,
-          },
-        }
-      );
-      // dispatch(setSearchList(result.data));
-      console.log(result.data);
-      setSearchList(result.data);
+      try {
+        const result = await axios.get(
+          `http://localhost:1216/searchList/artist`,
+          {
+            params: {
+              value: searchValue,
+            },
+          }
+        );
+        // dispatch(setSearchList(result.data));
+        console.log(result.data);
+        setSearchList(result.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getSeachResult();
   }, [searchValue]);
@@ -100,7 +104,7 @@ function SearchArtist({ searchValue }) {
             <FindList key={i}>
               <div>
                 <NavLink
-                  to={`/detail/artist/${list._id}`}
+                  to={`/detail/artist/${list.artist_no}`}
                   onClick={() => {
                     dispatch(setDetailList(list));
                   }}
@@ -111,10 +115,7 @@ function SearchArtist({ searchValue }) {
                       src={process.env.PUBLIC_URL + `/img/${list.artist_img}`}
                     ></img>
                   </div>
-                </NavLink>
-
-                <NavLink className="aa detail_ar" href="#">
-                  {list.artist}
+                  <div className="textItem">{list.artist}</div>
                 </NavLink>
               </div>
             </FindList>

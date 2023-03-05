@@ -10,7 +10,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AudioActions } from "store/AudioSlice";
 import { setDetailList } from "store/DetailSlice";
 import PlayButton from "./PlayButton";
@@ -21,9 +21,6 @@ function TableItems({ list }) {
   console.log(list);
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-      <TableCell padding="checkbox">
-        <Checkbox color="primary" />
-      </TableCell>
       <TableCell>
         <img
           style={{ width: "50px", height: "50px" }}
@@ -31,12 +28,20 @@ function TableItems({ list }) {
         ></img>
       </TableCell>
       <TableCell component="th" scope="row" sx={{ whiteSpace: "preLine" }}>
-        <strong>{list.title}</strong>
+        <strong
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate(`/detail/title/${list.title}`);
+            dispatch(setDetailList(list));
+          }}
+        >
+          {list.title}
+        </strong>
         <br />
         <span
-          style={{ fontSize: "12px", color: "#989898" }}
+          style={{ cursor: "pointer", fontSize: "12px", color: "#989898" }}
           onClick={() => {
-            navigate(`/detail/album/${list._id}`);
+            navigate(`/detail/album/${list.album}`);
             dispatch(setDetailList(list));
           }}
         >
@@ -44,15 +49,19 @@ function TableItems({ list }) {
         </span>
       </TableCell>
 
-      <TableCell
-        align="right"
-        onClick={() => {
-          navigate(`/detail/artist/${list._id}`);
-          dispatch(setDetailList(list));
-        }}
-      >
-        {list.artist}
+      <TableCell align="right">
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate(`/detail/artist/${list.artist_no}`);
+            dispatch(setDetailList(list));
+          }}
+        >
+          {" "}
+          {list.artist}
+        </span>
       </TableCell>
+
       <TableCell align="right">
         <PlayButton
           list={list}

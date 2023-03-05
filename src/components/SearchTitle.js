@@ -13,7 +13,6 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  searchTypeChange,
   setLimit,
   setSearchList,
   setTitleOpen,
@@ -50,16 +49,20 @@ function SearchTitle({ searchValue }) {
   useEffect(() => {
     if (searchValue.length > 0) {
       const getSearchResult = async () => {
-        const result = await axios.get(
-          `http://localhost:1216/searchList/title`,
-          {
-            params: {
-              value: searchValue,
-            },
-          }
-        );
-        // dispatch(setSearchList(result.data));
-        setSearchList(result.data);
+        try {
+          const result = await axios.get(
+            `http://localhost:1216/searchList/title`,
+            {
+              params: {
+                value: searchValue,
+              },
+            }
+          );
+          // dispatch(setSearchList(result.data));
+          setSearchList(result.data);
+        } catch (error) {
+          console.log(error);
+        }
       };
       getSearchResult();
     }

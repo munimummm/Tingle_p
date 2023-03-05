@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { setResultList } from "store/DetailSlice";
 import SearchTitle from "./SearchTitle";
 import TableHeader from "./TableHeader";
@@ -79,16 +79,20 @@ function DetailArtist() {
 
   useEffect(() => {
     const getDetailResult = async () => {
-      const result = await axios.get(
-        `http://localhost:1216/detailList/artist`,
-        {
-          params: {
-            value: detailList.artist,
-          },
-        }
-      );
-      console.log(result.data);
-      setSearchList(result.data);
+      try {
+        const result = await axios.get(
+          `http://localhost:1216/detailList/artist`,
+          {
+            params: {
+              value: detailList.artist,
+            },
+          }
+        );
+        console.log(result.data);
+        setSearchList(result.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getDetailResult();
   }, []);
@@ -100,16 +104,10 @@ function DetailArtist() {
           <img src={process.env.PUBLIC_URL + `/img/${detailList.artist_img}`} />
         </div>
         <div className="trackInfo">
-          <NavLink href="#" className="detail_artist">
+          <Link to="#" className="detail_artist">
             {detailList.artist}
-          </NavLink>
+          </Link>
         </div>
-
-        {/* <div className="select_icon">
-          <i className="selectPlay fa-solid fa-play"></i>
-          <i className="selectList fa-solid fa-list"></i>
-          <i className="selectAdd fa-solid fa-folder-plus"></i>
-        </div> */}
       </div>
       <div className="tabText">곡</div>
       <TableContainer component={Paper} className="tabItem">
