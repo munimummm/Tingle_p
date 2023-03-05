@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
 import { setPlayListOpen } from "store/PlayListSlice";
 import { Close, ExpandMore } from "@mui/icons-material";
 import { AudioActions } from "store/AudioSlice";
@@ -61,7 +60,6 @@ function PlayList() {
   let listSongs = useSelector((state) => state.audio.listSongs);
   let currentIndex = useSelector((state) => state.audio.currentIndex);
   let dispatch = useDispatch();
-
   return (
     <div>
       <PlayListContainer>
