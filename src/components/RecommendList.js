@@ -5,7 +5,7 @@ import axios from "axios";
 import { setRecommendList } from "store/RecommendSlice";
 import { useState } from "react";
 import PlayButton from "./PlayButton";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setLoading } from "store/ListSlice";
 import Loading from "pages/Loading";
 import { setDetailList } from "store/DetailSlice";
@@ -70,15 +70,19 @@ function RecommendList({ genreList }) {
 
   useEffect(() => {
     const getRecommendList = async () => {
-      dispatch(setLoading(true));
-      const result = await axios.get(`http://localhost:1216/recommendList`, {
-        params: {
-          genre: genreList,
-        },
-      });
-      setRecommendList(result.data);
-      dispatch(setLoading(false));
-      console.log(result.data);
+      try {
+        dispatch(setLoading(true));
+        const result = await axios.get(`http://localhost:1216/recommendList`, {
+          params: {
+            genre: genreList,
+          },
+        });
+        setRecommendList(result.data);
+        dispatch(setLoading(false));
+        console.log(result.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getRecommendList();
   }, [genreList]);
@@ -89,8 +93,8 @@ function RecommendList({ genreList }) {
         {recommendList.map((list, i) => (
           <li key={i} className="recommend_box">
             <div className="imgBox">
-              <NavLink
-                to={`/detail/title/${list._id}`}
+              <Link
+                to={`/detail/title/${list.title}`}
                 onClick={() => {
                   dispatch(setDetailList(list));
                 }}
@@ -99,28 +103,31 @@ function RecommendList({ genreList }) {
                   className="imgItem"
                   src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
                 ></img>
-              </NavLink>
+              </Link>
               <div className="select_icon">
                 <PlayButton
                   list={list}
                   onPlay={() => {
-                    dispatch(
-                      AudioActions.setSong({
-                        songs: list,
-                      })
-                    );
+                    dispatch(AudioActions.setSong(list));
                   }}
                 />
               </div>
             </div>
 
             <div className="textBox">
-              <strong> {list.title}</strong>
+              <Link
+                to={`/detail/title/${list.title}`}
+                onClick={() => {
+                  dispatch(setDetailList(list));
+                }}
+              >
+                <strong> {list.title}</strong>
+              </Link>
               <br />
             </div>
 
-            <NavLink
-              to={`/detail/artist/${list._id}`}
+            <Link
+              to={`/detail/artist/${list.artist_no}`}
               onClick={() => {
                 dispatch(setDetailList(list));
               }}
@@ -128,7 +135,7 @@ function RecommendList({ genreList }) {
               <span style={{ fontSize: "14px", color: "#989898" }}>
                 {list.artist}
               </span>
-            </NavLink>
+            </Link>
           </li>
         ))}
       </ul>
