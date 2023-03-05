@@ -1,18 +1,37 @@
-import { configureStore } from "@reduxjs/toolkit";
-import audioSlice from "./AudioSlice";
-import detailSlice from "./DetailSlice";
-import listSlice from "./ListSlice";
-import playListSlice from "./PlayListSlice";
-import recommendSlice from "./RecommendSlice";
-import searchSlice from "./SearchSlice";
+import {
+  combineReducers,
+  configureStore,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
+import audioReducer from "./AudioSlice";
+import detailReducer from "./DetailSlice";
+import listReducer from "./ListSlice";
+import playListReducer from "./PlayListSlice";
+import recommendReducer from "./RecommendSlice";
+import searchReducer from "./SearchSlice";
+import storage from "redux-persist/lib/storage/session";
+import { persistReducer } from "redux-persist";
 
-export default configureStore({
-  reducer: {
-    search: searchSlice.reducer,
-    list: listSlice.reducer,
-    audio: audioSlice.reducer,
-    recommend: recommendSlice.reducer,
-    playList: playListSlice.reducer,
-    detail: detailSlice.reducer,
-  },
+const reducers = combineReducers({
+  search: searchReducer.reducer,
+  list: listReducer.reducer,
+  audio: audioReducer.reducer,
+  recommend: recommendReducer.reducer,
+  playList: playListReducer.reducer,
+  detail: detailReducer.reducer,
 });
+const persistConfig = {
+  key: "root",
+  storage,
+  // whitelist: ["playList", "audio", "list"],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
+});
+export default store;

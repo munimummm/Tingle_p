@@ -8,18 +8,24 @@ import theme from "./styles/theme";
 import { StyledEngineProvider } from "@mui/styled-engine";
 
 import { Provider } from "react-redux";
-import store from "./store/store.js";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import store from "store/store";
+
+const persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
   <Provider store={store}>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </PersistGate>
   </Provider>
   // </React.StrictMode>
 );
