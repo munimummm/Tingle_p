@@ -31,6 +31,7 @@ function SearchResult() {
   let titleOpen = useSelector((state) => state.search.titleOpen);
   let artistOpen = useSelector((state) => state.search.artistOpen);
   let albumOpen = useSelector((state) => state.search.albumOpen);
+
   useEffect(() => {
     dispatch(setLimit(5));
     dispatch(setAlbumOpen(false));

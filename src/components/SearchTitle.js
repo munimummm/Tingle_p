@@ -51,28 +51,38 @@ function SearchTitle({ searchValue }) {
   }, [searchValue]);
 
   return (
-    <TitleContainer>
-      <h2
-        className="findResult_h1"
-        onClick={() => {
-          dispatch(setLimit(searchList.length));
-          dispatch(setTitleOpen(true));
-        }}
-      >
-        곡
-        <ArrowForwardIos className="arrowIcon" />
-      </h2>
-      <TableContainer component={Paper} className="tabItem">
-        <Table sx={{ minWidth: 650 }} aria-label="chart table">
-          <TableHeader></TableHeader>
-          <TableBody>
-            {searchList.map((list, i) =>
-              i < limit ? <TableItems key={i} list={list} /> : null
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </TitleContainer>
+    <>
+      {0 < searchList.length ? (
+        <TitleContainer>
+          <h2
+            className="findResult_h1"
+            onClick={() => {
+              dispatch(setLimit(searchList.length));
+              dispatch(setTitleOpen(true));
+            }}
+          >
+            곡
+            <ArrowForwardIos className="arrowIcon" />
+          </h2>
+          <TableContainer component={Paper} className="tabItem">
+            <Table sx={{ minWidth: 650 }} aria-label="chart table">
+              <TableHeader></TableHeader>
+              <TableBody>
+                {searchList.map((list, i) =>
+                  i < limit ? <TableItems key={i} list={list} /> : null
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </TitleContainer>
+      ) : (
+        <div className="noResult" style={{ fontSize: "20px" }}>
+          노래 검색 결과가 없습니다
+          <br />
+          검색어를 다시 입력해 주세요
+        </div>
+      )}
+    </>
   );
 }
 export default SearchTitle;

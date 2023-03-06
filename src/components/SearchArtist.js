@@ -73,44 +73,50 @@ function SearchArtist({ searchValue }) {
   }, [searchValue]);
 
   return (
-    <AContainer>
-      <h2
-        className="findResult_h1"
-        onClick={() => {
-          dispatch(setLimit(searchList.length));
-          dispatch(setArtistOpen(true));
-        }}
-      >
-        가수
-        <ArrowForwardIos className="arrowIcon" />
-      </h2>
+    <>
+      {0 < searchList.length ? (
+        <AContainer>
+          <h2
+            className="findResult_h1"
+            onClick={() => {
+              dispatch(setLimit(searchList.length));
+              dispatch(setArtistOpen(true));
+            }}
+          >
+            가수
+            <ArrowForwardIos className="arrowIcon" />
+          </h2>
 
-      <FindListContainer>
-        {searchList.map((list, i) =>
-          i < limit ? (
-            <FindList key={i}>
-              <div>
-                <NavLink
-                  to={`/detail/artist/${list.artist_no}`}
-                  onClick={() => {
-                    dispatch(setDetailList(list));
-                  }}
-                >
-                  <div className="imgBox">
-                    <img
-                      className="itemImg"
-                      src={process.env.PUBLIC_URL + `/img/${list.artist_img}`}
-                      alt="artist_img"
-                    ></img>
+          <FindListContainer>
+            {searchList.map((list, i) =>
+              i < limit ? (
+                <FindList key={i}>
+                  <div>
+                    <NavLink
+                      to={`/detail/artist/${list.artist_no}`}
+                      onClick={() => {
+                        dispatch(setDetailList(list));
+                      }}
+                    >
+                      <div className="imgBox">
+                        <img
+                          className="itemImg"
+                          src={
+                            process.env.PUBLIC_URL + `/img/${list.artist_img}`
+                          }
+                          alt="artist_img"
+                        ></img>
+                      </div>
+                      <div className="textItem">{list.artist}</div>
+                    </NavLink>
                   </div>
-                  <div className="textItem">{list.artist}</div>
-                </NavLink>
-              </div>
-            </FindList>
-          ) : null
-        )}
-      </FindListContainer>
-    </AContainer>
+                </FindList>
+              ) : null
+            )}
+          </FindListContainer>
+        </AContainer>
+      ) : null}
+    </>
   );
 }
 export default SearchArtist;
