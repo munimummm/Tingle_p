@@ -5,7 +5,6 @@ import "react-h5-audio-player/lib/styles.css";
 import { FormatListBulleted, PlayArrow, Pause } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
-import { useState } from "react";
 
 import { AudioActions } from "store/AudioSlice";
 import { useRef } from "react";
@@ -77,7 +76,7 @@ function Player() {
     dispatch(AudioActions.setCurrentIndexNext());
     dispatch(AudioActions.setSong(listSongs[currentIndex]));
   };
-  // console.log(listSongs);
+
   return (
     <>
       <PlayerContainer>

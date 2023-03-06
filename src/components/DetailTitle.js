@@ -1,5 +1,4 @@
-import { MoreVert, PlayArrow } from "@mui/icons-material";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PlayButton from "./PlayButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -81,15 +80,12 @@ const TitleContainer = styled.div`
   .tabItem {
     white-space: pre-wrap;
     width: 40%;
-    /* padding: 35px; */
     padding-top: 35px;
     margin-left: 35px;
   }
 `;
 
 function DetailTitle() {
-  // const location = useLocation();
-  // const list = location.state.list;
   let detailList = useSelector((state) => state.detail.list);
   let dispatch = useDispatch();
   console.log(detailList);
@@ -97,7 +93,10 @@ function DetailTitle() {
     <TitleContainer>
       <div className="detailInfo">
         <div className="imgWrap">
-          <img src={process.env.PUBLIC_URL + `/img/${detailList.cover_img}`} />
+          <img
+            src={process.env.PUBLIC_URL + `/img/${detailList.cover_img}`}
+            alt="album_img"
+          />
         </div>
         <div className="trackInfo">
           <div className="trackText">

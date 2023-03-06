@@ -1,16 +1,7 @@
-import { MoreVert, PlayArrow } from "@mui/icons-material";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Checkbox,
-} from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { MoreVert } from "@mui/icons-material";
+import { TableCell, TableRow } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AudioActions } from "store/AudioSlice";
 import { setDetailList } from "store/DetailSlice";
 import PlayButton from "./PlayButton";
@@ -18,13 +9,14 @@ function TableItems({ list }) {
   const navigate = useNavigate();
   let dispatch = useDispatch();
 
-  console.log(list);
+  // console.log(list);
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
       <TableCell>
         <img
           style={{ width: "50px", height: "50px" }}
           src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+          alt="album_img"
         ></img>
       </TableCell>
       <TableCell component="th" scope="row" sx={{ whiteSpace: "preLine" }}>

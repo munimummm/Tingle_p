@@ -1,7 +1,5 @@
-import { ImageAspectRatio, MoreVert, PlayArrow } from "@mui/icons-material";
-import { useState } from "react";
+import { PlayArrow } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-// import { setAddPlayList, setSong } from "store/AudioSlice";
 import { AudioActions } from "store/AudioSlice";
 function PlayButton({ onPlay, list }) {
   const dispatch = useDispatch();
@@ -19,8 +17,6 @@ function PlayButton({ onPlay, list }) {
     }
   };
 
-  //중복곡 막기
-  //버튼누를때 곡변경하기
   return (
     <PlayArrow
       style={{ cursor: "pointer", verticalAlign: "text-top" }}

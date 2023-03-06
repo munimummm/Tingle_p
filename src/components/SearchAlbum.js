@@ -1,15 +1,8 @@
-import { TableBody, TableCell, TableRow, Paper, Checkbox } from "@mui/material";
 import { useState, useEffect } from "react";
-import { ArrowForwardIos, MoreVert, PlayArrow } from "@mui/icons-material";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { ArrowForwardIos } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import {
-  searchTypeChange,
-  setAlbumOpen,
-  setALbumSearchList,
-  setLimit,
-  setSearchList,
-} from "store/SearchSlice";
+import { setAlbumOpen, setLimit } from "store/SearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setDetailList } from "store/DetailSlice";
@@ -63,13 +56,8 @@ const FindList = styled.li`
 `;
 
 function SearchAlbum({ searchValue }) {
-  const navigate = useNavigate();
-  let searchAlbumList = useSelector((state) => state.search.searchAlbumList);
   let limit = useSelector((state) => state.search.limit);
   let dispatch = useDispatch();
-  const location = useLocation();
-
-  let type = useSelector((state) => state.search.type);
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getSearchResult = async () => {
@@ -82,7 +70,7 @@ function SearchAlbum({ searchValue }) {
             },
           }
         );
-        // dispatch(setSearchList(result.data));
+        console.log(result.data);
         setSearchList(result.data);
       } catch (error) {
         console.log(error);
@@ -90,10 +78,6 @@ function SearchAlbum({ searchValue }) {
     };
     getSearchResult();
   }, [searchValue]);
-
-  console.log(searchList);
-  console.log(searchValue);
-
   return (
     <AContainer>
       <h2
@@ -122,6 +106,7 @@ function SearchAlbum({ searchValue }) {
                     <img
                       className="imgItem"
                       src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+                      alt="album_img"
                     ></img>
                   </div>
                   <div className="textItem">{list.album}</div>

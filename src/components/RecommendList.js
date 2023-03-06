@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
-import { setRecommendList } from "store/RecommendSlice";
 import { useState } from "react";
 import PlayButton from "./PlayButton";
 import { Link } from "react-router-dom";
@@ -64,7 +63,6 @@ const RecommendBox = styled.div`
 `;
 function RecommendList({ genreList }) {
   const [recommendList, setRecommendList] = useState([]);
-  // let recommend = useSelector((state) => state.recommend.list);
   let dispatch = useDispatch();
   let loading = useSelector((state) => state.list.loading);
 
@@ -79,67 +77,73 @@ function RecommendList({ genreList }) {
         });
         setRecommendList(result.data);
         dispatch(setLoading(false));
-        console.log(result.data);
       } catch (error) {
         console.log(error);
       }
     };
     getRecommendList();
-  }, [genreList]);
+  }, [dispatch, genreList]);
 
   return (
-    <RecommendBox>
-      <ul className="recommend_table">
-        {recommendList.map((list, i) => (
-          <li key={i} className="recommend_box">
-            <div className="imgBox">
-              <Link
-                to={`/detail/title/${list.title}`}
-                onClick={() => {
-                  dispatch(setDetailList(list));
-                }}
-              >
-                <img
-                  className="imgItem"
-                  src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
-                ></img>
-              </Link>
-              <div className="select_icon">
-                <PlayButton
-                  list={list}
-                  onPlay={() => {
-                    dispatch(AudioActions.setSong(list));
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <RecommendBox>
+          <ul className="recommend_table">
+            {recommendList.map((list, i) => (
+              <li key={i} className="recommend_box">
+                <div className="imgBox">
+                  <Link
+                    to={`/detail/title/${list.title}`}
+                    onClick={() => {
+                      dispatch(setDetailList(list));
+                    }}
+                  >
+                    <img
+                      className="imgItem"
+                      src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+                      alt="album_img"
+                    ></img>
+                  </Link>
+                  <div className="select_icon">
+                    <PlayButton
+                      list={list}
+                      onPlay={() => {
+                        dispatch(AudioActions.setSong(list));
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="textBox">
+                  <Link
+                    to={`/detail/title/${list.title}`}
+                    onClick={() => {
+                      dispatch(setDetailList(list));
+                    }}
+                  >
+                    <strong> {list.title}</strong>
+                  </Link>
+                  <br />
+                </div>
+
+                <Link
+                  to={`/detail/artist/${list.artist_no}`}
+                  onClick={() => {
+                    dispatch(setDetailList(list));
                   }}
-                />
-              </div>
-            </div>
-
-            <div className="textBox">
-              <Link
-                to={`/detail/title/${list.title}`}
-                onClick={() => {
-                  dispatch(setDetailList(list));
-                }}
-              >
-                <strong> {list.title}</strong>
-              </Link>
-              <br />
-            </div>
-
-            <Link
-              to={`/detail/artist/${list.artist_no}`}
-              onClick={() => {
-                dispatch(setDetailList(list));
-              }}
-            >
-              <span style={{ fontSize: "14px", color: "#989898" }}>
-                {list.artist}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </RecommendBox>
+                >
+                  <span style={{ fontSize: "14px", color: "#989898" }}>
+                    {list.artist}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </RecommendBox>
+      )}
+    </>
   );
 }
 export default RecommendList;

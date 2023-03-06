@@ -1,23 +1,8 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Checkbox,
-} from "@mui/material";
-import { MoreVert, PlayArrow, ArrowForwardIos } from "@mui/icons-material";
+import { Table, TableBody, TableContainer, Paper } from "@mui/material";
+import { ArrowForwardIos } from "@mui/icons-material";
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setLimit,
-  setSearchList,
-  setTitleOpen,
-  setTitleSearchList,
-} from "store/SearchSlice";
+import { setLimit, setTitleOpen } from "store/SearchSlice";
 import axios from "axios";
 import styled from "styled-components";
 import TableHeader from "./TableHeader";
@@ -37,15 +22,12 @@ const TitleContainer = styled.div`
     }
   }
 `;
+
 function SearchTitle({ searchValue }) {
-  const navigate = useNavigate();
-  const location = useLocation();
   let dispatch = useDispatch();
-  // let searchTitleList = useSelector((state) => state.search.searchTitleList);
   let limit = useSelector((state) => state.search.limit);
-  let type = useSelector((state) => state.search.type);
   const [searchList, setSearchList] = useState([]);
-  let titleOpen = useSelector((state) => state.search.type);
+
   useEffect(() => {
     if (searchValue.length > 0) {
       const getSearchResult = async () => {
@@ -58,7 +40,7 @@ function SearchTitle({ searchValue }) {
               },
             }
           );
-          // dispatch(setSearchList(result.data));
+          console.log(result.data);
           setSearchList(result.data);
         } catch (error) {
           console.log(error);
@@ -68,8 +50,6 @@ function SearchTitle({ searchValue }) {
     }
   }, [searchValue]);
 
-  console.log(searchList);
-  console.log(searchValue);
   return (
     <TitleContainer>
       <h2

@@ -24,6 +24,7 @@ const persistConfig = {
   key: "root",
   storage,
   // whitelist: ["playList", "audio", "list"],
+  blacklist: ["search"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

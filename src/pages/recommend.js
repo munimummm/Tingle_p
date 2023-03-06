@@ -1,8 +1,6 @@
-import axios from "axios";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 import RecommendList from "components/RecommendList";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const RecommendContainer = styled.div`
   width: 100%;
   .main-imgBox {
@@ -16,7 +14,6 @@ const RecommendContainer = styled.div`
     }
   }
 `;
-
 function Recommend() {
   let genre = useSelector((state) => state.recommend.genre);
 
@@ -26,6 +23,7 @@ function Recommend() {
         <img
           className="main-img"
           src={process.env.PUBLIC_URL + `/img/main-2.jpg`}
+          alt="main_img"
         ></img>
       </div>
       {genre.map((genreList, i) => (

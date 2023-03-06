@@ -1,20 +1,14 @@
 import styled from "styled-components";
-import { MoreVert, PlayArrow, ArrowForwardIos } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SearchTitle from "components/SearchTitle";
 import SearchArtist from "components/SearchArtist";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   setAlbumOpen,
-  setALbumSearchList,
   setArtistOpen,
-  setArtistSearchList,
   setLimit,
-  setSearchList,
   setTitleOpen,
-  setTitleSearchList,
 } from "store/SearchSlice";
 import SearchAlbum from "components/SearchAlbum";
 
@@ -29,15 +23,6 @@ const FindContainer = styled.div`
     margin-bottom: 28px;
   }
 `;
-const FindListContainer = styled.ul`
-  list-style: none;
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 40px;
-`;
 
 function SearchResult() {
   const location = useLocation();
@@ -51,9 +36,7 @@ function SearchResult() {
     dispatch(setAlbumOpen(false));
     dispatch(setArtistOpen(false));
     dispatch(setTitleOpen(false));
-  }, [searchValue]);
-
-  console.log(titleOpen);
+  }, [dispatch, searchValue]);
 
   return (
     <FindContainer>

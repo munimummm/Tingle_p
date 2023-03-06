@@ -35,7 +35,6 @@ const HelpContainer = styled.div`
 function HelpCenter() {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
-  // const [board] = useState(boardData);
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
   const [helpList, setHelpList] = useState([]);

@@ -1,14 +1,9 @@
-import { TableBody, TableCell, TableRow, Paper, Checkbox } from "@mui/material";
-import { ImageAspectRatio, MoreVert, PlayArrow } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { TableBody, TableCell, TableRow } from "@mui/material";
+import { MoreVert } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import PlayButton from "./PlayButton";
 import { AudioActions } from "store/AudioSlice";
-
-import { setPlayLists } from "store/PlayListSlice";
-import { setChartLists } from "store/ListSlice";
 import { setDetailList } from "store/DetailSlice";
 function ChartList() {
   const navigate = useNavigate();

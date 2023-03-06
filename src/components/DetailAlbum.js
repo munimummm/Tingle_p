@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TableHeader from "./TableHeader";
 import TableItems from "./TableItems";
@@ -88,8 +88,6 @@ const AlbumContainer = styled.div`
 `;
 
 function DetailAlbum() {
-  const location = useLocation();
-  // const list = location.state.list;
   let detailList = useSelector((state) => state.detail.list);
   console.log(detailList);
   const [searchList, setSearchList] = useState([]);
@@ -111,13 +109,16 @@ function DetailAlbum() {
       }
     };
     getDetailResult();
-  }, []);
+  }, [detailList]);
 
   return (
     <AlbumContainer>
       <div className="detailInfo">
         <div className="imgWrap">
-          <img src={process.env.PUBLIC_URL + `/img/${detailList.cover_img}`} />
+          <img
+            src={process.env.PUBLIC_URL + `/img/${detailList.cover_img}`}
+            alt="album_img"
+          />
         </div>
         <div className="trackInfo">
           <div className="trackText">

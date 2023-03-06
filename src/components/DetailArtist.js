@@ -1,23 +1,11 @@
-import { MoreVert, PlayArrow } from "@mui/icons-material";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { setResultList } from "store/DetailSlice";
-import SearchTitle from "./SearchTitle";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import TableHeader from "./TableHeader";
 import TableItems from "./TableItems";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Checkbox,
-} from "@mui/material";
+import { Table, TableBody, TableContainer, Paper } from "@mui/material";
 import styled from "styled-components";
 
 const ArtistContainer = styled.div`
@@ -71,8 +59,6 @@ const ArtistContainer = styled.div`
   }
 `;
 function DetailArtist() {
-  const location = useLocation();
-  // const list = location.state.list;
   let detailList = useSelector((state) => state.detail.list);
   console.log(detailList);
   const [searchList, setSearchList] = useState([]);
@@ -95,13 +81,16 @@ function DetailArtist() {
       }
     };
     getDetailResult();
-  }, []);
+  }, [detailList]);
 
   return (
     <ArtistContainer>
       <div className="detailInfo">
         <div className="imgWrap">
-          <img src={process.env.PUBLIC_URL + `/img/${detailList.artist_img}`} />
+          <img
+            src={process.env.PUBLIC_URL + `/img/${detailList.artist_img}`}
+            alt="artist_img"
+          />
         </div>
         <div className="trackInfo">
           <Link to="#" className="detail_artist">

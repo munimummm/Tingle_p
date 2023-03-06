@@ -1,9 +1,8 @@
 import styled from "styled-components";
-
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayListOpen } from "store/PlayListSlice";
-import { Close, ExpandMore } from "@mui/icons-material";
-import { AudioActions } from "store/AudioSlice";
+import { ExpandMore } from "@mui/icons-material";
+
 const PlayListContainer = styled.div`
   width: 400px;
   background: #262626;

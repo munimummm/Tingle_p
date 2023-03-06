@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-
+import { useEffect } from "react";
 import {
   Table,
   TableCell,
@@ -9,7 +8,6 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-
 import ChartList from "components/ChartList";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -21,7 +19,6 @@ function Chart() {
   let dispatch = useDispatch();
   let genre = useSelector((state) => state.list.genre);
   let loading = useSelector((state) => state.list.loading);
-  // const [genre, setGenre] = useState("TOP100");
   const navigate = useNavigate();
   const buttonList = [
     "TOP100",

@@ -1,14 +1,8 @@
-import { TableBody, TableCell, TableRow, Paper, Checkbox } from "@mui/material";
 import { useState, useEffect } from "react";
-import { ArrowForwardIos, MoreVert, PlayArrow } from "@mui/icons-material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { ArrowForwardIos } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import {
-  searchTypeChange,
-  setArtistOpen,
-  setArtistSearchList,
-  setLimit,
-} from "store/SearchSlice";
+import { setArtistOpen, setLimit } from "store/SearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setDetailList } from "store/DetailSlice";
@@ -55,10 +49,7 @@ const FindListContainer = styled.ul`
 `;
 
 function SearchArtist({ searchValue }) {
-  const navigate = useNavigate();
-  // let searchArtistList = useSelector((state) => state.search.searchArtistList);
   let dispatch = useDispatch();
-  let type = useSelector((state) => state.search.type);
   let limit = useSelector((state) => state.search.limit);
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
@@ -72,7 +63,6 @@ function SearchArtist({ searchValue }) {
             },
           }
         );
-        // dispatch(setSearchList(result.data));
         console.log(result.data);
         setSearchList(result.data);
       } catch (error) {
@@ -81,9 +71,6 @@ function SearchArtist({ searchValue }) {
     };
     getSeachResult();
   }, [searchValue]);
-
-  console.log(searchList);
-  console.log(searchValue);
 
   return (
     <AContainer>
@@ -113,6 +100,7 @@ function SearchArtist({ searchValue }) {
                     <img
                       className="itemImg"
                       src={process.env.PUBLIC_URL + `/img/${list.artist_img}`}
+                      alt="artist_img"
                     ></img>
                   </div>
                   <div className="textItem">{list.artist}</div>
