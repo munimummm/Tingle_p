@@ -1,4 +1,3 @@
-// import "./App.css";
 import Nav from "./common/nav";
 import Player from "./common/Player";
 import SearchResult from "./pages/SearchResult";
@@ -41,12 +40,13 @@ function App() {
           <PageContainer>
             <Routes>
               <Route path="*" element={<div>준비중입니다.</div>} />
+              <Route path="/" element={<Recommend />} />
               <Route path="/search" element={<SearchResult />}>
                 <Route path="title" element={<SearchTitle />} />
                 <Route path="album" element={<SearchAlbum />} />
                 <Route path="artist" element={<SearchArtist />} />
               </Route>
-              <Route path="/recommend" element={<Recommend />} />
+              {/* <Route path="/recommend" element={<Recommend />} /> */}
               <Route path="/chart/:id" element={<Chart />} />
               <Route path="/storage" element={<Storage />} />
               <Route path="/helpCenter/:id" element={<HelpCenter />} />

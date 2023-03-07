@@ -131,7 +131,7 @@ function Nav() {
             <Button
               startIcon={<Recommend />}
               onClick={() => {
-                navigate("/recommend");
+                navigate("/");
               }}
             >
               추천
