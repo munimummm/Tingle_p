@@ -13,8 +13,41 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setChartLists, setGenre, setLoading } from "store/ListSlice";
 import Loading from "./Loading";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+let ChartContainer = styled.div`
+  margin-top: 20px;
+  h1 {
+    font-weight: 500;
+    margin-bottom: 38px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    .moblie-chart {
+      display: none;
+    }
+  }
+`;
+
+let ChartButton = styled.button`
+  height: 32px;
+  padding: 0 15px;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid #9147ff;
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+  cursor: pointer;
+  &.focused {
+    background: #9147ff;
+    color: white;
+  }
+`;
 function Chart() {
   let dispatch = useDispatch();
   let genre = useSelector((state) => state.list.genre);
@@ -64,16 +97,16 @@ function Chart() {
 
       getGenreList();
     }
-  }, [genre]);
+  }, [dispatch, genre]);
 
   return (
     <div>
       {loading ? (
         <Loading></Loading>
       ) : (
-        <>
-          <div>
-            <H1>{genre}</H1>
+        <ChartContainer>
+          <div className="buttonBox" style={{ marginBottom: "20px" }}>
+            <h1>{genre}</h1>
             {buttonList.map((list, i) => (
               <ChartButton
                 key={i}
@@ -96,38 +129,17 @@ function Chart() {
                   <TableCell></TableCell>
                   <TableCell align="right">아티스트</TableCell>
                   <TableCell align="right">듣기</TableCell>
-                  <TableCell align="right">더보기</TableCell>
+                  <TableCell className="moblie-chart" align="right">
+                    더보기
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <ChartList></ChartList>
             </Table>
           </TableContainer>
-        </>
+        </ChartContainer>
       )}
     </div>
   );
 }
 export default Chart;
-let H1 = styled.h1`
-  font-weight: 500;
-`;
-
-let ChartButton = styled.button`
-  height: 32px;
-  padding: 0 15px;
-  font-size: 16px;
-  line-height: 32px;
-  text-align: center;
-  border-radius: 16px;
-  border: 1px solid #9147ff;
-  vertical-align: top;
-  display: inline-block;
-  margin: 38px 10px 30px 0px;
-
-  background: #fff;
-  cursor: pointer;
-  &.focused {
-    background: #9147ff;
-    color: white;
-  }
-`;

@@ -1,4 +1,4 @@
-import Nav from "./common/nav";
+import Sidebar from "./common/Sidebar";
 import Player from "./common/Player";
 import SearchResult from "./pages/SearchResult";
 import Recommend from "./pages/Recommend";
@@ -17,26 +17,32 @@ import SearchTitle from "components/SearchTitle";
 import SearchAlbum from "components/SearchAlbum";
 import SearchArtist from "components/SearchArtist";
 
-function App() {
-  const ContainerWrap = styled.div`
-    margin-bottom: 100px;
-    max-width: 1800px;
-  `;
-  const PageContainer = styled.div`
-    width: 100%;
-    padding: 55px 20px 20px 290px;
-    overflow-y: auto;
-    .noPageImg {
-      width: 256px;
-      height: 256px;
-    }
-  `;
+const AppContainer = styled.div`
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "side main";
+  margin-bottom: 100px;
+  max-width: 1800px;
 
+  @media ${(props) => props.theme.mobile} {
+    display: block;
+  }
+`;
+const PageContainer = styled.div`
+  grid-area: main;
+  width: 100%;
+  /* padding: 55px 20px 20px 40px; */
+  padding: 30px 20px;
+  overflow-y: auto;
+`;
+
+function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <ContainerWrap>
-          <Nav></Nav>
+        <AppContainer>
+          <Sidebar></Sidebar>
           <PageContainer>
             <Routes>
               <Route path="*" element={<div>준비중입니다.</div>} />
@@ -58,7 +64,7 @@ function App() {
               </Route>
             </Routes>
           </PageContainer>
-        </ContainerWrap>
+        </AppContainer>
         <Player></Player>
       </BrowserRouter>
     </div>

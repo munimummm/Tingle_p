@@ -11,10 +11,11 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { setPlayListOpen } from "store/PlayListSlice";
 const PlayerContainer = styled.div`
+  grid-area: footer;
   width: 100%;
   height: 100px;
   background: #131313;
-  z-index: 100;
+  z-index: 3333;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -43,6 +44,15 @@ const PlayerContainer = styled.div`
   }
   .onPlayList {
     color: #fff;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    .moblie-player {
+      display: none;
+    }
+    .player-text {
+      margin-left: 20px;
+    }
   }
 `;
 
@@ -80,7 +90,7 @@ function Player() {
   return (
     <>
       <PlayerContainer>
-        <img src={cover_img} alt="albumImg" />
+        <img className="moblie-player" src={cover_img} alt="albumImg" />
         <div className="player-text">
           <strong> {title}</strong>
           <br />

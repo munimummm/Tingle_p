@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 const HelpContainer = styled.div`
   width: 100%;
   margin-bottom: 10px;
+  margin-top: 20px;
   align-items: center;
   .helpHeader {
     h1 {

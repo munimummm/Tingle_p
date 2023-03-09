@@ -15,6 +15,9 @@ const PlayListContainer = styled.div`
   overflow: hidden;
   text-align: left;
   overflow-y: auto;
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
 
   .playListHeader {
     display: flex;
@@ -84,6 +87,7 @@ function PlayList() {
               <img
                 style={{ width: "50px", height: "50px" }}
                 src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+                alt="album_img"
               ></img>
               <div
                 className={

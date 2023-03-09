@@ -14,34 +14,21 @@ import { setGenre } from "store/ListSlice";
 import AlertDialog from "components/AlertDialog";
 import { useState } from "react";
 
-let SidebarContainer = styled.div`
-  position: fixed;
-  top: 0;
-  width: 250px;
-  height: 100%;
-  background: #000;
-  overflow-x: hidden;
-  overflow-y: auto;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 300;
-  z-index: 1;
-  color: ${(props) => props.theme.subColor};
-`;
-let SidebarNav = styled.div`
-  width: 250px;
-  button {
-    justify-content: flex-start;
-    color: ${(props) => props.theme.subColor};
-    width: 100%;
-    padding: 10px 18px 10px 24px;
-  }
-`;
-
 let SidebarBrand = styled.div`
   font-size: 2rem;
   line-height: 2.5em;
   padding: 10px 18px 10px 24px;
 `;
+let SidebarNav = styled.div`
+  width: 250px;
+  button {
+    justify-content: flex-start;
+    color: #000;
+    width: 100%;
+    padding: 10px 18px 10px 24px;
+  }
+`;
+
 let Logo = styled(NavLink)`
   font-family: "Carter One", cursive;
   color: ${(props) => props.theme.mainColor};
@@ -64,9 +51,10 @@ let SearchTextField = styled(TextField)`
   }
 `;
 
-function Nav() {
+function SidebarContent({ handleMenuClose }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const searchOnkeyPress = (e) => {
     if (e.key === "Enter") {
       if (e.target.value !== null) {
@@ -77,6 +65,7 @@ function Nav() {
           },
         });
       }
+      handleMenuClose();
     }
   };
   const [open, setOpen] = useState(false);
@@ -87,15 +76,16 @@ function Nav() {
   };
 
   return (
-    <SidebarContainer>
+    <>
+      <SidebarBrand
+        onClick={() => {
+          navigate("/");
+          handleMenuClose();
+        }}
+      >
+        <Logo>Tingle</Logo>
+      </SidebarBrand>
       <SidebarNav>
-        <SidebarBrand
-          onClick={() => {
-            navigate("/recommend");
-          }}
-        >
-          <Logo>Tingle</Logo>
-        </SidebarBrand>
         <Button
           startIcon={<AccountCircle />}
           onClick={() => {
@@ -105,7 +95,6 @@ function Nav() {
         >
           로그인
         </Button>
-
         <MenuAll>
           <SearchTextField
             onKeyPress={searchOnkeyPress}
@@ -132,6 +121,7 @@ function Nav() {
               startIcon={<Recommend />}
               onClick={() => {
                 navigate("/");
+                handleMenuClose();
               }}
             >
               추천
@@ -141,6 +131,7 @@ function Nav() {
               onClick={() => {
                 dispatch(setGenre("TOP100"));
                 navigate("/chart/0");
+                handleMenuClose();
               }}
             >
               차트
@@ -149,6 +140,7 @@ function Nav() {
               startIcon={<SupportAgent />}
               onClick={() => {
                 navigate("/helpCenter/notice");
+                handleMenuClose();
               }}
             >
               고객센터
@@ -177,7 +169,8 @@ function Nav() {
           <AlertDialog open={open} text={text} handleClose={handleClose} />
         ) : null}
       </SidebarNav>
-    </SidebarContainer>
+    </>
   );
 }
-export default Nav;
+
+export default SidebarContent;

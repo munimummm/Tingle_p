@@ -8,6 +8,7 @@ export default function AlertDialog({ open, handleClose, text }) {
   return (
     <div>
       <Dialog
+        style={{ zIndex: "4444" }}
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"

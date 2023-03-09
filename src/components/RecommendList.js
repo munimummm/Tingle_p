@@ -12,8 +12,6 @@ import { AudioActions } from "store/AudioSlice";
 const RecommendBox = styled.div`
   .recommend_table {
     width: 100%;
-    /* margin-bottom: 30px; */
-    /* display: block; */
   }
   .recommend_box {
     position: relative;
