@@ -1,23 +1,28 @@
 const express = require("express");
-const MongoClient = require("mongodb").MongoClient;
+const path = require("path");
 const app = express();
+const MongoClient = require("mongodb").MongoClient;
+const cors = require("cors");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const cors = require("cors");
 app.use(cors());
+require("dotenv").config();
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 let db;
 
-MongoClient.connect(
-  "mongodb+srv://admin:1a2s3d4f@tingle.k3ynymc.mongodb.net/test",
-  function (error, client) {
-    if (error) return console.log(error);
-    db = client.db("tingleP");
-    app.listen(1216, function () {
-      console.log("Listening on 1216");
-    });
-  }
-);
+MongoClient.connect(process.env.DB_URL, function (error, client) {
+  if (error) return console.log(error);
+  db = client.db("tingleP");
+  app.listen(process.env.PORT, function () {
+    console.log("Listening on 8080");
+  });
+});
 
 app.get("/chartList100", function (req, res) {
   db.collection("music")
@@ -61,7 +66,6 @@ app.get("/searchList/title", function (req, res) {
   console.log("받은" + req.query.value);
   db.collection("music")
     .find({ title: { $regex: req.query.value, $options: "i" } })
-    // .limit(5)
     .toArray(function (error, result) {
       if (error) {
         console.log(error);
@@ -76,7 +80,6 @@ app.get("/searchList/artist", function (req, res) {
   console.log("받은" + req.query.value);
   db.collection("music")
     .find({ artist: { $regex: req.query.value, $options: "i" } })
-    // .limit(5)
     .toArray(function (error, result) {
       if (error) {
         console.log(error);
@@ -96,7 +99,6 @@ app.get("/searchList/album", function (req, res) {
   console.log("받은" + req.query.value);
   db.collection("music")
     .find({ album: { $regex: req.query.value, $options: "i" } })
-    // .limit(5)
     .toArray(function (error, result) {
       if (error) {
         console.log(error);
@@ -126,24 +128,6 @@ app.get("/searchList/album", function (req, res) {
 //     });
 // });
 
-// app.get("/recommendList", function (req, res) {
-//   console.log("받은" + req.query.genre);
-//   // const random = Math.floor(Math.random() * totalCount);
-//   db.collection("music")
-//     .find({ genre: req.query.genre })
-//     .limit(5)
-
-//     .toArray(function (error, result) {
-//       if (error) {
-//         console.log(error);
-//       } else {
-//         console.log(result);
-//         res.json(result);
-//       }
-//     });
-// });
-
-// 추천:"select * from music where genre = ? order by rand() limit 5 ";
 app.get("/recommendList", function (req, res) {
   let con = [
     {
@@ -173,7 +157,6 @@ app.get("/detailList/artist", function (req, res) {
   console.log("받은" + req.query.value);
   db.collection("music")
     .find({ artist: { $regex: req.query.value, $options: "i" } })
-    // .limit(5)
     .toArray(function (error, result) {
       if (error) {
         console.log(error);
@@ -187,7 +170,6 @@ app.get("/detailList/album", function (req, res) {
   console.log("받은" + req.query.value);
   db.collection("music")
     .find({ album: { $regex: req.query.value, $options: "i" } })
-    // .limit(5)
     .toArray(function (error, result) {
       if (error) {
         console.log(error);
@@ -201,7 +183,6 @@ app.get("/detailList/album", function (req, res) {
 app.get("/helpCenter", function (req, res) {
   db.collection("board")
     .find({ type: { $regex: req.query.type, $options: "i" } })
-    // .limit(5)
     .toArray(function (error, result) {
       if (error) {
         console.log(error);
@@ -211,16 +192,6 @@ app.get("/helpCenter", function (req, res) {
     });
 });
 
-// app.get("/helpCenter/faq", function (req, res) {
-//   db.collection("board")
-//     .find({ type: { $regex: req.query.type, $options: "i" } })
-//     // .limit(5)
-//     .toArray(function (error, result) {
-//       if (error) {
-//         console.log(error);
-//       } else {
-//         res.json(result);
-//       }
-//     });
-// });
-//a
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
