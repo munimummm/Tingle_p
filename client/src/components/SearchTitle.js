@@ -33,7 +33,7 @@ function SearchTitle({ searchValue }) {
       const getSearchResult = async () => {
         try {
           const result = await axios.get(
-            `http://localhost:1216/searchList/title`,
+            `http://localhost:8080/searchList/title`,
             {
               params: {
                 value: searchValue,

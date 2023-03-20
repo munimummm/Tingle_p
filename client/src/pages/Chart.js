@@ -70,7 +70,7 @@ function Chart() {
       const getTop100 = async () => {
         try {
           dispatch(setLoading(true));
-          const result = await axios.get(`http://localhost:1216/chartList100`);
+          const result = await axios.get(`http://localhost:8080/chartList100`);
           dispatch(setChartLists(result.data));
           dispatch(setLoading(false));
           console.log(result.data);
@@ -83,7 +83,7 @@ function Chart() {
       const getGenreList = async () => {
         try {
           dispatch(setLoading(true));
-          const result = await axios.get(`http://localhost:1216/chartList`, {
+          const result = await axios.get(`http://localhost:8080/chartList`, {
             params: {
               genre: genre,
             },

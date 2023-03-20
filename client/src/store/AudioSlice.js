@@ -21,8 +21,8 @@ const play = (state) => {
   if (state.listSongs.length > 0) {
     const song = state.listSongs[state.currentIndex];
     state.title = song.title;
-    state.file_path = process.env.PUBLIC_URL + `/mp3/${song.file_path}`;
-    state.cover_img = process.env.PUBLIC_URL + `/img/${song.cover_img}`;
+    state.file_path = `/mp3/${song.file_path}`;
+    state.cover_img = `/img/${song.cover_img}`;
     state.artist = song.artist;
     state.isPlaying = true;
   } else {

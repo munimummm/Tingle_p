@@ -67,7 +67,7 @@ function DetailArtist() {
     const getDetailResult = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:1216/detailList/artist`,
+          `http://localhost:8080/detailList/artist`,
           {
             params: {
               value: detailList.artist,
@@ -87,10 +87,7 @@ function DetailArtist() {
     <ArtistContainer>
       <div className="detailInfo">
         <div className="imgWrap">
-          <img
-            src={process.env.PUBLIC_URL + `/img/${detailList.artist_img}`}
-            alt="artist_img"
-          />
+          <img src={`/img/${detailList.artist_img}`} alt="artist_img" />
         </div>
         <div className="trackInfo">
           <Link to="#" className="detail_artist">

@@ -25,11 +25,7 @@ function Recommend() {
   return (
     <RecommendContainer>
       <div className="main-imgBox">
-        <img
-          className="main-img"
-          src={process.env.PUBLIC_URL + `/img/main-2.jpg`}
-          alt="main_img"
-        ></img>
+        <img className="main-img" src={`/img/main-2.jpg`} alt="main_img"></img>
       </div>
       {genre.map((genreList, i) => (
         <div key={i}>

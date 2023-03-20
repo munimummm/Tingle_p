@@ -68,7 +68,7 @@ function RecommendList({ genreList }) {
     const getRecommendList = async () => {
       try {
         dispatch(setLoading(true));
-        const result = await axios.get(`http://localhost:1216/recommendList`, {
+        const result = await axios.get(`http://localhost:8080/recommendList`, {
           params: {
             genre: genreList,
           },
@@ -100,7 +100,7 @@ function RecommendList({ genreList }) {
                   >
                     <img
                       className="imgItem"
-                      src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+                      src={`/img/${list.cover_img}`}
                       alt="album_img"
                     ></img>
                   </Link>

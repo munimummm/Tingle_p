@@ -93,10 +93,7 @@ function DetailTitle() {
     <TitleContainer>
       <div className="detailInfo">
         <div className="imgWrap">
-          <img
-            src={process.env.PUBLIC_URL + `/img/${detailList.cover_img}`}
-            alt="album_img"
-          />
+          <img src={`/img/${detailList.cover_img}`} alt="album_img" />
         </div>
         <div className="trackInfo">
           <div className="trackText">

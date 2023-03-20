@@ -86,7 +86,7 @@ function PlayList() {
             >
               <img
                 style={{ width: "50px", height: "50px" }}
-                src={process.env.PUBLIC_URL + `/img/${list.cover_img}`}
+                src={`/img/${list.cover_img}`}
                 alt="album_img"
               ></img>
               <div

@@ -63,7 +63,7 @@ function SearchAlbum({ searchValue }) {
     const getSearchResult = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:1216/searchList/album`,
+          `http://localhost:8080/searchList/album`,
           {
             params: {
               value: searchValue,
@@ -107,9 +107,7 @@ function SearchAlbum({ searchValue }) {
                       <div className="imgBox">
                         <img
                           className="imgItem"
-                          src={
-                            process.env.PUBLIC_URL + `/img/${list.cover_img}`
-                          }
+                          src={`/img/${list.cover_img}`}
                           alt="album_img"
                         ></img>
                       </div>

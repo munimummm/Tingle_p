@@ -56,7 +56,7 @@ function SearchArtist({ searchValue }) {
     const getSeachResult = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:1216/searchList/artist`,
+          `http://localhost:8080/searchList/artist`,
           {
             params: {
               value: searchValue,
@@ -101,9 +101,7 @@ function SearchArtist({ searchValue }) {
                       <div className="imgBox">
                         <img
                           className="itemImg"
-                          src={
-                            process.env.PUBLIC_URL + `/img/${list.artist_img}`
-                          }
+                          src={`/img/${list.artist_img}`}
                           alt="artist_img"
                         ></img>
                       </div>
