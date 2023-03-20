@@ -54,6 +54,8 @@ let SearchTextField = styled(TextField)`
 function SidebarContent({ handleMenuClose }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
 
   const searchOnkeyPress = (e) => {
     if (e.key === "Enter") {
@@ -65,14 +67,17 @@ function SidebarContent({ handleMenuClose }) {
           },
         });
       }
-      handleMenuClose();
+      mobileMenuClose();
     }
   };
-  const [open, setOpen] = useState(false);
-  const [text, setText] = useState("");
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const mobileMenuClose = () => {
+    if (window.innerWidth <= 700) {
+      handleMenuClose();
+    }
   };
 
   return (
@@ -80,7 +85,7 @@ function SidebarContent({ handleMenuClose }) {
       <SidebarBrand
         onClick={() => {
           navigate("/");
-          handleMenuClose();
+          mobileMenuClose();
         }}
       >
         <Logo>Tingle</Logo>
@@ -121,7 +126,7 @@ function SidebarContent({ handleMenuClose }) {
               startIcon={<Recommend />}
               onClick={() => {
                 navigate("/");
-                handleMenuClose();
+                mobileMenuClose();
               }}
             >
               추천
@@ -131,7 +136,7 @@ function SidebarContent({ handleMenuClose }) {
               onClick={() => {
                 dispatch(setGenre("TOP100"));
                 navigate("/chart/0");
-                handleMenuClose();
+                mobileMenuClose();
               }}
             >
               차트
@@ -140,7 +145,7 @@ function SidebarContent({ handleMenuClose }) {
               startIcon={<SupportAgent />}
               onClick={() => {
                 navigate("/helpCenter/notice");
-                handleMenuClose();
+                mobileMenuClose();
               }}
             >
               고객센터
