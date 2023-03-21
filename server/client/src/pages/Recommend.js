@@ -3,19 +3,21 @@ import RecommendList from "components/RecommendList";
 import { useSelector } from "react-redux";
 const RecommendContainer = styled.div`
   width: 100%;
+  @media ${(props) => props.theme.mobile} {
+    margin-top: 30px;
+  }
   .main-imgBox {
-    width: 1500px;
-    height: 500px;
     border-radius: 12px;
     margin-bottom: 50px;
     overflow: hidden;
+    width: 1500px;
+    height: 600px;
+    @media ${(props) => props.theme.mobile} {
+      display: none;
+    }
     .main-img {
       width: 100%;
       height: 100%;
-
-      @media ${(props) => props.theme.mobile} {
-        width: auto;
-      }
     }
   }
 `;

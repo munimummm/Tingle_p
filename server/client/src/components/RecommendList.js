@@ -17,15 +17,15 @@ const RecommendBox = styled.div`
     position: relative;
     display: inline-block;
     margin-top: 30px;
-    margin-left: 30px;
+    /* margin-left: 20px; */
     word-break: break-all;
     vertical-align: top;
-    background: #ffffff;
-    padding: 0 25px 40px 0;
+    background: rgb(255, 255, 255);
+    padding: 0px 22px 40px 0px;
   }
   .imgBox {
-    width: 240px;
-    height: 240px;
+    width: 280px;
+    height: 280px;
     overflow: hidden;
     border-radius: 4%;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -36,11 +36,12 @@ const RecommendBox = styled.div`
     height: 100%;
   }
   .textBox {
-    width: 230px;
+    width: 260px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
+    margin-left: 10px;
   }
 
   .select_icon {
@@ -132,7 +133,13 @@ function RecommendList({ genreList }) {
                     dispatch(setDetailList(list));
                   }}
                 >
-                  <span style={{ fontSize: "14px", color: "#989898" }}>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      color: "#989898",
+                      marginLeft: "10px",
+                    }}
+                  >
                     {list.artist}
                   </span>
                 </Link>
