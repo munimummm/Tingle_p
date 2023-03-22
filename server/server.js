@@ -16,13 +16,16 @@ app.get("/", function (req, res) {
 
 let db;
 
-MongoClient.connect(process.env.DB_URL, function (error, client) {
-  if (error) return console.log(error);
-  db = client.db("tingleP");
-  app.listen(process.env.PORT, function () {
-    console.log("Listening on 8080");
-  });
-});
+MongoClient.connect(
+  "mongodb+srv://admin:1a2s3d4f@tingle.k3ynymc.mongodb.net/?retryWrites=true&w=majority",
+  function (error, client) {
+    if (error) return console.log(error);
+    db = client.db("tingleP");
+    app.listen(8080, function () {
+      console.log("Listening on 8080");
+    });
+  }
+);
 
 app.get("/chartList100", function (req, res) {
   db.collection("music")
