@@ -60,21 +60,21 @@ const ArtistContainer = styled.div`
 `;
 function DetailArtist() {
   let detailList = useSelector((state) => state.detail.list);
-  console.log(detailList);
+
   const [searchList, setSearchList] = useState([]);
 
   useEffect(() => {
     const getDetailResult = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:8080/detailList/artist`,
+          `${process.env.REACT_APP_SERVER_URL}/detailList/artist`,
           {
             params: {
               value: detailList.artist,
             },
           }
         );
-        console.log(result.data);
+
         setSearchList(result.data);
       } catch (error) {
         console.log(error);

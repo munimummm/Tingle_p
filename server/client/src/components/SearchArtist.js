@@ -56,14 +56,13 @@ function SearchArtist({ searchValue }) {
     const getSeachResult = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:8080/searchList/artist`,
+          `${process.env.REACT_APP_SERVER_URL}/searchList/artist`,
           {
             params: {
               value: searchValue,
             },
           }
         );
-        console.log(result.data);
         setSearchList(result.data);
       } catch (error) {
         console.log(error);

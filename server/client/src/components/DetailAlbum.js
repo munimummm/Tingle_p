@@ -89,20 +89,19 @@ const AlbumContainer = styled.div`
 
 function DetailAlbum() {
   let detailList = useSelector((state) => state.detail.list);
-  console.log(detailList);
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getDetailResult = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:8080/detailList/album`,
+          `${process.env.REACT_APP_SERVER_URL}/detailList/album`,
           {
             params: {
               value: detailList.album,
             },
           }
         );
-        console.log(result.data);
+
         setSearchList(result.data);
       } catch (error) {
         console.log(error);

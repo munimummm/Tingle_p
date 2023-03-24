@@ -69,11 +69,14 @@ function RecommendList({ genreList }) {
     const getRecommendList = async () => {
       try {
         dispatch(setLoading(true));
-        const result = await axios.get(`http://localhost:8080/recommendList`, {
-          params: {
-            genre: genreList,
-          },
-        });
+        const result = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/recommendList`,
+          {
+            params: {
+              genre: genreList,
+            },
+          }
+        );
         setRecommendList(result.data);
         dispatch(setLoading(false));
       } catch (error) {

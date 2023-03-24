@@ -59,7 +59,6 @@ const AudioSlice = createSlice({
       const { songs } = action.payload;
       state.listSongs.concat(songs);
       play(state);
-      console.log(state.currentIndex);
     },
     setIsPlaying: (state, action) => {
       state.isPlaying = action.payload;

@@ -43,11 +43,14 @@ function HelpCenter() {
   useEffect(() => {
     const typeClick = async () => {
       try {
-        const result = await axios.get(`http://localhost:8080/helpCenter`, {
-          params: {
-            type: type,
-          },
-        });
+        const result = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/helpCenter`,
+          {
+            params: {
+              type: type,
+            },
+          }
+        );
         setHelpList(result.data);
       } catch (error) {
         console.log(error);

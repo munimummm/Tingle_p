@@ -63,14 +63,14 @@ function SearchAlbum({ searchValue }) {
     const getSearchResult = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:8080/searchList/album`,
+          `${process.env.REACT_APP_SERVER_URL}/searchList/album`,
           {
             params: {
               value: searchValue,
             },
           }
         );
-        console.log(result.data);
+
         setSearchList(result.data);
       } catch (error) {
         console.log(error);

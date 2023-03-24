@@ -9,7 +9,6 @@ function TableItems({ list }) {
   const navigate = useNavigate();
   let dispatch = useDispatch();
 
-  // console.log(list);
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
       <TableCell>

@@ -63,17 +63,17 @@ function Chart() {
     "클래식",
     "팝",
   ];
-  console.log(genre);
 
   useEffect(() => {
     if (genre === "TOP100") {
       const getTop100 = async () => {
         try {
           dispatch(setLoading(true));
-          const result = await axios.get(`http://localhost:8080/chartList100`);
+          const result = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/chartList100`
+          );
           dispatch(setChartLists(result.data));
           dispatch(setLoading(false));
-          console.log(result.data);
         } catch (error) {
           console.log(error);
         }
@@ -83,11 +83,14 @@ function Chart() {
       const getGenreList = async () => {
         try {
           dispatch(setLoading(true));
-          const result = await axios.get(`http://localhost:8080/chartList`, {
-            params: {
-              genre: genre,
-            },
-          });
+          const result = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/chartList`,
+            {
+              params: {
+                genre: genre,
+              },
+            }
+          );
           dispatch(setChartLists(result.data));
           dispatch(setLoading(false));
         } catch (error) {
