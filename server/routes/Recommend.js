@@ -11,7 +11,8 @@ router.get("/recommendList", function (req, res) {
         },
       },
     },
-    { $sample: { size: 5 } },
+    { $sort: { cnt: 1 } },
+    { $limit: 5 },
   ];
   req.app.db
     .collection("music")
