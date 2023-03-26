@@ -16,6 +16,7 @@ import styled from "styled-components";
 import SearchTitle from "components/SearchTitle";
 import SearchAlbum from "components/SearchAlbum";
 import SearchArtist from "components/SearchArtist";
+import ScrollToTop from "common/ScrollToTop";
 
 const AppContainer = styled.div`
   display: grid;
@@ -44,6 +45,7 @@ function App() {
         <AppContainer>
           <Sidebar></Sidebar>
           <PageContainer>
+            <ScrollToTop />
             <Routes>
               <Route path="*" element={<div>준비중입니다.</div>} />
               <Route path="/" element={<Recommend />} />
