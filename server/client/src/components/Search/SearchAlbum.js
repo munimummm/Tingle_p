@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { setAlbumOpen, setLimit } from "store/SearchSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { setDetailList } from "store/DetailSlice";
+import { commonAxios } from "api/CommonAxios";
 const AContainer = styled.div`
   .findResult_h1 {
     cursor: pointer;
@@ -62,14 +62,11 @@ function SearchAlbum({ searchValue }) {
   useEffect(() => {
     const getSearchResult = async () => {
       try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/searchList/album`,
-          {
-            params: {
-              value: searchValue,
-            },
-          }
-        );
+        const result = await commonAxios.get(`/searchList/album`, {
+          params: {
+            value: searchValue,
+          },
+        });
 
         setSearchList(result.data);
       } catch (error) {

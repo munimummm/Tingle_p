@@ -3,10 +3,10 @@ import { ArrowForwardIos } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLimit, setTitleOpen } from "store/SearchSlice";
-import axios from "axios";
 import styled from "styled-components";
-import TableHeader from "./TableHeader";
-import TableItems from "./TableItems";
+import TableHeader from "components/TableHeader";
+import TableItems from "components/TableItems";
+import { commonAxios } from "api/CommonAxios";
 
 const TitleContainer = styled.div`
   .findResult_h1 {
@@ -32,14 +32,11 @@ function SearchTitle({ searchValue }) {
     if (searchValue.length > 0) {
       const getSearchResult = async () => {
         try {
-          const result = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/searchList/title`,
-            {
-              params: {
-                value: searchValue,
-              },
-            }
-          );
+          const result = await commonAxios.get(`/searchList/title`, {
+            params: {
+              value: searchValue,
+            },
+          });
 
           setSearchList(result.data);
         } catch (error) {

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import SearchTitle from "components/SearchTitle";
-import SearchArtist from "components/SearchArtist";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setAlbumOpen,
@@ -10,7 +8,9 @@ import {
   setLimit,
   setTitleOpen,
 } from "store/SearchSlice";
-import SearchAlbum from "components/SearchAlbum";
+import SearchAlbum from "components/Search/SearchAlbum";
+import SearchTitle from "components/Search/SearchTitle";
+import SearchArtist from "components/Search/SearchArtist";
 
 const FindContainer = styled.div`
   .find_h1 {

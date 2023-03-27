@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Table,
   TableBody,
@@ -12,9 +11,9 @@ import {
   ButtonGroup,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-
 import AlertDialog from "components/AlertDialog";
 import { useNavigate } from "react-router-dom";
+import { commonAxios } from "api/CommonAxios";
 const HelpContainer = styled.div`
   width: 100%;
   margin-bottom: 10px;
@@ -43,14 +42,11 @@ function HelpCenter() {
   useEffect(() => {
     const typeClick = async () => {
       try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/helpCenter`,
-          {
-            params: {
-              type: type,
-            },
-          }
-        );
+        const result = await commonAxios.get(`/helpCenter`, {
+          params: {
+            type: type,
+          },
+        });
         setHelpList(result.data);
       } catch (error) {
         console.log(error);
@@ -103,48 +99,45 @@ function HelpCenter() {
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {helpList.map((list, i) => (
-              <>
-                <TableRow
-                  onClick={() => {
-                    setIndex(i);
-                    setModal(!modal);
-                  }}
+          {helpList.map((list, i) => (
+            <TableBody key={i}>
+              <TableRow
+                onClick={() => {
+                  setIndex(i);
+                  setModal(!modal);
+                }}
+              >
+                <TableCell>{i + 1}</TableCell>
+                <TableCell>{list.type}</TableCell>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{ whiteSpace: "preLine" }}
                 >
-                  {" "}
-                  <TableCell>{i + 1}</TableCell>
-                  <TableCell>{list.type}</TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    sx={{ whiteSpace: "preLine" }}
-                  >
-                    {list.title}
-                  </TableCell>
-                  <TableCell align="center">{list.date}</TableCell>
-                  <TableCell>
-                    {modal === true ? (
-                      i === index ? (
-                        <ExpandLess />
-                      ) : (
-                        <ExpandMore />
-                      )
+                  {list.title}
+                </TableCell>
+                <TableCell align="center">{list.date}</TableCell>
+                <TableCell>
+                  {modal === true ? (
+                    i === index ? (
+                      <ExpandLess />
                     ) : (
                       <ExpandMore />
-                    )}
-                  </TableCell>
+                    )
+                  ) : (
+                    <ExpandMore />
+                  )}
+                </TableCell>
+              </TableRow>
+              {modal === true && i === index ? (
+                <TableRow className="modal">
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell colSpan={5}>{list.content}</TableCell>
                 </TableRow>
-                {modal === true && i === index ? (
-                  <TableRow className="modal">
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell colSpan={5}>{list.content}</TableCell>
-                  </TableRow>
-                ) : null}
-              </>
-            ))}
-          </TableBody>
+              ) : null}
+            </TableBody>
+          ))}
         </Table>
         {open === true ? (
           <AlertDialog

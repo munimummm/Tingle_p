@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import RecommendList from "components/RecommendList";
-import { useSelector } from "react-redux";
+import RecommendList from "components/recommend/RecommendList";
 const RecommendContainer = styled.div`
   width: 100%;
   @media ${(props) => props.theme.mobile} {
@@ -22,7 +21,7 @@ const RecommendContainer = styled.div`
   }
 `;
 function Recommend() {
-  let genre = useSelector((state) => state.recommend.genre);
+  const genre = ["발라드", "락", "힙합", "댄스", "재즈", "클래식", "팝"];
 
   return (
     <RecommendContainer>

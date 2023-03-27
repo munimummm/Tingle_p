@@ -1,12 +1,12 @@
-import axios from "axios";
+import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import TableHeader from "./TableHeader";
-import TableItems from "./TableItems";
 import { Table, TableBody, TableContainer, Paper } from "@mui/material";
-import styled from "styled-components";
+import TableHeader from "components/TableHeader";
+import TableItems from "components/TableItems";
+import { commonAxios } from "api/CommonAxios";
 
 const ArtistContainer = styled.div`
   max-width: 1600px;
@@ -66,14 +66,11 @@ function DetailArtist() {
   useEffect(() => {
     const getDetailResult = async () => {
       try {
-        const result = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/detailList/artist`,
-          {
-            params: {
-              value: detailList.artist,
-            },
-          }
-        );
+        const result = await commonAxios.get(`/detailList/artist`, {
+          params: {
+            value: detailList.artist,
+          },
+        });
 
         setSearchList(result.data);
       } catch (error) {

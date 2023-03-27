@@ -8,12 +8,12 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import ChartList from "components/ChartList";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { setChartLists, setGenre, setLoading } from "store/ListSlice";
-import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setChartLists, setGenre, setLoading } from "store/ListSlice";
+import { commonAxios } from "api/CommonAxios";
+import Loading from "components/Loading";
+import ChartList from "components/chart/ChartList";
 
 let ChartContainer = styled.div`
   margin-top: 20px;
@@ -67,35 +67,30 @@ function Chart() {
   useEffect(() => {
     if (genre === "TOP100") {
       const getTop100 = async () => {
+        dispatch(setLoading(true));
         try {
-          dispatch(setLoading(true));
-          const result = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/chartList100`
-          );
+          const result = await commonAxios.get(`/chartList100`);
           dispatch(setChartLists(result.data));
-          dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
         }
+        dispatch(setLoading(false));
       };
       getTop100();
     } else {
       const getGenreList = async () => {
+        dispatch(setLoading(true));
         try {
-          dispatch(setLoading(true));
-          const result = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/chartList`,
-            {
-              params: {
-                genre: genre,
-              },
-            }
-          );
+          const result = await commonAxios.get(`/chartList`, {
+            params: {
+              genre: genre,
+            },
+          });
           dispatch(setChartLists(result.data));
-          dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
         }
+        dispatch(setLoading(false));
       };
 
       getGenreList();

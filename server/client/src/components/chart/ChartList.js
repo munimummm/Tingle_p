@@ -2,7 +2,7 @@ import { TableBody, TableCell, TableRow } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import PlayButton from "./PlayButton";
+import PlayButton from "../PlayButton";
 import { AudioActions } from "store/AudioSlice";
 import { setDetailList } from "store/DetailSlice";
 function ChartList() {

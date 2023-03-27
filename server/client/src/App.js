@@ -1,3 +1,6 @@
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 import Sidebar from "./common/Sidebar";
 import Player from "./common/Player";
 import SearchResult from "./pages/SearchResult";
@@ -7,15 +10,12 @@ import Storage from "./pages/Storage";
 import MyPage from "./pages/MyPage";
 import HelpCenter from "./pages/HelpCenter";
 import Detail from "./pages/Detail";
-import DetailTitle from "components/DetailTitle";
-import DetailAlbum from "components/DetailAlbum";
-import DetailArtist from "components/DetailArtist";
-import { BrowserRouter } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
-import styled from "styled-components";
-import SearchTitle from "components/SearchTitle";
-import SearchAlbum from "components/SearchAlbum";
-import SearchArtist from "components/SearchArtist";
+import DetailTitle from "components/detail/DetailTitle";
+import DetailAlbum from "components/detail/DetailAlbum";
+import DetailArtist from "components/detail/DetailArtist";
+import SearchTitle from "components/Search/SearchTitle";
+import SearchAlbum from "components/Search/SearchAlbum";
+import SearchArtist from "components/Search/SearchArtist";
 import ScrollToTop from "common/ScrollToTop";
 
 const AppContainer = styled.div`
@@ -54,7 +54,6 @@ function App() {
                 <Route path="album" element={<SearchAlbum />} />
                 <Route path="artist" element={<SearchArtist />} />
               </Route>
-              {/* <Route path="/recommend" element={<Recommend />} /> */}
               <Route path="/chart/:id" element={<Chart />} />
               <Route path="/storage" element={<Storage />} />
               <Route path="/helpCenter/:id" element={<HelpCenter />} />

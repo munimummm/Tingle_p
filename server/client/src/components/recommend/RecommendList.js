@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
 import { useState } from "react";
-import PlayButton from "./PlayButton";
+import PlayButton from "../PlayButton";
 import { Link } from "react-router-dom";
 import { setLoading } from "store/ListSlice";
-import Loading from "pages/Loading";
+import Loading from "components/Loading";
 import { setDetailList } from "store/DetailSlice";
 import { AudioActions } from "store/AudioSlice";
+import { commonAxios } from "api/CommonAxios";
 const RecommendBox = styled.div`
   .recommend_table {
     width: 100%;
@@ -67,21 +67,18 @@ function RecommendList({ genreList }) {
 
   useEffect(() => {
     const getRecommendList = async () => {
+      dispatch(setLoading(true));
       try {
-        dispatch(setLoading(true));
-        const result = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/recommendList`,
-          {
-            params: {
-              genre: genreList,
-            },
-          }
-        );
+        const result = await commonAxios.get(`/recommendList`, {
+          params: {
+            genre: genreList,
+          },
+        });
         setRecommendList(result.data);
-        dispatch(setLoading(false));
       } catch (error) {
         console.log(error);
       }
+      dispatch(setLoading(false));
     };
     getRecommendList();
   }, [dispatch, genreList]);
