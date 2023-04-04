@@ -7,13 +7,13 @@ import { AudioActions } from "store/AudioSlice";
 import { setDetailList } from "store/DetailSlice";
 function ChartList() {
   const navigate = useNavigate();
-  let chartLists = useSelector((state) => state.list.list);
-  let dispatch = useDispatch();
+  const chartLists = useSelector((state) => state.list.list);
+  const dispatch = useDispatch();
   return (
     <TableBody>
       {chartLists.map((list, i) => (
         <TableRow
-          key={i}
+          key={list._id}
           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
           <TableCell align="center">{i + 1}</TableCell>

@@ -59,9 +59,10 @@ const PlayListItem = styled.div`
 `;
 
 function PlayList() {
-  let listSongs = useSelector((state) => state.audio.listSongs);
-  let currentIndex = useSelector((state) => state.audio.currentIndex);
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const listSongs = useSelector((state) => state.audio.listSongs);
+  const currentIndex = useSelector((state) => state.audio.currentIndex);
+
   return (
     <div>
       <PlayListContainer>
