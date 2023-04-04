@@ -90,7 +90,7 @@ function Sidebar() {
 
         <Menu onClick={handleMenuOpen} />
       </div>
-      {mobile === true ? (
+      {mobile && (
         <SidebarBox>
           <Close
             className="mobileCloseToggle"
@@ -98,7 +98,7 @@ function Sidebar() {
           ></Close>
           <SidebarContent handleMenuClose={handleMenuClose} />
         </SidebarBox>
-      ) : null}
+      )}
     </SidebarContainer>
   );
 }
