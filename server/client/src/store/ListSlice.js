@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let listSlice = createSlice({
   name: "list",
   initialState: {
-    genre: "TOP100",
+    genre: "TOP50",
     list: [],
     loading: false,
   },

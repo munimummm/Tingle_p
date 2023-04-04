@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   Table,
   TableCell,
@@ -15,7 +15,7 @@ import { commonAxios } from "api/CommonAxios";
 import Loading from "components/Loading";
 import ChartList from "components/chart/ChartList";
 
-let ChartContainer = styled.div`
+const ChartContainer = styled.div`
   margin-top: 20px;
   h1 {
     font-weight: 500;
@@ -29,7 +29,7 @@ let ChartContainer = styled.div`
   }
 `;
 
-let ChartButton = styled.button`
+const ChartButton = styled.button`
   height: 32px;
   padding: 0 15px;
   font-size: 16px;
@@ -49,53 +49,42 @@ let ChartButton = styled.button`
   }
 `;
 function Chart() {
-  let dispatch = useDispatch();
-  let genre = useSelector((state) => state.list.genre);
-  let loading = useSelector((state) => state.list.loading);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const buttonList = [
-    "TOP100",
-    "발라드",
-    "락",
-    "힙합",
-    "댄스",
-    "재즈",
-    "클래식",
-    "팝",
-  ];
+  const genre = useSelector((state) => state.list.genre);
+  const loading = useSelector((state) => state.list.loading);
 
-  useEffect(() => {
-    if (genre === "TOP100") {
-      const getTop100 = async () => {
-        dispatch(setLoading(true));
-        try {
-          const result = await commonAxios.get(`/chartList100`);
-          dispatch(setChartLists(result.data));
-        } catch (error) {
-          console.log(error);
-        }
-        dispatch(setLoading(false));
-      };
-      getTop100();
-    } else {
-      const getGenreList = async () => {
-        dispatch(setLoading(true));
-        try {
-          const result = await commonAxios.get(`/chartList`, {
+  const buttonList = useMemo(
+    () => ["TOP50", "발라드", "락", "힙합", "댄스", "재즈", "클래식", "팝"],
+    []
+  );
+
+  const getChartList = useCallback(
+    async (genre) => {
+      dispatch(setLoading(true));
+      try {
+        let result;
+        if (genre === "TOP50") {
+          result = await commonAxios.get(`/chartList100`);
+        } else {
+          result = await commonAxios.get(`/chartList`, {
             params: {
               genre: genre,
             },
           });
-          dispatch(setChartLists(result.data));
-        } catch (error) {
-          console.log(error);
         }
-        dispatch(setLoading(false));
-      };
+        dispatch(setChartLists(result.data));
+      } catch (error) {
+        console.log(error);
+      }
+      dispatch(setLoading(false));
+    },
+    [dispatch]
+  );
 
-      getGenreList();
-    }
-  }, [dispatch, genre]);
+  useEffect(() => {
+    getChartList(genre);
+  }, [genre, getChartList]);
 
   return (
     <div>
