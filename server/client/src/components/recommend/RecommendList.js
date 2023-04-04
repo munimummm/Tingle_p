@@ -9,6 +9,7 @@ import Loading from "components/Loading";
 import { setDetailList } from "store/DetailSlice";
 import { AudioActions } from "store/AudioSlice";
 import { commonAxios } from "api/CommonAxios";
+import React from "react";
 const RecommendBox = styled.div`
   .recommend_table {
     width: 100%;
@@ -62,8 +63,8 @@ const RecommendBox = styled.div`
 `;
 function RecommendList({ genreList }) {
   const [recommendList, setRecommendList] = useState([]);
-  let dispatch = useDispatch();
-  let loading = useSelector((state) => state.list.loading);
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.list.loading);
 
   useEffect(() => {
     const getRecommendList = async () => {
@@ -151,4 +152,4 @@ function RecommendList({ genreList }) {
     </>
   );
 }
-export default RecommendList;
+export default React.memo(RecommendList);
