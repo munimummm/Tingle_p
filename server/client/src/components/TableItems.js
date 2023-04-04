@@ -7,7 +7,7 @@ import { setDetailList } from "store/DetailSlice";
 import PlayButton from "./PlayButton";
 function TableItems({ list }) {
   const navigate = useNavigate();
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>

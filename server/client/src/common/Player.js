@@ -58,15 +58,15 @@ const PlayerContainer = styled.div`
 
 function Player() {
   const playerRef = useRef();
-  let dispatch = useDispatch();
-  let playListOpen = useSelector((state) => state.playList.playListOpen);
+  const dispatch = useDispatch();
+  const playListOpen = useSelector((state) => state.playList.playListOpen);
   const isPlaying = useSelector((state) => state.audio.isPlaying);
-  let file_path = useSelector((state) => state.audio.file_path);
-  let cover_img = useSelector((state) => state.audio.cover_img);
-  let title = useSelector((state) => state.audio.title);
-  let artist = useSelector((state) => state.audio.artist);
-  let currentIndex = useSelector((state) => state.audio.currentIndex);
-  let listSongs = useSelector((state) => state.audio.listSongs);
+  const file_path = useSelector((state) => state.audio.file_path);
+  const cover_img = useSelector((state) => state.audio.cover_img);
+  const title = useSelector((state) => state.audio.title);
+  const artist = useSelector((state) => state.audio.artist);
+  const currentIndex = useSelector((state) => state.audio.currentIndex);
+  const listSongs = useSelector((state) => state.audio.listSongs);
   useEffect(() => {
     if (isPlaying) {
       playerRef.current?.audio.current.play();
@@ -127,7 +127,7 @@ function Player() {
             dispatch(setPlayListOpen(!playListOpen));
           }}
         />
-        {playListOpen === true ? <PlayList /> : null}
+        {playListOpen && <PlayList />}
       </PlayerContainer>
     </>
   );
