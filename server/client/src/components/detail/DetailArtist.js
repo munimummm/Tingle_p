@@ -59,8 +59,7 @@ const ArtistContainer = styled.div`
   }
 `;
 function DetailArtist() {
-  let detailList = useSelector((state) => state.detail.list);
-
+  const detailList = useSelector((state) => state.detail.list);
   const [searchList, setSearchList] = useState([]);
 
   useEffect(() => {

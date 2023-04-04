@@ -87,8 +87,8 @@ const TitleContainer = styled.div`
 `;
 
 function DetailTitle() {
-  let detailList = useSelector((state) => state.detail.list);
-  let dispatch = useDispatch();
+  const detailList = useSelector((state) => state.detail.list);
+  const dispatch = useDispatch();
 
   return (
     <TitleContainer>
