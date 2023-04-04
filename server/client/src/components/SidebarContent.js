@@ -69,6 +69,10 @@ function SidebarContent({ handleMenuClose }) {
       mobileMenuClose();
     }
   };
+  const menuButtonClick = (path) => {
+    navigate(path);
+    mobileMenuClose();
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -81,12 +85,7 @@ function SidebarContent({ handleMenuClose }) {
 
   return (
     <>
-      <SidebarBrand
-        onClick={() => {
-          navigate("/");
-          mobileMenuClose();
-        }}
-      >
+      <SidebarBrand onClick={() => menuButtonClick("/")}>
         <Logo>Tingle</Logo>
       </SidebarBrand>
       <SidebarNav>
@@ -123,10 +122,7 @@ function SidebarContent({ handleMenuClose }) {
           >
             <Button
               startIcon={<Recommend />}
-              onClick={() => {
-                navigate("/");
-                mobileMenuClose();
-              }}
+              onClick={() => menuButtonClick("/")}
             >
               추천
             </Button>
@@ -134,8 +130,7 @@ function SidebarContent({ handleMenuClose }) {
               startIcon={<BarChart />}
               onClick={() => {
                 dispatch(setGenre("TOP100"));
-                navigate("/chart/0");
-                mobileMenuClose();
+                menuButtonClick("/chart/0");
               }}
             >
               차트
@@ -143,8 +138,7 @@ function SidebarContent({ handleMenuClose }) {
             <Button
               startIcon={<SupportAgent />}
               onClick={() => {
-                navigate("/helpCenter/notice");
-                mobileMenuClose();
+                menuButtonClick("/helpCenter/notice");
               }}
             >
               고객센터
