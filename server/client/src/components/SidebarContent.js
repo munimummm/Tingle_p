@@ -129,7 +129,7 @@ function SidebarContent({ handleMenuClose }) {
             <Button
               startIcon={<BarChart />}
               onClick={() => {
-                dispatch(setGenre("TOP100"));
+                dispatch(setGenre("TOP50"));
                 menuButtonClick("/chart/0");
               }}
             >
