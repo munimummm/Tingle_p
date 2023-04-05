@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { setArtistOpen, setLimit } from "store/SearchSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { setArtistOpen } from "store/SearchSlice";
+import { useDispatch } from "react-redux";
 import { setDetailList } from "store/DetailSlice";
-import { commonAxios } from "api/CommonAxios";
+
+import useSearchResult from "hooks/useSearchResult";
 
 const FindList = styled.li`
   display: inline-block;
@@ -49,67 +49,48 @@ const FindListContainer = styled.ul`
 `;
 
 function SearchArtist({ searchValue }) {
-  let dispatch = useDispatch();
-  let limit = useSelector((state) => state.search.limit);
-  const [searchList, setSearchList] = useState([]);
-  useEffect(() => {
-    const getSeachResult = async () => {
-      try {
-        const result = await commonAxios.get(`/searchList/artist`, {
-          params: {
-            value: searchValue,
-          },
-        });
-        setSearchList(result.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getSeachResult();
-  }, [searchValue]);
+  const dispatch = useDispatch();
+  const { searchList, limit, addList } = useSearchResult("artist", searchValue);
 
   return (
     <>
-      {0 < searchList.length ? (
-        <AContainer>
-          <h2
-            className="findResult_h1"
-            onClick={() => {
-              dispatch(setLimit(searchList.length));
-              dispatch(setArtistOpen(true));
-            }}
-          >
-            가수
-            <ArrowForwardIos className="arrowIcon" />
-          </h2>
+      <AContainer>
+        <h2
+          className="findResult_h1"
+          onClick={() => {
+            addList(setArtistOpen);
+          }}
+        >
+          가수
+          <ArrowForwardIos className="arrowIcon" />
+        </h2>
 
-          <FindListContainer>
-            {searchList.map((list, i) =>
-              i < limit ? (
-                <FindList key={i}>
-                  <div>
-                    <NavLink
-                      to={`/detail/artist/${list.artist_no}`}
-                      onClick={() => {
-                        dispatch(setDetailList(list));
-                      }}
-                    >
-                      <div className="imgBox">
-                        <img
-                          className="itemImg"
-                          src={`/img/${list.artist_img}`}
-                          alt="artist_img"
-                        ></img>
-                      </div>
-                      <div className="textItem">{list.artist}</div>
-                    </NavLink>
-                  </div>
-                </FindList>
-              ) : null
-            )}
-          </FindListContainer>
-        </AContainer>
-      ) : null}
+        <FindListContainer>
+          {searchList.map((list, i) =>
+            i < limit ? (
+              <FindList key={list._id}>
+                <div>
+                  <NavLink
+                    to={`/detail/artist/${list.artist_no}`}
+                    onClick={() => {
+                      dispatch(setDetailList(list));
+                    }}
+                  >
+                    <div className="imgBox">
+                      <img
+                        className="itemImg"
+                        src={`/img/${list.artist_img}`}
+                        alt="artist_img"
+                      ></img>
+                    </div>
+                    <div className="textItem">{list.artist}</div>
+                  </NavLink>
+                </div>
+              </FindList>
+            ) : null
+          )}
+        </FindListContainer>
+      </AContainer>
     </>
   );
 }
