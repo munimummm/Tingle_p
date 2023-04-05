@@ -87,7 +87,7 @@ const AlbumContainer = styled.div`
 `;
 
 function DetailAlbum() {
-  let detailList = useSelector((state) => state.detail.list);
+  const detailList = useSelector((state) => state.detail.list);
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getDetailResult = async () => {
