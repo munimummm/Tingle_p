@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 import {
   Table,
   TableCell,
@@ -53,11 +53,16 @@ function Chart() {
   const navigate = useNavigate();
   const genre = useSelector((state) => state.list.genre);
   const loading = useSelector((state) => state.list.loading);
-
-  const buttonList = useMemo(
-    () => ["TOP50", "발라드", "락", "힙합", "댄스", "재즈", "클래식", "팝"],
-    []
-  );
+  const buttonList = [
+    "TOP50",
+    "발라드",
+    "락",
+    "힙합",
+    "댄스",
+    "재즈",
+    "클래식",
+    "팝",
+  ];
 
   const getChartList = useCallback(
     async (genre) => {
