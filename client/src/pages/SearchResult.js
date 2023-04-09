@@ -21,7 +21,7 @@ const FindContainer = styled.div`
   }
 `;
 
-const SearchResult = React.memo(() => {
+function SearchResult() {
   const location = useLocation();
   const dispatch = useDispatch();
   const searchValue = location.state.value;
@@ -29,6 +29,7 @@ const SearchResult = React.memo(() => {
   const artistOpen = useSelector((state) => state.search.artistOpen);
   const albumOpen = useSelector((state) => state.search.albumOpen);
   const { noResult } = useSearchResult("title", searchValue);
+
   useEffect(() => {
     dispatch(setLimit(5));
     dispatch(setAlbumOpen(false));
@@ -52,6 +53,6 @@ const SearchResult = React.memo(() => {
       {albumOpen && <SearchAlbum searchValue={searchValue} />}
     </FindContainer>
   );
-});
+}
 
 export default SearchResult;
