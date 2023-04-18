@@ -59,7 +59,7 @@ function SidebarContent({ handleMenuClose }) {
 
   const searchOnkeyPress = (e) => {
     if (e.key === "Enter") {
-      if (e.target.value !== null) {
+      if (e.target.value !== "") {
         navigate(`/search?value=${e.target.value}`, {
           state: {
             value: e.target.value,
