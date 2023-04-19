@@ -28,7 +28,10 @@ function SearchResult() {
   const titleOpen = useSelector((state) => state.search.titleOpen);
   const artistOpen = useSelector((state) => state.search.artistOpen);
   const albumOpen = useSelector((state) => state.search.albumOpen);
-  const { noResult } = useSearchResult("title", searchValue);
+  const { noResult: titleNoResult } = useSearchResult("title", searchValue);
+  const { noResult: artistNoResult } = useSearchResult("artist", searchValue);
+  const { noResult: albumNoResult } = useSearchResult("album", searchValue);
+  const allNoResult = titleNoResult && artistNoResult && albumNoResult;
 
   useEffect(() => {
     dispatch(setLimit(5));
@@ -40,8 +43,8 @@ function SearchResult() {
   return (
     <FindContainer>
       <h1 className="find_h1">'{searchValue}' 검색결과</h1>
-      {noResult && <NoResult />}
-      {!noResult && !titleOpen && !artistOpen && !albumOpen && (
+      {allNoResult && <NoResult />}
+      {!allNoResult && !titleOpen && !artistOpen && !albumOpen && (
         <>
           <SearchTitle searchValue={searchValue} />
           <SearchArtist searchValue={searchValue} />

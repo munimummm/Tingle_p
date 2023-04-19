@@ -50,47 +50,52 @@ const FindListContainer = styled.ul`
 
 function SearchArtist({ searchValue }) {
   const dispatch = useDispatch();
-  const { searchList, limit, addList } = useSearchResult("artist", searchValue);
+  const { searchList, limit, addList, noResult } = useSearchResult(
+    "artist",
+    searchValue
+  );
 
   return (
     <>
-      <AContainer>
-        <h2
-          className="findResult_h1"
-          onClick={() => {
-            addList(setArtistOpen);
-          }}
-        >
-          가수
-          <ArrowForwardIos className="arrowIcon" />
-        </h2>
+      {!noResult && (
+        <AContainer>
+          <h2
+            className="findResult_h1"
+            onClick={() => {
+              addList(setArtistOpen);
+            }}
+          >
+            가수
+            <ArrowForwardIos className="arrowIcon" />
+          </h2>
 
-        <FindListContainer>
-          {searchList.map((list, i) =>
-            i < limit ? (
-              <FindList key={list._id}>
-                <div>
-                  <NavLink
-                    to={`/detail/artist/${list.artist_no}`}
-                    onClick={() => {
-                      dispatch(setDetailList(list));
-                    }}
-                  >
-                    <div className="imgBox">
-                      <img
-                        className="itemImg"
-                        src={`/img/${list.artist_img}`}
-                        alt="artist_img"
-                      ></img>
-                    </div>
-                    <div className="textItem">{list.artist}</div>
-                  </NavLink>
-                </div>
-              </FindList>
-            ) : null
-          )}
-        </FindListContainer>
-      </AContainer>
+          <FindListContainer>
+            {searchList.map((list, i) =>
+              i < limit ? (
+                <FindList key={list._id}>
+                  <div>
+                    <NavLink
+                      to={`/detail/artist/${list.artist_no}`}
+                      onClick={() => {
+                        dispatch(setDetailList(list));
+                      }}
+                    >
+                      <div className="imgBox">
+                        <img
+                          className="itemImg"
+                          src={`/img/${list.artist_img}`}
+                          alt="artist_img"
+                        ></img>
+                      </div>
+                      <div className="textItem">{list.artist}</div>
+                    </NavLink>
+                  </div>
+                </FindList>
+              ) : null
+            )}
+          </FindListContainer>
+        </AContainer>
+      )}
     </>
   );
 }

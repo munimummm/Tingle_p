@@ -22,31 +22,36 @@ const TitleContainer = styled.div`
 `;
 
 function SearchTitle({ searchValue }) {
-  const { searchList, limit, addList } = useSearchResult("title", searchValue);
+  const { searchList, limit, addList, noResult } = useSearchResult(
+    "title",
+    searchValue
+  );
 
   return (
     <>
-      <TitleContainer>
-        <h2
-          className="findResult_h1"
-          onClick={() => {
-            addList(setTitleOpen);
-          }}
-        >
-          곡
-          <ArrowForwardIos className="arrowIcon" />
-        </h2>
-        <TableContainer component={Paper} className="tabItem">
-          <Table sx={{ minWidth: 650 }} aria-label="chart table">
-            <TableHeader></TableHeader>
-            <TableBody>
-              {searchList.map((list, i) =>
-                i < limit ? <TableItems key={i} list={list} /> : null
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </TitleContainer>
+      {!noResult && (
+        <TitleContainer>
+          <h2
+            className="findResult_h1"
+            onClick={() => {
+              addList(setTitleOpen);
+            }}
+          >
+            곡
+            <ArrowForwardIos className="arrowIcon" />
+          </h2>
+          <TableContainer component={Paper} className="tabItem">
+            <Table sx={{ minWidth: 650 }} aria-label="chart table">
+              <TableHeader></TableHeader>
+              <TableBody>
+                {searchList.map((list, i) =>
+                  i < limit ? <TableItems key={i} list={list} /> : null
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </TitleContainer>
+      )}
     </>
   );
 }

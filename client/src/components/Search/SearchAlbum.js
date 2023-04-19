@@ -57,47 +57,52 @@ const FindList = styled.li`
 
 function SearchAlbum({ searchValue }) {
   const dispatch = useDispatch();
-  const { searchList, limit, addList } = useSearchResult("album", searchValue);
+  const { searchList, limit, addList, noResult } = useSearchResult(
+    "album",
+    searchValue
+  );
 
   return (
     <>
-      <AContainer>
-        <h2
-          className="findResult_h1"
-          onClick={() => {
-            addList(setAlbumOpen);
-          }}
-        >
-          앨범
-          <ArrowForwardIos className="arrowIcon" />
-        </h2>
+      {!noResult && (
+        <AContainer>
+          <h2
+            className="findResult_h1"
+            onClick={() => {
+              addList(setAlbumOpen);
+            }}
+          >
+            앨범
+            <ArrowForwardIos className="arrowIcon" />
+          </h2>
 
-        <FindListContainer>
-          {searchList.map((list, i) =>
-            i < limit ? (
-              <FindList key={i}>
-                <div>
-                  <NavLink
-                    to={`/detail/album/${list.album}`}
-                    onClick={() => {
-                      dispatch(setDetailList(list));
-                    }}
-                  >
-                    <div className="imgBox">
-                      <img
-                        className="imgItem"
-                        src={`/img/${list.cover_img}`}
-                        alt="album_img"
-                      ></img>
-                    </div>
-                    <div className="textItem">{list.album}</div>
-                  </NavLink>
-                </div>
-              </FindList>
-            ) : null
-          )}
-        </FindListContainer>
-      </AContainer>
+          <FindListContainer>
+            {searchList.map((list, i) =>
+              i < limit ? (
+                <FindList key={i}>
+                  <div>
+                    <NavLink
+                      to={`/detail/album/${list.album}`}
+                      onClick={() => {
+                        dispatch(setDetailList(list));
+                      }}
+                    >
+                      <div className="imgBox">
+                        <img
+                          className="imgItem"
+                          src={`/img/${list.cover_img}`}
+                          alt="album_img"
+                        ></img>
+                      </div>
+                      <div className="textItem">{list.album}</div>
+                    </NavLink>
+                  </div>
+                </FindList>
+              ) : null
+            )}
+          </FindListContainer>
+        </AContainer>
+      )}
     </>
   );
 }
