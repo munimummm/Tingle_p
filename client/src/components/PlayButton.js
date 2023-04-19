@@ -1,9 +1,14 @@
 import { PlayArrow } from "@mui/icons-material";
+import { commonAxios } from "api/CommonAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { AudioActions } from "store/AudioSlice";
 function PlayButton({ onPlay, list }) {
   const dispatch = useDispatch();
-  let listSongs = useSelector((state) => state.audio.listSongs);
+  const listSongs = useSelector((state) => state.audio.listSongs);
+
+  const addCnt = () => {
+    commonAxios.put(`/addCnt/${list.id}`);
+  };
 
   const addSong = () => {
     if (
@@ -12,6 +17,7 @@ function PlayButton({ onPlay, list }) {
       }).length < 1
     ) {
       dispatch(AudioActions.setAddPlayList(list));
+      addCnt();
     } else {
       console.log("중복곡입니다.");
     }

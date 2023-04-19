@@ -40,4 +40,19 @@ router.get("/chartList", function (req, res) {
       }
     });
 });
+
+router.put("/addCnt/:id", function (req, res) {
+  const id = parseInt(req.params.id);
+  console.log(id);
+  req.app.db
+    .collection("music")
+    .updateOne({ id: id }, { $inc: { cnt: 1 } }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("결과", result);
+      }
+    });
+});
+
 module.exports = router;
