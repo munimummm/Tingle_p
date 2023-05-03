@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 function SignUp() {
   return (
     <div>
+      회원가입
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <TextField
             required
             fullWidth
@@ -38,11 +39,22 @@ function SignUp() {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox value="allowExtraEmails" color="primary" />}
-            label="I want to receive inspiration, marketing promotions and updates via email."
+          <TextField
+            required
+            fullWidth
+            name="password"
+            label="비밀번호 확인"
+            type=""
+            id="password"
+            autoComplete="new-password"
           />
         </Grid>
+        {/* <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox value="allowExtraEmails" color="primary" />}
+            label="이메일 수신"
+          />
+        </Grid> */}
       </Grid>
       <Button
         type="submit"
@@ -55,7 +67,7 @@ function SignUp() {
       </Button>
       <Grid container justifyContent="flex-end">
         <Grid item>
-          <Link href="#" variant="body2">
+          <Link to={"/login"} variant="body2">
             로그인 하러가기
           </Link>
         </Grid>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <div>
+      로그인
       <TextField
         margin="normal"
         required
@@ -45,7 +46,7 @@ function Login() {
           </Link>
         </Grid>
         <Grid item>
-          <Link href="#" variant="body2">
+          <Link to={"/signup"} variant="body2">
             회원가입
           </Link>
         </Grid>
