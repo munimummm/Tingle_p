@@ -92,8 +92,9 @@ function SidebarContent({ handleMenuClose }) {
         <Button
           startIcon={<AccountCircle />}
           onClick={() => {
-            setOpen(true);
-            setText("서비스 준비중입니다.");
+            // setOpen(true);
+            // setText("서비스 준비중입니다.");
+            menuButtonClick("/login");
           }}
         >
           로그인
