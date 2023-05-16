@@ -8,7 +8,7 @@ import { StyledEngineProvider } from "@mui/styled-engine";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import store from "store/store";
+import store from "./store/store";
 
 const persistor = persistStore(store);
 
