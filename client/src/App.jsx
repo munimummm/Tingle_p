@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import styled from "styled-components";
 import Sidebar from "./common/Sidebar";
 import Player from "./common/Player";
@@ -19,6 +20,7 @@ import SearchTitle from "components/Search/SearchTitle";
 import SearchAlbum from "components/Search/SearchAlbum";
 import SearchArtist from "components/Search/SearchArtist";
 import ScrollToTop from "common/ScrollToTop";
+
 
 const AppContainer = styled.div`
   display: grid;
@@ -40,12 +42,15 @@ const PageContainer = styled.div`
   overflow-y: auto;
 `;
 
+
+
 function App() {
+  const showSidebar = useSelector((state) => state.login.showSidebar);
   return (
     <div className="App">
       <BrowserRouter>
         <AppContainer>
-          <Sidebar></Sidebar>
+        {showSidebar && <Sidebar />}
           <PageContainer>
             <ScrollToTop />
             <Routes>

@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { setGenre } from "store/ListSlice";
 import AlertDialog from "components/AlertDialog";
 import { useState } from "react";
+import { setShowSidebar } from '../store/LoginSlice';
 
 let SidebarBrand = styled.div`
   font-size: 2rem;
@@ -94,7 +95,9 @@ function SidebarContent({ handleMenuClose }) {
           onClick={() => {
             // setOpen(true);
             // setText("서비스 준비중입니다.");
+          
             menuButtonClick("/login");
+            dispatch(setShowSidebar(false))
           }}
         >
           로그인
