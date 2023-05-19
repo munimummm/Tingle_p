@@ -1,13 +1,29 @@
 import { Button, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+const SignUpContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 20px;
 
+   div {
+    max-width: 500px;
+ 
+  }
+  `;
 function SignUp() {
   return (
+    <SignUpContainer>
     <div>
-      회원가입
+      <h2 style={{marginBottom:"16px"}}>회원가입</h2>
+   
       <Grid container spacing={2}>
+ 
         <Grid item xs={12}>
+   
           <TextField
             required
             fullWidth
@@ -73,6 +89,7 @@ function SignUp() {
         </Grid>
       </Grid>
     </div>
+    </SignUpContainer>
   );
 }
 export default SignUp;

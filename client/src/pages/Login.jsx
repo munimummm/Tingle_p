@@ -1,11 +1,25 @@
 import { Button, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+const LoginContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 20px;
+
+   div {
+    max-width: 500px;
+ 
+  }
+  `;
 
 function Login() {
   return (
+    <LoginContainer>
     <div>
-      로그인
+    <h2>로그인</h2>
       <TextField
         margin="normal"
         required
@@ -52,6 +66,7 @@ function Login() {
         </Grid>
       </Grid>
     </div>
+    </LoginContainer>
   );
 }
 export default Login;
