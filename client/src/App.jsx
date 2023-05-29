@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Sidebar from "./common/Sidebar";
 import Player from "./common/Player";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Register from "./pages/Register";
 import SearchResult from "./pages/SearchResult";
 import Recommend from "./pages/Recommend";
 import Chart from "./pages/Chart";
@@ -57,7 +57,7 @@ function App() {
               <Route path="*" element={<div>없는 페이지 입니다.</div>} />
               <Route path="/" element={<Recommend />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/signUp" element={<SignUp />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/search" element={<SearchResult />}>
                 <Route path="title" element={<SearchTitle />} />
                 <Route path="album" element={<SearchAlbum />} />

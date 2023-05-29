@@ -2,7 +2,7 @@ import { Button, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-const SignUpContainer = styled.div`
+const RegisterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,9 +14,9 @@ const SignUpContainer = styled.div`
  
   }
   `;
-function SignUp() {
+function Register() {
   return (
-    <SignUpContainer>
+    <RegisterContainer>
     <div>
       <h2 style={{marginBottom:"16px"}}>회원가입</h2>
    
@@ -89,7 +89,7 @@ function SignUp() {
         </Grid>
       </Grid>
     </div>
-    </SignUpContainer>
+    </RegisterContainer>
   );
 }
-export default SignUp;
+export default Register;
