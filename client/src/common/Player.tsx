@@ -6,10 +6,10 @@ import { FormatListBulleted, PlayArrow, Pause } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import PlayList from "./PlayList";
 
-import { AudioActions } from "store/AudioSlice";
+import { AudioActions } from "../store/AudioSlice";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { setPlayListOpen } from "store/PlayListSlice";
+import { setPlayListOpen } from "../store/PlayListSlice";
 const PlayerContainer = styled.div`
   grid-area: footer;
   width: 100%;
@@ -56,22 +56,39 @@ const PlayerContainer = styled.div`
   }
 `;
 
+interface PlayerState {
+  playList: { playListOpen: boolean };
+  audio: {
+    isPlaying: boolean;
+    file_path: string;
+    cover_img: string;
+    title: string;
+    artist: string;
+    currentIndex: number;
+    listSongs: any[];
+  };
+}
+
 function Player() {
-  const playerRef = useRef();
+  const playerRef = useRef<AudioPlayer>(null);
   const dispatch = useDispatch();
-  const playListOpen = useSelector((state) => state.playList.playListOpen);
-  const isPlaying = useSelector((state) => state.audio.isPlaying);
-  const file_path = useSelector((state) => state.audio.file_path);
-  const cover_img = useSelector((state) => state.audio.cover_img);
-  const title = useSelector((state) => state.audio.title);
-  const artist = useSelector((state) => state.audio.artist);
-  const currentIndex = useSelector((state) => state.audio.currentIndex);
-  const listSongs = useSelector((state) => state.audio.listSongs);
+  const playListOpen = useSelector(
+    (state: PlayerState) => state.playList.playListOpen
+  );
+  const isPlaying = useSelector((state: PlayerState) => state.audio.isPlaying);
+  const file_path = useSelector((state: PlayerState) => state.audio.file_path);
+  const cover_img = useSelector((state: PlayerState) => state.audio.cover_img);
+  const title = useSelector((state: PlayerState) => state.audio.title);
+  const artist = useSelector((state: PlayerState) => state.audio.artist);
+  const currentIndex = useSelector(
+    (state: PlayerState) => state.audio.currentIndex
+  );
+  const listSongs = useSelector((state: PlayerState) => state.audio.listSongs);
   useEffect(() => {
     if (isPlaying) {
-      playerRef.current?.audio.current.play();
+      playerRef.current?.audio.current?.play();
     } else {
-      playerRef.current?.audio.current.pause();
+      playerRef.current?.audio.current?.pause();
     }
   }, [isPlaying]);
   if (!file_path) {

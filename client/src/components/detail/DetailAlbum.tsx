@@ -1,10 +1,15 @@
-import styled from "styled-components";
+import React from "react";
+import { Paper, Table, TableBody, TableContainer } from "@mui/material";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AudioActions } from "store/AudioSlice";
-import PlayButton from "components/PlayButton";
-
-const TitleContainer = styled.div`
+import styled from "styled-components";
+import TableHeader from "../TableHeader";
+import TableItems from "../TableItems";
+import { commonAxios } from "../../api/CommonAxios";
+import { DetailListType } from "../../types";
+const AlbumContainer = styled.div`
   max-width: 1600px;
   min-width: 800px;
   padding-top: 50px;
@@ -59,11 +64,11 @@ const TitleContainer = styled.div`
     .select_icon {
       font-size: 15px;
       width: 100px;
-      background: #9147ff;
+      background: #000;
       color: #fff;
       text-align: center;
-      border-radius: 6px;
-      line-height: 45px;
+      border-radius: 4%;
+      line-height: 40px;
     }
   }
   .tabText {
@@ -72,73 +77,73 @@ const TitleContainer = styled.div`
     padding: 8px;
     line-height: 15px;
     margin-top: 35px;
-    margin-left: 30px;
+
     color: #fff;
     background: #9147ff;
     text-align: center;
     border-radius: 20px;
   }
   .tabItem {
-    white-space: pre-wrap;
-    width: 40%;
-    padding-top: 35px;
-    margin-left: 35px;
+    margin-top: 35px;
   }
 `;
 
-function DetailTitle() {
-  const detailList = useSelector((state) => state.detail.list);
-  const dispatch = useDispatch();
+function DetailAlbum() {
+  const detailList = useSelector((state: DetailListType) => state.detail.list);
+  const [searchList, setSearchList] = useState([]);
+  useEffect(() => {
+    const getDetailResult = async () => {
+      try {
+        const result = await commonAxios.get(`/detailList/album`, {
+          params: {
+            value: detailList.album,
+          },
+        });
+
+        setSearchList(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDetailResult();
+  }, [detailList]);
 
   return (
-    <TitleContainer>
+    <AlbumContainer>
       <div className="detailInfo">
         <div className="imgWrap">
           <img src={`/img/${detailList.cover_img}`} alt="album_img" />
         </div>
         <div className="trackInfo">
           <div className="trackText">
-            <div className="dt">곡명 </div>
-            <Link to="#" className="detail_title">
-              <div className="dd firstText">{detailList.title}</div>
-            </Link>
-          </div>
-          <div>
             <div className="dt">앨범 </div>
-            <Link
-              to={`/detail/album/${detailList.album}`}
-              className="detail_album"
-            >
-              <div className="dd"> {detailList.album}</div>
+            <Link to="#" className="detail_title">
+              <div className="dd firstText">{detailList.album}</div>
             </Link>
           </div>
           <div>
             <div className="dt">가수 </div>
             <Link
-              to={`/detail/artist/${detailList.artist_no}`}
-              className="detail_artist"
+              to={`/detail/artist/${detailList.artist}`}
+              className="detail_album"
             >
               <div className="dd"> {detailList.artist}</div>
             </Link>
           </div>
-          <div className="select_icon">
-            <PlayButton
-              list={detailList}
-              onPlay={() => {
-                dispatch(
-                  AudioActions.setSong({
-                    songs: detailList,
-                  })
-                );
-              }}
-            />
-            재생
-          </div>
         </div>
       </div>
-      <div className="tabText">가사</div>
-      <div className="tabItem">{detailList.lyrics}</div>
-    </TitleContainer>
+      <div className="tabText">수록곡</div>
+      <TableContainer component={Paper} className="tabItem">
+        <Table sx={{ minWidth: 650 }} aria-label="chart table">
+          <TableHeader></TableHeader>
+          <TableBody>
+            {searchList.map((list, i) => (
+              <TableItems key={i} list={list} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </AlbumContainer>
   );
 }
-export default DetailTitle;
+export default DetailAlbum;

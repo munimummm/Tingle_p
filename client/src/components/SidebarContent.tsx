@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -10,17 +11,17 @@ import {
 } from "@mui/icons-material";
 import { Button, ButtonGroup, TextField, InputAdornment } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { setGenre } from "store/ListSlice";
-import AlertDialog from "components/AlertDialog";
+import { setGenre } from "../store/ListSlice";
+import AlertDialog from "./AlertDialog";
 import { useState } from "react";
-import { setShowSidebar } from '../store/LoginSlice';
+import { setShowSidebar } from "../store/LoginSlice";
 
-let SidebarBrand = styled.div`
+const SidebarBrand = styled.div`
   font-size: 2rem;
   line-height: 2.5em;
   padding: 10px 18px 10px 24px;
 `;
-let SidebarNav = styled.div`
+const SidebarNav = styled.div`
   width: 250px;
   button {
     justify-content: flex-start;
@@ -30,11 +31,11 @@ let SidebarNav = styled.div`
   }
 `;
 
-let Logo = styled(NavLink)`
+const Logo = styled(NavLink)`
   font-family: "Carter One", cursive;
   color: ${(props) => props.theme.mainColor};
 `;
-let MenuAll = styled.div`
+const MenuAll = styled.div`
   font-size: 1.2rem;
   padding: 0;
   .btnGroup {
@@ -42,7 +43,7 @@ let MenuAll = styled.div`
     padding: 10px 0px 10px 0px;
   }
 `;
-let SearchTextField = styled(TextField)`
+const SearchTextField = styled(TextField)`
   & .MuiInputBase-root {
     margin-left: 10px;
     width: 80%;
@@ -52,7 +53,11 @@ let SearchTextField = styled(TextField)`
   }
 `;
 
-function SidebarContent({ handleMenuClose }) {
+interface SidebarContentProps {
+  handleMenuClose?: () => void;
+}
+
+const SidebarContent: React.FC<SidebarContentProps> = ({ handleMenuClose }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -80,8 +85,11 @@ function SidebarContent({ handleMenuClose }) {
   };
   const mobileMenuClose = () => {
     if (window.innerWidth <= 700) {
-      handleMenuClose();
+      handleMenuClose?.();
     }
+  };
+  const handleClick = () => {
+    handleMenuClose?.();
   };
 
   return (
@@ -95,9 +103,9 @@ function SidebarContent({ handleMenuClose }) {
           onClick={() => {
             // setOpen(true);
             // setText("서비스 준비중입니다.");
-          
+
             menuButtonClick("/login");
-            dispatch(setShowSidebar(false))
+            dispatch(setShowSidebar(false));
           }}
         >
           로그인
@@ -121,7 +129,7 @@ function SidebarContent({ handleMenuClose }) {
 
           <ButtonGroup
             orientation="vertical"
-            variant="string"
+            variant="text"
             className="btnGroup"
           >
             <Button
@@ -168,11 +176,11 @@ function SidebarContent({ handleMenuClose }) {
           </ButtonGroup>
         </MenuAll>
         {open === true ? (
-          <AlertDialog open={open} text={text} handleClose={handleClose} />
+          <AlertDialog open={open} text={text} handleClose={handleClick} />
         ) : null}
       </SidebarNav>
     </>
   );
-}
+};
 
 export default SidebarContent;

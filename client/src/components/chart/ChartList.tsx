@@ -1,13 +1,15 @@
+import React from "react";
 import { TableBody, TableCell, TableRow } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PlayButton from "../PlayButton";
-import { AudioActions } from "store/AudioSlice";
-import { setDetailList } from "store/DetailSlice";
+import { AudioActions } from "../../store/AudioSlice";
+import { setDetailList } from "../../store/DetailSlice";
+
 function ChartList() {
   const navigate = useNavigate();
-  const chartLists = useSelector((state) => state.list.list);
+  const chartLists = useSelector((state: any) => state.list.list);
   const dispatch = useDispatch();
   return (
     <TableBody>

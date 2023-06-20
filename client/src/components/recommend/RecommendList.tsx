@@ -1,15 +1,17 @@
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import PlayButton from "../PlayButton";
 import { Link } from "react-router-dom";
-import { setLoading } from "store/ListSlice";
-import Loading from "components/Loading";
-import { setDetailList } from "store/DetailSlice";
-import { AudioActions } from "store/AudioSlice";
-import { commonAxios } from "api/CommonAxios";
-import React from "react";
+import { setLoading } from "../../store/ListSlice";
+import Loading from "../Loading";
+import { setDetailList } from "../../store/DetailSlice";
+import { AudioActions } from "../../store/AudioSlice";
+import { commonAxios } from "../../api/CommonAxios";
+import { List, RecommendListType } from "../../types";
+
 const RecommendBox = styled.div`
   .recommend_table {
     width: 100%;
@@ -62,9 +64,9 @@ const RecommendBox = styled.div`
   }
 `;
 function RecommendList({ genreList }) {
-  const [recommendList, setRecommendList] = useState([]);
+  const [recommendList, setRecommendList] = useState<List[]>([]);
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.list.loading);
+  const loading = useSelector((state: RecommendListType) => state.list.loading);
 
   useEffect(() => {
     const getRecommendList = async () => {

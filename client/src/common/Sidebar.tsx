@@ -1,10 +1,10 @@
 import styled from "styled-components";
-
+import React from "react";
 import { Menu, Close } from "@mui/icons-material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import SidebarContent from "components/SidebarContent";
-let SidebarContainer = styled.div`
+import SidebarContent from "../components/SidebarContent";
+const SidebarContainer = styled.div`
   .mobileMenu {
     display: none;
     @media ${(props) => props.theme.mobile} {
@@ -36,11 +36,11 @@ let SidebarContainer = styled.div`
     }
   }
 `;
-let Logo = styled(NavLink)`
+const Logo = styled(NavLink)`
   font-family: "Carter One", cursive;
   color: ${(props) => props.theme.mainColor};
 `;
-let SidebarBox = styled.div`
+const SidebarBox = styled.div`
   position: fixed;
   grid-area: side;
   top: 0;
@@ -64,10 +64,10 @@ function Sidebar() {
   const [mobile, setMobile] = useState(false);
   const navigate = useNavigate();
 
-  const handleMenuOpen = () => {
+  const handleMenuOpen: () => void = () => {
     setMobile(true);
   };
-  const handleMenuClose = () => {
+  const handleMenuClose: () => void = () => {
     setMobile(false);
   };
 

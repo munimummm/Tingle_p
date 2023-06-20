@@ -1,12 +1,15 @@
+import React from "react";
+
 import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Table, TableBody, TableContainer, Paper } from "@mui/material";
-import TableHeader from "components/TableHeader";
-import TableItems from "components/TableItems";
-import { commonAxios } from "api/CommonAxios";
+import TableHeader from "../TableHeader";
+import TableItems from "../TableItems";
+import { commonAxios } from "../../api/CommonAxios";
+import { DetailListType } from "../../types";
 
 const ArtistContainer = styled.div`
   max-width: 1600px;
@@ -59,7 +62,7 @@ const ArtistContainer = styled.div`
   }
 `;
 function DetailArtist() {
-  const detailList = useSelector((state) => state.detail.list);
+  const detailList = useSelector((state: DetailListType) => state.detail.list);
   const [searchList, setSearchList] = useState([]);
 
   useEffect(() => {

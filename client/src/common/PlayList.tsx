@@ -1,6 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlayListOpen } from "store/PlayListSlice";
+import { setPlayListOpen } from "../store/PlayListSlice";
 import { ExpandMore } from "@mui/icons-material";
 
 const PlayListContainer = styled.div`
@@ -58,10 +59,21 @@ const PlayListItem = styled.div`
   }
 `;
 
+interface PlayListState {
+  audio: {
+    listSongs: any[];
+    currentIndex: number;
+  };
+}
+
 function PlayList() {
   const dispatch = useDispatch();
-  const listSongs = useSelector((state) => state.audio.listSongs);
-  const currentIndex = useSelector((state) => state.audio.currentIndex);
+  const listSongs = useSelector(
+    (state: PlayListState) => state.audio.listSongs
+  );
+  const currentIndex = useSelector(
+    (state: PlayListState) => state.audio.currentIndex
+  );
 
   return (
     <div>
