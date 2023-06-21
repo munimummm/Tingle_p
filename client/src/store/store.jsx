@@ -3,6 +3,7 @@ import {
   configureStore,
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
+import React from "react";
 import audioReducer from "./AudioSlice";
 import detailReducer from "./DetailSlice";
 import listReducer from "./ListSlice";

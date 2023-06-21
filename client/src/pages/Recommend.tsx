@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import RecommendList from "components/recommend/RecommendList";
 const RecommendContainer = styled.div`

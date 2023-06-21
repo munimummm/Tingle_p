@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
@@ -16,6 +17,8 @@ const LoginContainer = styled.div`
   `;
 
 function Login() {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   return (
     <LoginContainer>
     <div>
@@ -24,11 +27,11 @@ function Login() {
         margin="normal"
         required
         fullWidth
-        id="email"
-        label="이메일"
-        name="email"
-        autoComplete="email"
         autoFocus
+        id="Id"
+        label="아이디"
+        name="Id"
+        autoComplete="username"
       />
       <TextField
         margin="normal"
@@ -60,7 +63,7 @@ function Login() {
           </Link>
         </Grid>
         <Grid item>
-          <Link to={"/signup"} variant="body2">
+          <Link to={"/register"} variant="body2">
             회원가입
           </Link>
         </Grid>

@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 import { useCallback, useEffect } from "react";
 import {
@@ -10,10 +12,10 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setChartLists, setGenre, setLoading } from "store/ListSlice";
-import { commonAxios } from "api/CommonAxios";
-import Loading from "components/Loading";
-import ChartList from "components/chart/ChartList";
+import { setChartLists, setGenre, setLoading } from "../store/AudioSlice";
+import { commonAxios } from '../api/CommonAxios';
+import Loading from '../components/Loading';
+import { setChartLists } from '../store/ListSlice';
 
 const ChartContainer = styled.div`
   margin-top: 20px;

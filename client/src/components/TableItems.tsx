@@ -1,11 +1,13 @@
+import React from "react";
 import { MoreVert } from "@mui/icons-material";
 import { TableCell, TableRow } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AudioActions } from "store/AudioSlice";
-import { setDetailList } from "store/DetailSlice";
+import { AudioActions } from "../store/AudioSlice";
+import { setDetailList } from "../store/DetailSlice";
 import PlayButton from "./PlayButton";
-function TableItems({ list }) {
+import { ListType } from "../types";
+const TableItems: React.FC<ListType> = ({ list }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -70,5 +72,5 @@ function TableItems({ list }) {
       </TableCell>
     </TableRow>
   );
-}
+};
 export default TableItems;

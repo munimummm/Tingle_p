@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from 'react-redux';
@@ -45,12 +46,13 @@ const PageContainer = styled.div`
 
 
 function App() {
-  const showSidebar = useSelector((state) => state.login.showSidebar);
+  // const showSidebar = useSelector((state) => state.login.showSidebar);
   return (
     <div className="App">
       <BrowserRouter>
         <AppContainer>
-        {showSidebar && <Sidebar />}
+        <Sidebar />
+        {/* {showSidebar && <Sidebar />} */}
           <PageContainer>
             <ScrollToTop />
             <Routes>
