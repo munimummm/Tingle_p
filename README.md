@@ -1,7 +1,8 @@
 # Tingle
-"tingle"은 "기분 좋은 소름"이라는 뜻으로 귀를 즐겁게 해주는 음악 스트리밍 서비스입니다.
+TINGLE 프로젝트는 음악을 감상할 수 있는 음악 스트리밍 서비스입니다.
+이 프로젝트는 JSP 로 구현된 사이트를 React 로 전환하였습니다
 
- 배포링크: https://tingle0.an.r.appspot.com/
+ 
 
 ## 사용기술
 Frontend
